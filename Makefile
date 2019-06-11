@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/11 14:53:39 by sregnard         ###   ########.fr        #
+#    Updated: 2019/06/11 14:56:48 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ HEADDIR					=	includes/
 HEADERS					=	-I $(HEADDIR)
 HEADERS					+=	-I $(LIBDIR)$(HEADDIR)
 
-DEPENDENCIES			=	push_swap.h
+DEPENDENCIES			=	lem_in.h
 
 SRCDIR					=	srcs/
 OBJDIR					=	objs/
@@ -31,25 +31,14 @@ OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 CC						=	gcc	
 CFLAGS					=	-Wall -Wextra -Werror
 
-all						:	$(LIBFT) $(CHECKER) $(PUSH_SWAP)
+all						:	$(LIBFT) $(LEM_IN)
 	@make -C $(LIBDIR)
 
 $(LIBFT)				:
 	@make -C $(LIBDIR)
 
-$(CHECKER)				:	$(LIBFT) $(OBJ_CHECK) $(OBJ)
-	$(CC) $(CFLAGS) $(HEADERS) $(LIBFT) -o $@ $(OBJ) $(OBJ_CHECK)
-
-$(PUSH_SWAP)			:	$(LIBFT) $(OBJ_PUSH) $(OBJ)
-	$(CC) $(CFLAGS) $(HEADERS) $(LIBFT) -o $@ $(OBJ) $(OBJ_PUSH)
-
-$(OBJDIR_CHECK)%.o		:	$(SRCDIR_CHECK)%.c
-	@mkdir -p $(OBJDIR_CHECK);
-	$(CC) $(CFLAGS) $(HEADERS) -o $@ -c $<
-
-$(OBJDIR_PUSH)%.o		:	$(SRCDIR_PUSH)%.c
-	@mkdir -p $(OBJDIR_PUSH);
-	$(CC) $(CFLAGS) $(HEADERS) -o $@ -c $<
+$(LEM_IN)				:	$(LIBFT) $(OBJ)
+	$(CC) $(CFLAGS) $(HEADERS) $(LIBFT) -o $@ $(OBJ)
 
 $(OBJDIR)%.o			:	$(SRCDIR)%.c
 	@mkdir -p $(OBJDIR);
@@ -60,11 +49,11 @@ clean					:
 	make clean -C $(LIBDIR)
 
 fclean					:	clean
-	rm -rf $(CHECKER) $(PUSH_SWAP)
+	rm -rf $(LEM_IN)
 	make fclean -C $(LIBDIR)
 
 re						:	fclean	all
 
-ps						:
+li						:
 	rm -rf objs/
 	make
