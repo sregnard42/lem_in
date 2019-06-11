@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   room.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 15:28:32 by sregnard         ###   ########.fr       */
+/*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
+/*   Updated: 2019/06/11 15:29:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		main(int ac, char **av)
+t_room	*room_new(char *name, t_point pos)
 {
-		ac += 0;
-		av += 0;
-		return (0);
+		t_room	*room;
+
+		room = (t_room *)malloc(sizeof(t_room));
+		ft_bzero(room, sizeof(t_room));
+		room->name = name;
+		room->pos = pos;
 }
