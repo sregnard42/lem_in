@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 17:19:29 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:27:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ typedef struct	s_lem_in
 		t_room	*end;
 		int		ants_moving;
 }				t_li;
+
+/*
+**		error.c
+*/
+
+void	trigger_error(t_li *li, char *error);
 
 /*
 **		room.c
