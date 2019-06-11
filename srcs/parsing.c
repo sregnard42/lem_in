@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/11 19:49:09 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:53:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,6 @@ static int	get_nb_ants(t_li *li, char **tab)
 	}
 	li->ants = ants_init(ft_atoi(*tab));
 	ft_printf("ants nb = %d\n", atoi(*tab));
-	return (SUCCESS);
-}
-
-int	is_room(char **tab)
-{
-	while (*tab != NULL)
-	{
-		if (*tab[0] == '#')
-			return (FAIL);
-		++tab;
-	}
 	return (SUCCESS);
 }
 

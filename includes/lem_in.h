@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 19:39:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:58:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ typedef struct	s_lem_in
 		t_room	*start;
 		t_room	*end;
 		int		ants_moving;
+		int		flags;
 }				t_li;
 
+enum			e_flags	
+{
+		FLAG_START = (1 << 0),
+		FLAG_END = (1 << 1),
+};
 
 /*
 **		parsing
