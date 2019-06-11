@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 15:12:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:24:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 
 # define DEBUG			1
 # define ERR_DEFAULT	"Error\n"
+
+# define ERROR			-1
+# define FAIL			0
+# define SUCCESS		1
 
 # define START			"##start"
 # define END			"##end"
