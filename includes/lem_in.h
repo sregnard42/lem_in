@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 15:29:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:19:29 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "libft.h"
+# include <stdbool.h>
 
 # define DEBUG			1
 # define ERR_DEFAULT	"Error\n"
@@ -24,16 +25,6 @@
 
 # define START			"##start"
 # define END			"##end"
-
-typedef struct	s_lem_in
-{
-		t_list	*rooms;
-		t_list	*links;
-		t_list	*ants; //tmp
-		t_room	*start;
-		t_room	*end;
-		int		ants_moving;
-}				t_li;
 
 typedef struct	s_room
 {
@@ -57,3 +48,39 @@ typedef struct	s_ant
 		int		id;
 		bool	moved;
 }				t_ant;
+
+typedef struct	s_lem_in
+{
+		t_list	*rooms;
+		t_list	*links;
+		t_list	*ants; //tmp
+		t_room	*start;
+		t_room	*end;
+		int		ants_moving;
+}				t_li;
+
+/*
+**		room.c
+*/
+
+t_room	*room_new(char *name, t_point pos);
+void	room_free(void **ptr, size_t size);
+void	room_print(t_room *room);		
+
+/*
+**		link.c
+*/
+
+t_link	*link_new(t_room *room1, t_room *room2);
+void	link_free(void **ptr, size_t size);
+void	link_print(t_link *link);		
+
+/*
+**		ant.c
+*/
+
+t_list	*ants_init(int nb_ants);
+void	ant_free(void **ptr, size_t size);
+void	ant_print(t_ant *ant);
+
+#endif
