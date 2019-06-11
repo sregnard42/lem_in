@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 18:27:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:39:43 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,20 @@ typedef struct	s_lem_in
 		int		ants_moving;
 }				t_li;
 
+
+/*
+**		parsing
+*/
+
+int	parsing(int ac, char **av, t_li *li);
+int	get_rooms(t_li *li, char **tab);
+
+
 /*
 **		error.c
 */
 
-void	trigger_error(t_li *li, char *error);
+void		trigger_error(t_li *li, char *error);
 
 /*
 **		room.c
@@ -71,7 +80,7 @@ void	trigger_error(t_li *li, char *error);
 
 t_room	*room_new(char *name, t_point pos);
 void	room_free(void **ptr, size_t size);
-void	room_print(t_room *room);		
+void	room_print(t_room *room);
 
 /*
 **		link.c

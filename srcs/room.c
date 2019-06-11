@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   room.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 17:32:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:18:04 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	room_free(void **ptr, size_t size)
 {
 		t_room	*room;
 
-		room = *ptr; 
+		room = *ptr;
 		ft_printf("Freeing room : %s. Starting.\n", room->name);
 		ft_lstdel(&room->links, &link_free);
 		ft_lstdel(&room->ants, &ant_free);

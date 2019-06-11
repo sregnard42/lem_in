@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/11 18:27:46 by sregnard         ###   ########.fr        #
+#    Updated: 2019/06/11 19:38:04 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,12 @@ DEPENDENCIES			=	lem_in.h
 SRCDIR					=	srcs/
 OBJDIR					=	objs/
 
-SRCNAME					=	lem_in.c \
-							error.c \
-							room.c \
-							link.c \
+SRCNAME					=	lem_in.c		\
+							parsing.c		\
+							parsing_rooms.c	\
+							error.c			\
+							room.c			\
+							link.c			\
 							ant.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)

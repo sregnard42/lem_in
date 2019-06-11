@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 17:34:01 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:56:52 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,21 @@ int			main(int ac, char **av)
 		t_link	*link;
 		t_li	li;
 
-		// Ants
-		ft_bzero(&li, sizeof(t_li)); 
-		li.ants = ants_init(10);
-		ft_lstdel(&li.ants, &ant_free);
+		ft_bzero(&li, sizeof(t_li));
+		if (--ac == 0)
+			trigger_error(&li, "No argument\n");
+		if (parsing(ac, ++av, &li) != SUCCESS)
+			return (ERROR);
 
+/*
 		// Room 1
 		ft_ptset(&pos, 1, 1, 0);
-		room1 = room_new("test1", pos); 
+		room1 = room_new("test1", pos);
 		room_print(room1);
 
 		// Room 2
 		ft_ptset(&pos, 2, 2, 0);
-		room2 = room_new("test2", pos); 
+		room2 = room_new("test2", pos);
 		room_print(room2);
 
 		// Link 1-2
@@ -44,7 +46,9 @@ int			main(int ac, char **av)
 		room_free((void **)&room1, sizeof(t_room *));
 		room_free((void **)&room2, sizeof(t_room *));
 
-		ac += 0;
-		av += 0;
+		// 				free
+		ft_lstdel(li->ants, &ant_free);	return (SUCCESS);
+
+		*/
 		return (SUCCESS);
 }
