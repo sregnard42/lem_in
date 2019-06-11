@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/11 19:38:04 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/06/11 20:41:21 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCNAME					=	lem_in.c		\
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
-CC						=	gcc	
+CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
 CFLAGS					=	-g3
 

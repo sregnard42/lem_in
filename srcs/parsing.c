@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/11 19:53:30 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/11 21:08:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_nb_ants(t_li *li, char **tab)
 		tab++;
 	}
 	li->ants = ants_init(ft_atoi(*tab));
-	ft_printf("ants nb = %d\n", atoi(*tab));
+	//ft_printf("ants nb = %d\n", atoi(*tab));
 	return (SUCCESS);
 }
 
