@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 15:40:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:18:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,44 @@ static int	is_room(t_li *li, char **line)
 
 static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 {
-	t_room	*new;
-	t_point	pos;
+		t_room	*new;
+		t_point	pos;
 
-	ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
-	new = room_new(tab[0], &pos);
-	if (li->flags & FLAG_START || li->flags & FLAG_END)
-	{
-		li->flags & FLAG_START ?
-		(li->start = new) : (li->end = new);
-		li->flags & FLAG_START ?
-		(li->flags &= ~FLAG_START) : (li->flags &= ~FLAG_END);
+		ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
+		new = room_new(tab[0], &pos);
+		if (li->flags & FLAG_START || li->flags & FLAG_END)
+		{
+				li->flags & FLAG_START ?
+						(li->start = new) : (li->end = new);
+				li->flags & FLAG_START ?
+						(li->flags &= ~FLAG_START) : (li->flags &= ~FLAG_END);
+				return (SUCCESS);
+		}
+		*rooms == NULL ? *rooms = new : room_add(last, new);
+		*rooms == new ? *last = *rooms : 0;
 		return (SUCCESS);
-	}
-	*rooms == NULL ? *rooms = new : room_add(last, new);
-	*rooms == new ? *last = *rooms : 0;
-	return (SUCCESS);
 }
 
 int	get_room(t_li *li, char *line, t_room **last)
 {
-	t_room	*rooms;
-	char	**tab;
+		t_room	*rooms;
+		char	**tab;
 
-	tab = ft_strsplit(line, '-');
-	if (is_link(tab) == SUCCESS)
-	{
-		li->flags &= ~FLAG_ROOM;
-		li->flags |= FLAG_LINK;
-		return (FAIL);
-	}
-	rooms = li->room;
-	tab = ft_strsplit(line, ' ');
-	if (is_room(li, tab) == FAIL)
-		return (FAIL);
-	add_room(li, &rooms, tab, last);
-	li->room = rooms;
-	return (SUCCESS);
+		tab = ft_strsplit(line, '-');
+		if (is_link(tab) == SUCCESS)
+		{
+				li->flags &= ~FLAG_ROOM;
+				li->flags |= FLAG_LINK;
+				li->start->next = li->room;
+				li->room = li->start;
+				room_add(last, li->end);
+				return (FAIL);
+		}
+		rooms = li->room;
+		tab = ft_strsplit(line, ' ');
+		if (is_room(li, tab) == FAIL)
+				return (FAIL);
+		add_room(li, &rooms, tab, last);
+		li->room = rooms;
+		return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/12 15:39:09 by sregnard         ###   ########.fr        #
+#    Updated: 2019/06/12 16:32:44 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,14 @@ SRCNAME					=	lem_in.c		\
 							parsing_links.c	\
 							error.c			\
 							room.c			\
+							link.c			\
 							ant.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
-#XFLAGS					=	-g3
+XFLAGS					=	-g3
 
 all						:	$(LIBFT) $(LEM_IN)
 	@make -C $(LIBDIR)

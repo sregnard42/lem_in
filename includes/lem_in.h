@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 15:38:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:06:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void		room_print(t_room *room);
 **		links.c
 */
 
-t_link	*link_add(t_room *a, t_room *b);
+int		link_new(t_room *a, t_room *b);
 void	link_free(t_link **ptr);
 void	link_print(t_link *link);		
 

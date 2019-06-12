@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:52:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:35:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		ants_init(t_room *r, int nb_ants)
 	int		i;
 
 	i = 0;
+	r->nb_ants = nb_ants;
 	while (++i <= nb_ants)
 	{
-		ant->id = i;
 		if (!(ant = (t_ant *)malloc(sizeof(t_ant))))
 				return (FAIL);
 		ant->id = i;

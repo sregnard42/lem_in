@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 14:48:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:38:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,16 @@ void	room_print(t_room *room)
 		ft_printf("nb_links = %d\n", room->nb_links);
 		ft_printf("nb_ants = %d\n", room->nb_ants);
 		ft_printf("links :\n");
-		if (room->links)
-				ft_printf("link");
+		while (room->links)
+		{
+				ft_printf("%p - name = %s\n", room->links->dst, room->links->dst->name);
+				room->links = room->links->next;
+		}
 		ft_printf("ants :\n");
-		if (room->ants)
-				ft_printf("ant");
+		while (room->ants)
+		{
+				ft_printf("name = %d\n", room->ants->id);
+				room->ants = room->ants->next;
+		}
 		ft_printf("/ROOM_PRINT\n\n");
 }
