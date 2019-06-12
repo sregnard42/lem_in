@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/12 12:48:43 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/06/12 15:39:09 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ OBJDIR					=	objs/
 SRCNAME					=	lem_in.c		\
 							parsing.c		\
 							parsing_rooms.c	\
+							parsing_links.c	\
 							error.c			\
 							room.c			\
 							ant.c
