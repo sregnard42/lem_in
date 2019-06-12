@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 14:50:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:17:41 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_room(t_li *li, char **line)
 		return (SUCCESS);
 }
 
-static int	add_room(t_li *li, t_room **rooms, char **tab, t_room *last)
+static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 {
 	t_room	*new;
 	t_point	pos;
@@ -39,29 +39,31 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room *last)
 	if (li->flags & FLAG_START || li->flags & FLAG_END)
 	{
 		li->flags & FLAG_START ?
-		(li->start = new) : (last = new);
+		(li->start = new) : (li->end = new);
 		li->flags & FLAG_START ?
 		(li->flags &= ~FLAG_START) : (li->flags &= ~FLAG_END);
 		return (SUCCESS);
 	}
-	*rooms == NULL ? *rooms = new : room_add(&(li->end), new);
-	*rooms == new ? li->end = *rooms : 0;
+	*rooms == NULL ? *rooms = new : room_add(last, new);
+	*rooms == new ? *last = *rooms : 0;
 	return (SUCCESS);
 }
 
-int	get_rooms(t_li *li, char *line, t_room *last)
+int	get_rooms(t_li *li, char *line, t_room **last)
 {
 	t_room	*rooms;
 	char	**tab;
 
+	if (is_link() == SUCCESS)
+	{
+		li->flags &= ~FLAG_ROOM;
+		li->flags |= FLAG_LINK;
+		return (FAIL);
+	}
 	rooms = li->room;
 	tab = ft_strsplit(line, ' ');
 	if (is_room(li, tab) == FAIL)
-	{
-		//ft_printf("%s - not room\n", line);
 		return (FAIL);
-	}
-	//ft_printf("%s - room\n", line);
 	add_room(li, &rooms, tab, last);
 	li->room = rooms;
 	return (SUCCESS);
