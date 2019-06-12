@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 16:45:23 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:08:38 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,17 @@ int		get_link(t_li *li, char *line)
 		li += 0;
 		tab = ft_strsplit(line, '-');
 		if (is_link(tab) == FAIL)
+		{
+				ft_free_tab(&tab);
 				return (FAIL);
+		}
 		a = NULL;
 		b = NULL;
-		find_rooms(li, tab[0], tab[1], &a, &b);
+		if (!(find_rooms(li, tab[0], tab[1], &a, &b)))
+				trigger_error(li, "find_rooms not working, bitch\n");
+		if (!(a && b))
+				trigger_error(li, "a || b NULL\n");
 		link_new(a, b);
+		ft_free_tab(&tab);
 		return (SUCCESS);
 }

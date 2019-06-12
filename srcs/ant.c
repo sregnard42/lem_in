@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 16:35:39 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:36:16 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		ants_init(t_room *r, int nb_ants)
 				return (FAIL);
 		ant->id = i;
 		ant->moved = 0;
+		ant->next = NULL;
 		if (i == 1)
 		{
 				r->ants_start = ant;

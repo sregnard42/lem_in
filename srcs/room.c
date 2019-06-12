@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 16:38:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:31:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,19 @@ void	room_free(t_room **ptr)
 		t_room	*room;
 
 		room = *ptr;
-		ft_printf("Freeing room : %s. Starting.\n", room->name);
-//		ft_lstdel(&room->links, &link_free);
-//		ft_lstdel(&room->ants, &ant_free);
+		while (room->ants_start)
+		{
+				room->ants = room->ants_start;
+				room->ants_start = room->ants->next;
+				ant_free(&room->ants);
+		}
+		while (room->links_start)
+		{
+				room->links = room->links_start;
+				room->links_start = room->links->next;
+				link_free(&room->links);
+		}
 		ft_memdel((void **)ptr);
-		ft_printf("Freeing room. Done.\n");
 }
 
 void	room_print(t_room *room)

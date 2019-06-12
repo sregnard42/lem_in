@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 23:14:25 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 11:10:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:05:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void		trigger_error(t_li *li, char *error)
 {
-		li += 0;
 		if (!error || !DEBUG)
 				error = ERR_DEFAULT;
 		write(2, error, ft_strlen(error));
+		free_all(li);
 		exit(EXIT_FAILURE);
 }
 
