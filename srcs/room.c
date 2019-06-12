@@ -6,11 +6,19 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 12:48:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:48:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	room_add(t_room **last, t_room *new)
+{
+	if (!last || !(*last) || !new)
+		return ;
+	(*last)->next = new;
+	(*last) = new;
+}
 
 t_room	*room_new(char *name, t_point *pos)
 {

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:47:50 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:49:13 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ enum					e_flags
 */
 
 int			parsing(t_li *li);
-int			get_rooms(t_li *li, char *line);
+int			get_rooms(t_li *li, char *line, t_room *last);
 
 
 /*
@@ -92,6 +92,7 @@ void		trigger_error(t_li *li, char *error);
 */
 
 t_room		*room_new(char *name, t_point *pos);
+void		room_add(t_room **rooms, t_room *new);
 void		room_free(t_room **ptr);
 void		room_print(t_room *room);
 

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 13:53:58 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 14:50:57 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,40 @@ static int	is_room(t_li *li, char **line)
 		return (SUCCESS);
 }
 
-static int	add_room(t_list **rooms, char **tab)
+static int	add_room(t_li *li, t_room **rooms, char **tab, t_room *last)
 {
-		t_list	*new;
-		t_room	*tmp;
-		t_point	pos;
+	t_room	*new;
+	t_point	pos;
 
-		ft_printf("nb1 = %d\nnb2 = %d\n", ft_atoi(tab[1]), ft_atoi(tab[2]));
-		ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
-		ft_ptprint(&pos);
-		ft_putln();
-		tmp = room_new(tab[0], &pos);
-		new = ft_lstnew(tmp, sizeof(tmp));
-		*rooms == NULL ? *rooms = new : ft_lstadd(rooms, new);
+	ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
+	new = room_new(tab[0], &pos);
+	if (li->flags & FLAG_START || li->flags & FLAG_END)
+	{
+		li->flags & FLAG_START ?
+		(li->start = new) : (last = new);
+		li->flags & FLAG_START ?
+		(li->flags &= ~FLAG_START) : (li->flags &= ~FLAG_END);
 		return (SUCCESS);
+	}
+	*rooms == NULL ? *rooms = new : room_add(&(li->end), new);
+	*rooms == new ? li->end = *rooms : 0;
+	return (SUCCESS);
 }
 
-int	get_rooms(t_li *li, char *line)
+int	get_rooms(t_li *li, char *line, t_room *last)
 {
-	t_list	*rooms;
+	t_room	*rooms;
 	char	**tab;
 
-	rooms = NULL;
+	rooms = li->room;
 	tab = ft_strsplit(line, ' ');
 	if (is_room(li, tab) == FAIL)
 	{
-		ft_printf("no rooms = %s\n", line);
+		//ft_printf("%s - not room\n", line);
 		return (FAIL);
 	}
-	ft_printf("is a room = %s\n", line);
-	add_room(&rooms, tab);
+	//ft_printf("%s - room\n", line);
+	add_room(li, &rooms, tab, last);
+	li->room = rooms;
 	return (SUCCESS);
 }
