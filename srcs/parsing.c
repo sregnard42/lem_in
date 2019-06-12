@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 13:41:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:47:05 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,22 @@ static int	get_ants(t_li *li, char *line, int *nb_ants)
 int	parsing(t_li *li)
 {
 	char	*line;
-	int		start;
+	int		nb_ants;
 
 	line = NULL;
-	//li->flags |= FLAG_ANT;
+	li->flags |= FLAG_ANT;
 	while (li->flags & FLAG_ANT && get_next_line(0, &line))
 	{
-		li->flags & FLAG_ANT ? 0 : get_ants(li, line, &start);
-		ft_memdel((void **)line);
+		get_ants(li, line, &nb_ants);
+		ft_memdel((void **)&line);
 	}
+	ft_printf("nb_ants = %d\n", nb_ants);
 	li->flags |= FLAG_ROOM;
-	while (get_next_line(0, &line) && li->flags & FLAG_ROOM)
+	while (li->flags & FLAG_ROOM && get_next_line(0, &line))
 	{
-		ft_printf("%s\n", line);
-		//get_rooms(li, line);
-		ft_memdel((void **)line);
+		//ft_printf("%s\n", line);
+		get_rooms(li, line);
+		ft_memdel((void **)&line);
 	}
 	return (SUCCESS);
 }
