@@ -6,17 +6,17 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/11 21:08:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 10:44:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 
-static int	get_nb_ants(t_li *li, char **tab)
+static int	get_ants(t_li *li, char **tab)
 {
 	if (li == NULL || tab == NULL)
-		trigger_error(li, "li or tab == NULL in get_nb_ants function\n");
+		trigger_error(li, "li or tab == NULL in get_ants function\n");
 	while (tab)
 	{
 		if (ft_isinteger(*tab))
@@ -24,7 +24,6 @@ static int	get_nb_ants(t_li *li, char **tab)
 		tab++;
 	}
 	li->ants = ants_init(ft_atoi(*tab));
-	//ft_printf("ants nb = %d\n", atoi(*tab));
 	return (SUCCESS);
 }
 
@@ -32,15 +31,12 @@ int	parsing(int ac, char **av, t_li *li)
 {
 	char	**tab_start;
 	char	**tab;
-	char	**current;
 
+	ac += 0;
 	if ((tab_start = read_file(*av)) == NULL)
-		trigger_error(li, "La fonction de Stan ne marche pas (read_file)\n");
-	//ft_print_tab(tab);
-				// Ants
+		trigger_error(li, "Error file\n");
 	tab = tab_start;
-	get_nb_ants(li, tab);
+	get_ants(li, tab);
 	get_rooms(li, tab);
-	//li->ants = ants_init();
 	return (SUCCESS);
 }

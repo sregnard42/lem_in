@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/11 20:41:21 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/06/12 10:43:02 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
-CFLAGS					=	-g3
+#XFLAGS					=	-g3
 
 all						:	$(LIBFT) $(LEM_IN)
 	@make -C $(LIBDIR)
@@ -45,11 +45,11 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(LEM_IN)				:	$(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(HEADERS) $(LIBFT) -o $@ $(OBJ)
+	$(CC) $(CFLAGS) $(XFLAGS) $(HEADERS) $(LIBFT) -o $@ $(OBJ)
 
 $(OBJDIR)%.o			:	$(SRCDIR)%.c
 	@mkdir -p $(OBJDIR);
-	$(CC) $(CFLAGS) $(HEADERS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(XFLAGS) $(HEADERS) -o $@ -c $<
 
 clean					:
 	rm -rf $(OBJDIR)

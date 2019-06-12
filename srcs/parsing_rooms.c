@@ -6,76 +6,70 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/11 22:23:58 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:27:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 
-static int	is_room(t_li *li, char **tab)
+static int	is_room(t_li *li, char **line)
 {
-	char	**tmp;
+		if (!line)
+				return (FAIL);
+		ft_strequ(START, *line) ? li->flags |= FLAG_START : 0;
+		ft_strequ(END, *line) ? li->flags |= FLAG_END : 0;
+		if (*line[0] == '#')
+				return (FAIL);
+		if (ft_nb_str_tab(line) != 3)
+				return (FAIL);
+		if (!ft_isinteger(line[1]) || !ft_isinteger(line[2]))
+				return (FAIL);
+		return (SUCCESS);
+}
 
-	ft_strequ(START, *tab) ? li->flags |= FLAG_START : 0;
-	//li->flags & FLAG_START ? ft_putendl("start") : 0;
-	li->flags &= ~FLAG_START;
-	ft_strequ(END, *tab) ? li->flags |= FLAG_END : 0;
-	//li->flags & FLAG_END ? ft_putendl("end") : 0;
-	li->flags &= ~FLAG_END;
-	if (*tab[0] == '#')
-		return (FAIL);
-	else if ((ft_nb_str_tab(tmp = ft_strsplit(*tab, ' '))) != 3) // Tu as dit que c'etait a la norme, c'est pas ma faute :D
-	{
-		ft_free_tab(&tmp);
-		return (FAIL);
-	}
-	else if (!ft_isinteger(tmp[1]) || !ft_isinteger(tmp[2]))
-	{
-		ft_free_tab(&tmp);
-		return (FAIL);
-	}
-	else
+static int	add_room(t_list **rooms, char **line)
+{
+		t_list	*new;
+		t_room	*tmp;
+		t_point	pos;
+
+		ft_printf("nb1 = %d\nnb2 = %d\n", ft_atoi(line[1]), ft_atoi(line[2]));
+		ft_ptset(&pos, ft_atoi(line[1]), ft_atoi(line[2]), 0);
+		ft_ptprint(&pos);
+		ft_putln();
+		tmp = room_new(line[0], &pos);
+		new = ft_lstnew(tmp, sizeof(tmp));
+		*rooms == NULL ? *rooms = new : ft_lstadd(rooms, new);
 		return (SUCCESS);
 }
 
 int	get_rooms(t_li *li, char **tab)
 {
-	t_list	*rooms;
-	t_list	*new;
-	t_room	*tmp;
-	t_point	pos;
-	char	**room;
+		t_list	*rooms;
+		char	**line;
 
-	rooms = NULL;
-	while (*tab != NULL)
-	{
-		ft_strequ(START, *tab) ? li->start = tmp : 0;
-		ft_strequ(END, *tab) ? li->end = tmp : 0;
-		while (*tab != NULL && is_room(li, tab) == FAIL)
+		rooms = NULL;
+		while (*tab)
 		{
-			ft_printf("no rooms = %s\n", *tab);
-			++tab;
+				while (*tab && is_room(li, line = ft_strsplit(*tab, ' ')) == FAIL)
+				{
+						ft_printf("no rooms = %s\n", *tab);
+						++tab;
+				}
+				if (!(*tab))
+						break;
+				ft_printf("is a room = %s\n", *tab);
+				add_room(&rooms, line);
+				++tab;
 		}
-		ft_printf("is a room = %s\n", *tab);
-		if (*tab == NULL)
-			break;
-		room = ft_strsplit(*tab, ' ');
-		tmp = room_new(room[0], (t_point){ft_atoi(room[1]), ft_atoi(room[2])});
-		new = ft_lstnew(tmp, sizeof(tmp));
-		ft_printf("new = %p\n", new);
-		rooms == NULL ? rooms = new : ft_lstadd(&rooms, new);
-		//Ignorer ce qu'il faut
-		// parser pour avoir pos et name
-		//tmp = room_new(name, pos);
-		// Ajouter dans la liste chainer
-		if (*tab != NULL)
-			++tab;
-	}
-	while (rooms != NULL)
-	{
-		ft_printf("%p\n", rooms->content); //Je veut afficher mais j'y arrive pas a cause du void * :(
-		rooms = rooms->next;
-	}
-	return (SUCCESS);
+		t_room *room;
+		while (rooms)
+		{
+				room = rooms->content;  
+				room_print(room);
+				ft_putendl("nani");
+				rooms = rooms->next;
+		}
+		return (SUCCESS);
 }

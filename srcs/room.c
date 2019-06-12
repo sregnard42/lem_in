@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 19:18:04 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 11:28:06 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_room	*room_new(char *name, t_point pos)
+t_room	*room_new(char *name, t_point *pos)
 {
 		t_room	*room;
 
@@ -20,7 +20,9 @@ t_room	*room_new(char *name, t_point pos)
 				return (NULL);
 		ft_bzero(room, sizeof(t_room));
 		room->name = name;
-		room->pos = pos;
+		ft_ptcpy(&room->pos, pos);
+		room->links = NULL;
+		room->ants = NULL;
 		return (room);
 }
 
@@ -48,10 +50,10 @@ void	room_print(t_room *room)
 		ft_printf("nb_links = %d\n", room->nb_links);
 		ft_printf("nb_ants = %d\n", room->nb_ants);
 		ft_printf("links :\n");
-		while (room->links)
+		if (room->links)
 				ft_printf("link");
 		ft_printf("ants :\n");
-		while (room->ants)
+		if (room->ants)
 				ft_printf("ant");
 		ft_printf("/ROOM_PRINT\n\n");
 }
