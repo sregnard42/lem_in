@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 12:23:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:27:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,37 @@
 # define START			"##start"
 # define END			"##end"
 
-typedef struct			s_room
+typedef struct			s_rooms
 {
 		char			*name;
 		t_point			pos;
-		t_link			*links;
-		t_ant			*ants;
+		t_links			*links;
+		t_ants			*ants;
 		int				nb_links;
 		int				nb_ants;
-		struct s_room	*next;
+		struct s_rooms	*next;
 
-}						t_room;
+}						t_rooms;
 
 typedef struct			s_links
 {
-		t_room			*dst;
-		struct s_link	*next;
+		t_rooms			*dst;
+		struct s_links	*next;
 }						t_links;
 
 
-typedef struct			s_ant
+typedef struct			s_ants
 {
 		int				id;
 		bool			moved;
-		struct s_ant	*next;
-}						t_ant;
+		struct s_ants	*next;
+}						t_ants;
 
 typedef struct			s_li
 {
-		t_room			*start;
-		t_room			*room;
-		t_room			*end;
+		t_rooms			*start;
+		t_rooms			*room;
+		t_rooms			*end;
 		int				moves;
 		int				flags;
 }						t_li;
@@ -71,7 +71,7 @@ enum					e_flags
 **		Parsing
 */
 
-int			parsing(int ac, char **av, t_li *li);
+int			parsing(t_li *li);
 int			get_rooms(t_li *li, char **tab);
 
 
@@ -85,24 +85,24 @@ void		trigger_error(t_li *li, char *error);
 **		room.c
 */
 
-t_room		*room_new(char *name, t_point *pos);
-void		room_free(void **ptr, size_t size);
-void		room_print(t_room *room);
+t_rooms		*room_new(char *name, t_point *pos);
+void		room_free(t_rooms **ptr);
+void		room_print(t_rooms *room);
 
 /*
 **		links.c
 */
 
-t_link	*links_new(t_room *room1, t_room *room2);
-void	link_free(void **ptr, size_t size);
-void	link_print(t_link *link);		
+t_links	*link_new(t_rooms *src, t_rooms *dst);
+void	link_free(t_links **ptr);
+void	link_print(t_links *link);		
 
 /*
 **		ant.c
 */
 
 t_ant	*ants_init(int nb_ants);
-void	ant_free(void **ptr, size_t size);
-void	ant_print(t_ant *ant);
+void	ant_free(t_ants **ptr);
+void	ant_print(t_ants *ant);
 
 #endif
