@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:25:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:37:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	link_print(t_link *link);
 **		ant.c
 */
 
-t_ant	*ants_init(int nb_ants);
+t_ant	*ants_init(t_room *r, int nb_ants);
 void	ant_free(t_ant **ptr);
 void	ant_print(t_ant *ant);
 

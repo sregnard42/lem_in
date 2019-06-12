@@ -6,37 +6,35 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:19:35 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:36:32 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_ant	*ants_init(int nb_ants)
+t_ant		ants_init(t_room *r, int nb_ants)
 {
-	t_ant	ants;
-	t_ant	new;
+	t_ant	*ant;
 	int		i;
 
-	ants.moved = 0;
 	i = 0;
 	while (++i <= nb_ants)
 	{
-		
+		ant.id = i;
+		if (!(ant = (t_ant *)malloc(sizeof(t_ant))))
+				return (FAILURE);
+		ant->id = i;
+		ant->moved = 0;
+		if (i == 1)
+		{
+				r->ant_start = ant;
+				r->ant = ant;
+				r->ant_last = ant;
+		}
+		else
+				r->ant_last->next = ant;
 	}
-/* while (i <= nb_ants)
-	{
-			ant.id = i;
-			if (!(elem = ft_lstnew(&ant, sizeof(t_ant))))
-					return (NULL);
-			if (i++ == 1)
-					ants = elem;
-			else
-					ft_lstadd(&ants, elem);
-//			ft_printf("ant #%d created\n", ant.id);
-//			ant_print(&ant);
-	}*/
-	return (ants);
+	return (SUCCESS);
 }
 
 /*/void	ant_free(t_ant **ptr)
