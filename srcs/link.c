@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   link.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:19:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:48:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		link_add(t_room *src, t_room *dst)
 		t_link	*link;
 
 		if (!(link = (t_link *)malloc(sizeof(t_link))))
-				return (FAILURE);
+				return (FAIL);
 		link->dst = dst;
 		if (!src->links_start)
 		{
@@ -33,9 +33,9 @@ static int		link_add(t_room *src, t_room *dst)
 
 int				link_new(t_room *a, t_room *b)
 {
-		if (link_add(a, b) == FAILURE)
-				return (FAILURE);
-		if (link_add(b, a) == FAILURE)
-				return (FAILURE);
+		if (link_add(a, b) == FAIL)
+				return (FAIL);
+		if (link_add(b, a) == FAIL)
+				return (FAIL);
 		return (SUCCESS);
 }
