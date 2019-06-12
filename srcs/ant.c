@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:16:56 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:19:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_ant	*ants_init(int nb_ants)
 {
-	t_ant	*ants;
-	t_ant	ant;
+	t_ant	ants;
+	t_ant	new;
 	int		i;
 
-	ant.moved = 0;
+	ants.moved = 0;
 	i = 0;
 	while (++i <= nb_ants)
 	{
