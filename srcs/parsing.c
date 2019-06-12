@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 15:46:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 15:49:07 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ int	parsing(t_li *li)
 	}
 	while (get_next_line(0, &line))
 	{
-		if (li->flags & FLAG_ROOM)
-				get_room(li, line, &last);
-		if (li->flags & FLAG_LINK)
-				get_link(li, line);
+		li->flags & FLAG_ROOM ? get_room(li, line, &last) : 0;
+		li->flags & FLAG_LINK ? get_link(li, line) : 0;
 		ft_memdel((void **)&line);
 	}
 	li->start->next = li->room;
