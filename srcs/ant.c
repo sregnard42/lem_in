@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:36:32 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:42:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_ant		ants_init(t_room *r, int nb_ants)
+int		ants_init(t_room *r, int nb_ants)
 {
 	t_ant	*ant;
 	int		i;
@@ -20,19 +20,19 @@ t_ant		ants_init(t_room *r, int nb_ants)
 	i = 0;
 	while (++i <= nb_ants)
 	{
-		ant.id = i;
+		ant->id = i;
 		if (!(ant = (t_ant *)malloc(sizeof(t_ant))))
-				return (FAILURE);
+				return (FAIL);
 		ant->id = i;
 		ant->moved = 0;
 		if (i == 1)
 		{
-				r->ant_start = ant;
-				r->ant = ant;
-				r->ant_last = ant;
+				r->ants_start = ant;
+				r->ants = ant;
+				r->ants_last = ant;
 		}
 		else
-				r->ant_last->next = ant;
+				r->ants_last->next = ant;
 	}
 	return (SUCCESS);
 }
