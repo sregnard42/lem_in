@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 17:31:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:21:03 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_room	*room_new(char *name, t_point *pos)
 		if (!(room = (t_room *)malloc(sizeof(t_room))))
 				return (NULL);
 		ft_bzero(room, sizeof(t_room));
-		room->name = name;
+		room->name = ft_strdup(name);
 		ft_ptcpy(&room->pos, pos);
 		room->links = NULL;
 		room->ants = NULL;
@@ -39,6 +39,7 @@ void	room_free(t_room **ptr)
 		t_room	*room;
 
 		room = *ptr;
+		ft_memdel((void **)&room->name);
 		while (room->ants_start)
 		{
 				room->ants = room->ants_start;

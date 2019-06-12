@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 17:25:03 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:20:56 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	get_room(t_li *li, char *line, t_room **last)
 				return (FAIL);
 		}
 		add_room(li, &rooms, tab, last);
-		ft_free_tab(&tab);
 		li->room = rooms;
+		ft_free_tab(&tab);
 		return (SUCCESS);
 }
