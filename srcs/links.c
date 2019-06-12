@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   link.c                                             :+:      :+:    :+:   */
+/*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:53:47 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/11 17:16:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:40:03 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_link	*link_new(t_room *room1, t_room *room2)
+int		*link_add(t_room *a, t_room *b)
 {
-		t_link	*link;
-		t_list	*elem1;
-		t_list	*elem2;
+		t_links	*a_link;
+		t_links	*b_link;
 
-		if (!(link = (t_link *)malloc(sizeof(t_link))))
-				return (NULL);
-		ft_bzero(link, sizeof(t_link));
-		if (!(elem1 = ft_lstnew(room1, sizeof(t_room))))
-				return (NULL);
-		if (!(elem2 = ft_lstnew(room2, sizeof(t_room))))
-				return (NULL);
-		link->rooms = elem1;
-		ft_lstadd(&link->rooms, elem2); 
-		return (link);
+		if (!(a_link = (t_links *)malloc(sizeof(t_links))))
+				return (FAILURE);
+		if (!(b_link = (t_links *)malloc(sizeof(t_links))))
+				return (FAILURE);
+		return (SUCCESS);
 }
 
-void	link_free(void **ptr, size_t size)
+void	link_free(void **ptr)
 {
 		t_link	*link;
 
@@ -42,7 +36,7 @@ void	link_free(void **ptr, size_t size)
 		ft_printf("Freeing link. Done.\n");
 }
 
-void	link_print(t_link *link)
+void	link_print(t_links *link)
 {
 		ft_printf("LINK_PRINT\n");
 		room_print(link->rooms->content);
