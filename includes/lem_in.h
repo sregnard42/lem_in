@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 11:48:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:23:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ typedef struct			s_room
 {
 		char			*name;
 		t_point			pos;
-		t_link			links;
+		t_link			*links;
 		t_ant			*ants;
+		int				nb_links;
 		int				nb_ants;
 		struct s_room	*next;
 
@@ -39,8 +40,8 @@ typedef struct			s_room
 
 typedef struct			s_links
 {
-		t_room			**rooms;
-		int				count;
+		t_room			*dst;
+		struct s_link	*next;
 }						t_links;
 
 
@@ -54,9 +55,9 @@ typedef struct			s_ant
 typedef struct			s_li
 {
 		t_room			*start;
+		t_room			*room;
 		t_room			*end;
-		t_ant			*ants;
-		int				ants_moving;
+		int				moves;
 		int				flags;
 }						t_li;
 
