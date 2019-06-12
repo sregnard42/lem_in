@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 18:36:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:03:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	get_room(t_li *li, char *line, t_room **last)
 		char	**tab;
 
 		tab = ft_strsplit(line, '-');
-		if (is_link(tab) == SUCCESS)
+		if (is_link(li, tab) == SUCCESS)
 		{
 				li->flags &= ~FLAG_ROOM;
 				li->flags |= FLAG_LINK;

@@ -6,20 +6,23 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 18:38:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:07:33 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		is_link(char **line)
+int		is_link(t_li *li, char **line)
 {
+		li += 0;
 		if (!line)
 				return (FAIL);
 		if (*line[0] == '#')
 				return (FAIL);
 		if (ft_nb_str_tab(line) != 2)
-				return (FAIL);
+//			li->flags & FLAG_LINK ? trigger_error(li, "nb_link diff\n") : 0;
+//		else
+			return (FAIL);
 		return (SUCCESS);
 }
 
@@ -59,7 +62,7 @@ int		get_link(t_li *li, char *line)
 
 		li += 0;
 		tab = ft_strsplit(line, '-');
-		if (is_link(tab) == FAIL)
+		if (is_link(li, tab) == FAIL)
 		{
 				ft_free_tab(&tab);
 				return (FAIL);

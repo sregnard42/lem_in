@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 18:06:43 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:03:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			free_all(t_li *li);
 int			parsing(t_li *li);
 int			get_room(t_li *li, char *line, t_room **last);
 int			get_link(t_li *li, char *line);
-int			is_link(char **line);
+int			is_link(t_li *li, char **line);
 
 
 /*
@@ -111,7 +111,7 @@ void		room_print(t_room *room);
 
 int		link_new(t_room *a, t_room *b);
 void	link_free(t_link **ptr);
-void	link_print(t_link *link);		
+void	link_print(t_link *link);
 
 /*
 **		ant.c
