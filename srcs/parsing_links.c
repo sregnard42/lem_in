@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 16:18:53 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:45:23 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,23 @@ int		is_link(char **line)
 int		find_rooms(t_li *li, char *a, char *b, t_room **ra, t_room **rb)
 {
 		t_room	*tmp;
+		bool	fa;
+		bool	fb;
 
+		fa = false;
+		fb = false;
 		tmp = li->start;
 		while (tmp)
 		{
-				if (ft_strequ(a, tmp->name))
+				if (!fa && ft_strequ(a, tmp->name))
 				{
 						*ra = tmp;
+						fa = true;
 				}
-				else if (ft_strequ(b, tmp->name))
+				else if (!fb && ft_strequ(b, tmp->name))
 				{
 						*rb = tmp;
+						fb = true;
 				}
 				tmp = tmp->next;
 		}

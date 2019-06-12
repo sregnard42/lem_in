@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 16:34:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:45:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,7 @@ int	parsing(t_li *li)
 		li->flags & FLAG_LINK ? get_link(li, line) : 0;
 		ft_memdel((void **)&line);
 	}
-	ft_putendl("init");
 	ants_init(li->start, nb_ants);
-	ft_putendl("init done");
 	li->room = li->start;
-	while (li->room)
-	{
-			room_print(li->room);
-			li->room = li->room->next;
-	}
 	return (SUCCESS);
 }
