@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 11:27:46 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:03:57 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	is_room(t_li *li, char **line)
 		if (!line)
 				return (FAIL);
 		ft_strequ(START, *line) ? li->flags |= FLAG_START : 0;
+		//li->flags & FLAG_START; Condition pour check
 		ft_strequ(END, *line) ? li->flags |= FLAG_END : 0;
 		if (*line[0] == '#')
 				return (FAIL);

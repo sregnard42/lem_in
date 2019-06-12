@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 11:28:06 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:48:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,15 @@ t_room	*room_new(char *name, t_point *pos)
 		return (room);
 }
 
-void	room_free(void **ptr, size_t size)
+void	room_free(t_room **ptr)
 {
 		t_room	*room;
 
 		room = *ptr;
 		ft_printf("Freeing room : %s. Starting.\n", room->name);
-		ft_lstdel(&room->links, &link_free);
-		ft_lstdel(&room->ants, &ant_free);
-//		ft_memdel((void **)&room->name);
-		ft_bzero(*ptr, size);
-		ft_memdel(ptr);
+//		ft_lstdel(&room->links, &link_free);
+//		ft_lstdel(&room->ants, &ant_free);
+		ft_memdel((void **)ptr);
 		ft_printf("Freeing room. Done.\n");
 }
 

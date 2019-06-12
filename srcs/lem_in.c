@@ -6,20 +6,18 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 11:49:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:56:59 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			main(int ac, char **av)
+int			main()
 {
 		t_li	li;
 
 		ft_bzero(&li, sizeof(t_li));
-		if (--ac == 0)
-			trigger_error(&li, "No argument\n");
-		if (parsing(ac, ++av, &li) != SUCCESS)
+		if (parsing(&li) != SUCCESS)
 			return (ERROR);
 		return (SUCCESS);
 }
