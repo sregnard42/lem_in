@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 12:31:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:38:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ typedef struct			s_rooms
 {
 		char			*name;
 		t_point			pos;
+		t_links			*links_start;
 		t_links			*links;
+		t_links			*links_last;
+		t_ants			*ants_start;
 		t_ants			*ants;
+		t_ants			*ants_last;
 		int				nb_links;
 		int				nb_ants;
 		struct s_rooms	*next;
