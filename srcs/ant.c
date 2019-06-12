@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:49:42 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:52:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	ant_free(t_ant **ptr)
 
 void	ant_print(t_ant	*ant)
 {
-		ft_printf("#%-3d ", ant->id);
+		ft_printf("#%-5d ", ant->id);
 		ant->moved ? ft_printf("moving\n") : ft_printf("waiting\n");
 }
