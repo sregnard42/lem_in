@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:42:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:43:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int		ants_init(t_room *r, int nb_ants)
 				r->ants_last = ant;
 		}
 		else
+		{
 				r->ants_last->next = ant;
+				r->ants_last = ant;
+		}
 	}
 	return (SUCCESS);
 }
