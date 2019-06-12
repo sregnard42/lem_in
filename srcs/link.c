@@ -6,13 +6,13 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 13:18:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 13:19:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		link_add(t_room *src, t_room *dst)
+static int		link_add(t_room *src, t_room *dst)
 {
 		t_link	*link;
 
@@ -31,7 +31,7 @@ int		link_add(t_room *src, t_room *dst)
 		return (SUCCESS);
 }
 
-int		link_new(t_room *a, t_room *b)
+int				link_new(t_room *a, t_room *b)
 {
 		if (link_add(a, b) == FAILURE)
 				return (FAILURE);
