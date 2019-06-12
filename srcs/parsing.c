@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 16:45:46 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:33:50 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ static int	get_ants(t_li *li, char *line, int *nb_ants)
 {
 	if (li == NULL || line == NULL)
 		trigger_error(li, "li or tab == NULL in get_ants function\n");
-	if (!ft_isinteger(line))
+	if (*line == '#')
 		return (FAIL);
+	if (!ft_isinteger(line))
+		trigger_error(li, "not integerake");
 	*nb_ants = ft_atoi(line);
 	li->flags &= ~FLAG_ANT;
 	li->flags |= FLAG_ROOM;
@@ -46,5 +48,6 @@ int	parsing(t_li *li)
 	}
 	ants_init(li->start, nb_ants);
 	li->room = li->start;
+	room_print(li->start);
 	return (SUCCESS);
 }

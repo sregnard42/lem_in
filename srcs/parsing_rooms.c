@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 18:20:56 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:36:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ static int	is_room(t_li *li, char **line)
 		ft_strequ(END, *line) ? li->flags |= FLAG_END : 0;
 		if (*line[0] == '#')
 				return (FAIL);
+		if (*line[0] == 'L')
+			trigger_error(li, "Invalid name\n");
 		if (ft_nb_str_tab(line) != 3)
-				return (FAIL);
+			trigger_error(li, "Invalid nb arguments\n");
 		if (!ft_isinteger(line[1]) || !ft_isinteger(line[2]))
-				return (FAIL);
+			trigger_error(li, "Not integer #room\n");
 		return (SUCCESS);
 }
 
