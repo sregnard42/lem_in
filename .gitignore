@@ -1,4 +1,5 @@
 *.swp
+*.dSYM
 *.a
 *.o
 lem-in
