@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 12:27:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/12 12:31:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@
 # define START			"##start"
 # define END			"##end"
 
+typedef struct			s_ants
+{
+		int				id;
+		bool			moved;
+		struct s_ants	*next;
+}						t_ants;
+
+typedef struct			s_links
+{
+		struct s_rooms	*dst;
+		struct s_links	*next;
+}						t_links;
+
+
 typedef struct			s_rooms
 {
 		char			*name;
@@ -37,20 +51,6 @@ typedef struct			s_rooms
 		struct s_rooms	*next;
 
 }						t_rooms;
-
-typedef struct			s_links
-{
-		t_rooms			*dst;
-		struct s_links	*next;
-}						t_links;
-
-
-typedef struct			s_ants
-{
-		int				id;
-		bool			moved;
-		struct s_ants	*next;
-}						t_ants;
 
 typedef struct			s_li
 {
@@ -93,7 +93,7 @@ void		room_print(t_rooms *room);
 **		links.c
 */
 
-t_links	*link_new(t_rooms *src, t_rooms *dst);
+t_links	*link_add(t_rooms *a, t_rooms *b);
 void	link_free(t_links **ptr);
 void	link_print(t_links *link);		
 
