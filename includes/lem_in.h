@@ -55,6 +55,14 @@ typedef struct			s_room
 
 }						t_room;
 
+typedef struct			s_path
+{
+		t_room			*start;
+		t_room			*room;
+		t_room			*end;
+}						t_path;
+
+
 typedef struct			s_li
 {
 		t_room			*start;
@@ -125,5 +133,11 @@ void	ant_print(t_ant *ant);
 */
 
 int		move_ant(t_room *src, t_room *dst);
+
+/*
+**		dijkstra.c
+*/
+
+t_path	*search_path();
 
 #endif

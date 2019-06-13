@@ -32,7 +32,8 @@ SRCNAME					=	lem_in.c		\
 							room.c			\
 							link.c			\
 							ant.c			\
-							move_ant.c
+							move_ant.c		\
+							djikstra.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
