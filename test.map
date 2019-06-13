@@ -1,29 +1,11 @@
-#Commentaire juste pour faire chier :D
-198
-##end
-2 16 7
-#commentaire
-3 16 3
-4 16 5
+3
 ##start
-5 9 3
-6 1 5
-0 9 5
-1 23 3
-7 4 8
-0-4
-0-6
-1-3
-1-3
-4-3
-5-2
-3-5
-#autre commentaire
-4-2
-2-1
-7-6
-7-2
-7-4
-#C'est la fin
-6-5
-#autre commentaire
+0 1 0
+##end
+1 5 0
+2 9 0
+3 13 0
+#Commentaire
+0-2
+2-3
+3-1
