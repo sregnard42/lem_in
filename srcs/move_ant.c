@@ -21,20 +21,20 @@ int     move_ant(t_room *src, t_room *dst)
 
     if (!(src && dst))
         return (FAIL);
-    ft_putendl(src->name);
-    ft_putendl(dst->name);
     ant = src->ants_start;
     if (!ant)
         return (FAIL);
     src->ants_start = ant->next;
+    ant->next = NULL;
     if (!src->ants_start)
     {
         src->ants = NULL;
         src->ants_last = NULL;
     }
+    else
+        src->ants = src->ants_start;
     if (dst->ants_last)
     {
-
         dst->ants_last->next = ant;
         dst->ants_last = ant;
     }
