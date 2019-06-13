@@ -39,7 +39,6 @@ typedef struct			s_link
 		struct s_link	*next;
 }						t_link;
 
-
 typedef struct			s_room
 {
 		char			*name;
@@ -101,7 +100,7 @@ void		trigger_error(t_li *li, char *error);
 */
 
 t_room		*room_new(char *name, t_point *pos);
-void		room_add(t_room **rooms, t_room *new);
+void		room_add(t_room **rooms, t_room *new_room);
 void		room_free(t_room **ptr);
 void		room_print(t_room *room);
 

@@ -12,12 +12,12 @@
 
 #include "lem_in.h"
 
-void	room_add(t_room **last, t_room *new)
+void	room_add(t_room **last, t_room *new_room)
 {
-	if (!last || !(*last) || !new)
+	if (!last || !(*last) || !new_room)
 		return ;
-	(*last)->next = new;
-	(*last) = new;
+	(*last)->next = new_room;
+	(*last) = new_room;
 }
 
 t_room	*room_new(char *name, t_point *pos)
