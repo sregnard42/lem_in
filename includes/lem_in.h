@@ -56,6 +56,7 @@ typedef struct			s_room
 		int				nb_ants;
 		struct s_room	*next;
 		struct s_room	*prev;
+		unsigned int	flags;
 }						t_room;
 
 typedef struct			s_path
@@ -72,7 +73,7 @@ typedef struct			s_li
 		t_room			*room;
 		t_room			*end;
 		int				moves;
-		int				flags;
+		unsigned int	flags;
 }						t_li;
 
 enum					e_flags
@@ -82,6 +83,11 @@ enum					e_flags
 		FLAG_ANT = (1 << 2),
 		FLAG_ROOM = (1 << 3),
 		FLAG_LINK = (1 << 4),
+};
+
+enum					e_flags_room
+{
+	FLAG_BUSY = (1 << 0),
 };
 
 /*

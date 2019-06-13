@@ -12,8 +12,19 @@
 
 #include "lem_in.h"
 
-int     search_path(t_room *room)
+int search_path(t_room *room)
 {
-    room +=0;
-    return (SUCCESS);
+    if (!room->links)
+    {
+        room->flags &= ~FLAG_BUSY;
+        room->links = room->links_start;
+        return (room->path ? SUCCESS : FAIL);
+    }
+    room->flags |= FLAG_BUSY;
+    /*
+    if (new_path() <= path)
+        path = new_path
+    */
+    room->links = room->links->next;
+    search_path(room);
 }
