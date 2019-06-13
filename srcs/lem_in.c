@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 18:32:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:14:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int			main()
 		ft_bzero(&li, sizeof(t_li));
 		if (parsing(&li) != SUCCESS)
 			return (ERROR);
+		/*******
+		  ALGO
+		  *****/
 		free_all(&li);
 		return (SUCCESS);
 }

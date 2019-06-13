@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 19:07:33 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:12:37 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int		is_link(t_li *li, char **line)
 		if (*line[0] == '#')
 				return (FAIL);
 		if (ft_nb_str_tab(line) != 2)
-//			li->flags & FLAG_LINK ? trigger_error(li, "nb_link diff\n") : 0;
-//		else
+		{
+			li->flags & FLAG_LINK ? trigger_error(li, "Nb args #link\n") : 0;
 			return (FAIL);
+		}
 		return (SUCCESS);
 }
 
