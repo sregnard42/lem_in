@@ -12,9 +12,7 @@
 
 #include "lem_in.h"
 
-t_path  *search_path()
+int     search_path(t_room *room)
 {
-    t_path  *path;
-
-    return (path); 
+    return (SUCCESS); 
 }

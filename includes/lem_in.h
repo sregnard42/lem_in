@@ -46,6 +46,9 @@ typedef struct			s_room
 		t_link			*links_start;
 		t_link			*links;
 		t_link			*links_last;
+		t_link			*path_start;
+		t_link			*path;
+		t_link			*path_last;
 		t_ant			*ants_start;
 		t_ant			*ants;
 		t_ant			*ants_last;
@@ -138,6 +141,6 @@ int		move_ant(t_room *src, t_room *dst);
 **		dijkstra.c
 */
 
-t_path	*search_path();
+int		search_path(t_room *room);
 
 #endif
