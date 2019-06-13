@@ -67,13 +67,13 @@ void	room_print(t_room *room)
 		ft_printf("links :\n");
 		while (room->links)
 		{
-				ft_printf("%p - name = %s\n", room->links->dst, room->links->dst->name);
+				link_print(room->links);
 				room->links = room->links->next;
 		}
 		ft_printf("ants :\n");
 		while (room->ants)
 		{
-				ft_printf("name = %d\n", room->ants->id);
+				room->ants->moved ? ant_print(room->ants) : 0;
 				room->ants = room->ants->next;
 		}
 		ft_printf("/ROOM_PRINT\n\n");

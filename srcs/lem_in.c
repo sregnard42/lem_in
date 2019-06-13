@@ -33,6 +33,12 @@ int			main()
 		/*******
 		  ALGO
 		  *****/
+		move_ant(li.start, li.end);
+		move_ant(li.start, li.end);
+		ft_putendl("START");
+		room_print(li.start);
+		ft_putendl("END");
+		room_print(li.end);
 		free_all(&li);
 		return (SUCCESS);
 }

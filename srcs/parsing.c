@@ -48,6 +48,5 @@ int	parsing(t_li *li)
 	}
 	ants_init(li->start, nb_ants);
 	li->room = li->start;
-	room_print(li->start);
 	return (SUCCESS);
 }

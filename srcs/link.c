@@ -56,3 +56,8 @@ void			link_free(t_link **ptr)
 {
 		ft_memdel((void **)ptr);
 }
+
+void			link_print(t_link *link)
+{
+	ft_printf("-> %s\n", link->dst->name);
+}

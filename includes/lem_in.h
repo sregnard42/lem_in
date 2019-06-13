@@ -120,4 +120,10 @@ int 	ants_init(t_room *r, int nb_ants);
 void	ant_free(t_ant **ptr);
 void	ant_print(t_ant *ant);
 
+/*
+**		move_ant.c
+*/
+
+int		move_ant(t_room *src, t_room *dst);
+
 #endif
