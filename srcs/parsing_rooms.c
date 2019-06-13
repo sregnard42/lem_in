@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/12 19:03:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/13 16:23:52 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,31 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 
 int	get_room(t_li *li, char *line, t_room **last)
 {
-		t_room	*rooms;
-		char	**tab;
+	t_room	*rooms;
+	char	**tab;
 
-		tab = ft_strsplit(line, '-');
-		if (is_link(li, tab) == SUCCESS)
-		{
-				li->flags &= ~FLAG_ROOM;
-				li->flags |= FLAG_LINK;
-				li->start->next = li->room;
-				li->room = li->start;
-				room_add(last, li->end);
-				ft_free_tab(&tab);
-				return (FAIL);
-		}
-		ft_free_tab(&tab);
-		rooms = li->room;
-		tab = ft_strsplit(line, ' ');
-		if (is_room(li, tab) == FAIL)
-		{
-				ft_free_tab(&tab);
-				return (FAIL);
-		}
-		add_room(li, &rooms, tab, last);
-		li->room = rooms;
-		ft_free_tab(&tab);
-		return (SUCCESS);
+	tab = ft_strsplit(line, '-');
+	if (is_link(li, tab) == SUCCESS)
+	{
+			li->flags &= ~FLAG_ROOM;
+			li->flags |= FLAG_LINK;
+			li->start->next = li->room;
+			li->room->prev = li->start;
+			li->room = li->start;
+			room_add(last, li->end);
+			ft_free_tab(&tab);
+			return (FAIL);
+	}
+	ft_free_tab(&tab);
+	rooms = li->room;
+	tab = ft_strsplit(line, ' ');
+	if (is_room(li, tab) == FAIL)
+	{
+			ft_free_tab(&tab);
+			return (FAIL);
+	}
+	add_room(li, &rooms, tab, last);
+	li->room = rooms;
+	ft_free_tab(&tab);
+	return (SUCCESS);
 }
