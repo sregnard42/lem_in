@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 19:03:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:25:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct			s_room
 		int				nb_links;
 		int				nb_ants;
 		struct s_room	*next;
-
+		struct s_room	*prev;
 }						t_room;
 
 typedef struct			s_path

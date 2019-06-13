@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 19:14:12 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:43:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ int			main()
 		ft_putendl("START");
 		room_print(li.start);
 		ft_putendl("END");
-		room_print(li.end);
+		//room_print(li.end);
+		while (li.end != NULL)
+		{
+			ft_printf("prev = %p - name = %s\n", li.end->prev, li.end->name);
+			li.end = li.end->prev;
+		}
 		free_all(&li);
 		return (SUCCESS);
 }

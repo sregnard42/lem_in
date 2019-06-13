@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dijkstra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:12:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/13 14:12:29 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:34:19 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int     search_path(t_room *room)
 {
-    return (SUCCESS); 
+    room +=0;
+    return (SUCCESS);
 }
