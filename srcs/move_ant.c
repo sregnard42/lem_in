@@ -11,6 +11,39 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static int  del_ant(t_ant *ant, t_room *src)
+{
+    src->ants_start = ant->next;
+    ant->next = NULL;
+    if (!src->ants_start)
+    {
+        src->ants = NULL;
+        src->ants_last = NULL;
+    }
+    else
+        src->ants = src->ants_start;
+    --src->nb_ants;
+    return (SUCCESS);
+}
+
+static int  add_ant(t_ant *ant, t_room *dst)
+{
+    if (dst->ants_last)
+    {
+        dst->ants_last->next = ant;
+        dst->ants_last = ant;
+    }
+    else
+    {
+        dst->ants_start = ant;
+        dst->ants = ant;
+        dst->ants_last = ant;
+    }
+    ++dst->nb_ants;
+    return (SUCCESS);
+}
+
 /*
 **  Transfer an ant from one room to another
 */
@@ -24,28 +57,8 @@ int     move_ant(t_room *src, t_room *dst)
     ant = src->ants_start;
     if (!ant)
         return (FAIL);
-    src->ants_start = ant->next;
-    ant->next = NULL;
-    if (!src->ants_start)
-    {
-        src->ants = NULL;
-        src->ants_last = NULL;
-    }
-    else
-        src->ants = src->ants_start;
-    if (dst->ants_last)
-    {
-        dst->ants_last->next = ant;
-        dst->ants_last = ant;
-    }
-    else
-    {
-        dst->ants_start = ant;
-        dst->ants = ant;
-        dst->ants_last = ant;
-    }
+    del_ant(ant, src);
+    add_ant(ant, dst);
     ant->moved = 1;
-    --src->nb_ants;
-    ++dst->nb_ants;
     return (SUCCESS);
 }
