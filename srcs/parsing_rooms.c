@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/13 16:23:52 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/14 12:25:55 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	is_room(t_li *li, char **line)
 		if (*line[0] == '#')
 				return (FAIL);
 		if (*line[0] == 'L')
-			trigger_error(li, "Invalid name\n");
+			trigger_error(li, "Invalid name #room\n");
 		if (ft_nb_str_tab(line) != 3)
-			trigger_error(li, "Invalid nb arguments\n");
+			trigger_error(li, "Invalid nb arguments #room\n");
 		if (!ft_isinteger(line[1]) || !ft_isinteger(line[2]))
 			trigger_error(li, "Not integer #room\n");
 		return (SUCCESS);
@@ -49,23 +49,25 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 		*rooms == new ? *last = *rooms : 0;
 		return (SUCCESS);
 }
-
 int	get_room(t_li *li, char *line, t_room **last)
 {
+
 	t_room	*rooms;
 	char	**tab;
 
 	tab = ft_strsplit(line, '-');
 	if (is_link(li, tab) == SUCCESS)
 	{
-			li->flags &= ~FLAG_ROOM;
-			li->flags |= FLAG_LINK;
-			li->start->next = li->room;
-			li->room->prev = li->start;
-			li->room = li->start;
-			room_add(last, li->end);
-			ft_free_tab(&tab);
-			return (FAIL);
+		if (!li->room || !li->start || !li->end)
+			trigger_error(li, "ERROR with room\n");
+		li->flags &= ~FLAG_ROOM;
+		li->flags |= FLAG_LINK;
+		li->start->next = li->room;
+		li->room->prev = li->start;
+		li->room = li->start;
+		room_add(last, li->end);
+		ft_free_tab(&tab);
+		return (FAIL);
 	}
 	ft_free_tab(&tab);
 	rooms = li->room;

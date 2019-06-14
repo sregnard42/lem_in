@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/13 16:22:12 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/14 12:25:50 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static int	get_ants(t_li *li, char *line, int *nb_ants)
 	if (*line == '#')
 		return (FAIL);
 	if (!ft_isinteger(line))
-		trigger_error(li, "not integerake");
-	*nb_ants = ft_atoi(line);
+		trigger_error(li, "not integer #ant\n");
+	if ((*nb_ants = ft_atoi(line)) == 0)
+		trigger_error(li, "ERROR - ant = 0 #ant\n");
 	li->flags &= ~FLAG_ANT;
 	li->flags |= FLAG_ROOM;
 	return (SUCCESS);
@@ -47,10 +48,6 @@ int	parsing(t_li *li)
 		ft_memdel((void **)&line);
 	}
 	ants_init(li->start, nb_ants);
-	/*li->room = li->end;
-	while (li->room->prev != NULL)
-		li->room = li->room->prev;*/
-	//li->room->prev = li->start;
 	li->room = li->start;
 	li->start->prev = NULL;
 	return (SUCCESS);

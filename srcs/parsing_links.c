@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 19:12:37 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/14 11:55:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int		get_link(t_li *li, char *line)
 		t_room	*a;
 		t_room	*b;
 
-		li += 0;
+		if (!li->room)
+			trigger_error(li, "No room\n");
 		tab = ft_strsplit(line, '-');
 		if (is_link(li, tab) == FAIL)
 		{
