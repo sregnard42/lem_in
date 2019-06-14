@@ -12,6 +12,10 @@
 
 #include "lem_in.h"
 
+/*
+**          Remove ant from room
+*/
+
 static int  del_ant(t_ant *ant, t_room *src)
 {
     src->ants_start = ant->next;
@@ -26,6 +30,10 @@ static int  del_ant(t_ant *ant, t_room *src)
     --src->nb_ants;
     return (SUCCESS);
 }
+
+/*
+**          Add ant to a room
+*/
 
 static int  add_ant(t_ant *ant, t_room *dst)
 {
@@ -45,10 +53,10 @@ static int  add_ant(t_ant *ant, t_room *dst)
 }
 
 /*
-**  Transfer an ant from one room to another
+**          Transfer an ant from one room to another
 */
 
-int     move_ant(t_room *src, t_room *dst)
+int         move_ant(t_room *src, t_room *dst)
 {
     t_ant   *ant;
 
