@@ -27,4 +27,5 @@ int search_path(t_room *room)
     */
     room->links = room->links->next;
     search_path(room);
+    return (SUCCESS);
 }

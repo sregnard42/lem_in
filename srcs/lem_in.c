@@ -33,15 +33,6 @@ int			main()
 		/*******
 		  ALGO
 		  *****/
-		move_ant(li.start, li.end);
-		move_ant(li.start, li.end);
-		//ft_putendl("START");
-		//room_print(li.start);
-		//ft_putendl("END");
-		//room_print(li.end);
-		ft_printf("MAIN\n");
-		for (t_room *tmp = li.end; tmp != NULL; tmp = tmp->prev)
-			ft_printf("prev = %p - name = %s\n", tmp->prev, tmp->name);
 		free_all(&li);
 		return (SUCCESS);
 }
