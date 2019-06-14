@@ -12,6 +12,24 @@
 
 #include "lem_in.h"
 
+int			li_buffer(t_li *li, const char *s, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	if (li->index + len >= PF_BUFF_SIZE)
+	{
+		write(1, li->buf, li->index);
+		ft_bzero(li->buf, PF_BUFF_SIZE);
+		li->index = 0;
+	}
+	while (i < len && i < LI_BUFF_SIZE)
+		li->buf[li->index++] = *(s + i++);
+	if (i < len)
+		li_buffer(li, s + i, len - i);
+	return (SUCCESS);
+}
+
 int			free_all(t_li *li)
 {
 		while (li->start)
@@ -30,6 +48,7 @@ int			main()
 		ft_bzero(&li, sizeof(t_li));
 		if (parsing(&li) != SUCCESS)
 			return (ERROR);
+		ft_putstr(li.buf);
 		/*******
 		  ALGO
 		  *****/

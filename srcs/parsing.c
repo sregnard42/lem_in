@@ -45,6 +45,8 @@ int	parsing(t_li *li)
 	{
 		li->flags & FLAG_ROOM ? get_room(li, line, &last) : 0;
 		li->flags & FLAG_LINK ? get_link(li, line) : 0;
+		line = ft_stradd(line, "\n");
+		li_buffer(li, line, ft_strlen(line));
 		ft_memdel((void **)&line);
 	}
 	ants_init(li->start, nb_ants);

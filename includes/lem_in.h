@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/13 15:25:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/14 12:33:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "libft.h"
 # include <stdbool.h>
 
-# define DEBUG			1
-# define ERR_DEFAULT	"Error\n"
+# define DEBUG			0
+# define ERR_DEFAULT	"ERROR\n"
 
 # define ERROR			-1
 # define FAIL			0
@@ -25,6 +25,8 @@
 
 # define START			"##start"
 # define END			"##end"
+
+# define LI_BUFF_SIZE	4096
 
 typedef struct			s_ant
 {
@@ -69,6 +71,8 @@ typedef struct			s_path
 
 typedef struct			s_li
 {
+		char			buf[LI_BUFF_SIZE];
+		unsigned int	index;
 		t_room			*start;
 		t_room			*room;
 		t_room			*end;
@@ -95,6 +99,7 @@ enum					e_flags_room
 */
 
 int			free_all(t_li *li);
+int			li_buffer(t_li *li, const char *s, size_t len);
 
 /*
 **		Parsing
