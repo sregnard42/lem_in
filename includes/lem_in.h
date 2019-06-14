@@ -144,7 +144,7 @@ void	ant_print(t_ant *ant);
 int		move_ant(t_room *src, t_room *dst);
 
 /*
-**		dijkstra.c
+**		algo.c
 */
 
 int		search_path(t_room *room);
