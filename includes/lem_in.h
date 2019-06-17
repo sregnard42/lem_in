@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/14 12:33:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:05:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct			s_ant
 		int				id;
 		bool			moved;
 		struct s_ant	*next;
+		struct s_path	*path;
 }						t_ant;
 
 typedef struct			s_link
