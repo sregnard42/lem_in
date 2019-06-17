@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/14 12:25:50 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:43:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	parsing(t_li *li)
 	while (li->flags & FLAG_ANT && get_next_line(0, &line))
 	{
 		get_ants(li, line, &nb_ants);
+		line = ft_stradd(line, "\n");
+		li_buffer(li, line, ft_strlen(line));
 		ft_memdel((void **)&line);
 	}
 	while (get_next_line(0, &line))
