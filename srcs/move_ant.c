@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 11:50:50 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/13 11:50:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:27:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 **          Remove ant from room
 */
-
+/*
 static int  del_ant(t_ant *ant, t_room *src)
 {
     src->ants_start = ant->next;
@@ -30,11 +30,11 @@ static int  del_ant(t_ant *ant, t_room *src)
     --src->nb_ants;
     return (SUCCESS);
 }
-
+*/
 /*
 **          Add ant to a room
 */
-
+/*
 static int  add_ant(t_ant *ant, t_room *dst)
 {
     if (dst->ants_last)
@@ -51,11 +51,11 @@ static int  add_ant(t_ant *ant, t_room *dst)
     ++dst->nb_ants;
     return (SUCCESS);
 }
-
+*/
 /*
 **          Transfer an ant from one room to another
 */
-
+/*
 int         move_ant(t_room *src, t_room *dst)
 {
     t_ant   *ant;
@@ -69,4 +69,14 @@ int         move_ant(t_room *src, t_room *dst)
     add_ant(ant, dst);
     ant->moved = 1;
     return (SUCCESS);
+}
+*/
+
+int         move_ant(t_ant *ant, t_room *dst)
+{
+		dst->flags |= FLAG_RESERVED;
+		ant->room->flags &= ~FLAG_RESERVED;
+		ant->room = dst;
+		ant->moved = 1;
+		return (SUCCESS);
 }

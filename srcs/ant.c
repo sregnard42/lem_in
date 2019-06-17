@@ -6,36 +6,36 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/12 17:36:16 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:42:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ants_init(t_room *r, int nb_ants)
+int		ants_init(t_li *li, int nb_ants)
 {
 	t_ant	*ant;
 	int		i;
 
 	i = 0;
-	r->nb_ants = nb_ants;
+	li->nb_ants = nb_ants;
 	while (++i <= nb_ants)
 	{
 		if (!(ant = (t_ant *)malloc(sizeof(t_ant))))
 				return (FAIL);
+		ft_bzero(ant, sizeof(t_ant));
 		ant->id = i;
-		ant->moved = 0;
-		ant->next = NULL;
+		ant->room = li->start;
 		if (i == 1)
 		{
-				r->ants_start = ant;
-				r->ants = ant;
-				r->ants_last = ant;
+				li->ants_start = ant;
+				li->ants = ant;
+				li->ants_last = ant;
 		}
 		else
 		{
-				r->ants_last->next = ant;
-				r->ants_last = ant;
+				li->ants_last->next = ant;
+				li->ants_last = ant;
 		}
 	}
 	return (SUCCESS);
@@ -48,6 +48,15 @@ void	ant_free(t_ant **ptr)
 
 void	ant_print(t_ant	*ant)
 {
-		ft_printf("#%-5d ", ant->id);
-		ant->moved ? ft_printf("moving\n") : ft_printf("waiting\n");
+		ft_printf("L%d-%s ", ant->id, ant->room->name);
+		ant->moved ? 0 : ft_printf("(X) ");
+}
+
+void	ant_print_all(t_li *li)
+{
+		while (li->ants)
+		{
+				li->ants->moved ? ant_print(li->ants) : 0;
+				li->ants = li->ants->next;
+		}
 }

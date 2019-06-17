@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dijkstra.c                                         :+:      :+:    :+:   */
+/*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:12:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/13 15:34:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/17 17:14:26 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int search_path(t_room *room)
+int search_path(t_ant *ant, t_room *room)
 {
     if (!room->links)
     {
-        room->flags &= ~FLAG_BUSY;
+        room->flags &= ~FLAG_VISITED;
         room->links = room->links_start;
-        return (room->path ? SUCCESS : FAIL);
+		return (ant->path ? SUCCESS : FAIL);
     }
-    room->flags |= FLAG_BUSY;
+    room->flags |= FLAG_VISITED;
     /*
     if (new_path() <= path)
         path = new_path
     */
     room->links = room->links->next;
-    search_path(room);
+    search_path(ant, room);
     return (SUCCESS);
 }

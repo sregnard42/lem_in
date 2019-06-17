@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/13 15:29:45 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:17:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	room_add(t_room **last, t_room *new_room)
 {
-	if (!last || !(*last) || !new_room)
-		return ;
-	new_room->prev = (*last);
-	(*last)->next = new_room;
-	(*last) = new_room;
+		if (!last || !(*last) || !new_room)
+				return ;
+		new_room->prev = (*last);
+		(*last)->next = new_room;
+		(*last) = new_room;
 }
 
 t_room	*room_new(char *name, t_point *pos)
@@ -30,10 +30,6 @@ t_room	*room_new(char *name, t_point *pos)
 		ft_bzero(room, sizeof(t_room));
 		room->name = ft_strdup(name);
 		ft_ptcpy(&room->pos, pos);
-		room->links = NULL;
-		room->ants = NULL;
-		room->next = NULL;
-		room->prev = NULL;
 		return (room);
 }
 
@@ -43,12 +39,6 @@ void	room_free(t_room **ptr)
 
 		room = *ptr;
 		ft_memdel((void **)&room->name);
-		while (room->ants_start)
-		{
-				room->ants = room->ants_start;
-				room->ants_start = room->ants->next;
-				ant_free(&room->ants);
-		}
 		while (room->links_start)
 		{
 				room->links = room->links_start;
@@ -66,7 +56,6 @@ void	room_print(t_room *room)
 		ft_ptprint(&room->pos);
 		ft_putln();
 		ft_printf("nb_links = %d\n", room->nb_links);
-		ft_printf("nb_ants = %d\n", room->nb_ants);
 		ft_printf("links :\n");
 		while (room->links)
 		{
@@ -74,10 +63,5 @@ void	room_print(t_room *room)
 				room->links = room->links->next;
 		}
 		ft_printf("ants :\n");
-		while (room->ants)
-		{
-				room->ants->moved ? ant_print(room->ants) : 0;
-				room->ants = room->ants->next;
-		}
 		ft_printf("/ROOM_PRINT\n\n");
 }
