@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 17:32:17 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:17:15 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct		s_room
 typedef struct		s_path
 {
 	t_room			*room;
+	int				round;
 	struct s_path	*next;
 }					t_path;
 
@@ -139,7 +140,7 @@ void				link_print(t_link *link);
 **		path.c
 */
 
-int					add_to_path(t_ant *ant, t_room *room);
+int					add_to_path(t_ant *ant, t_room *room, int round);
 void				path_print(t_path *path);
 
 /*
@@ -161,6 +162,6 @@ int					move_ant(t_ant *ant, t_room *dst);
 **		algo.c
 */
 
-int init_paths(t_li *li);
+int					init_paths(t_li *li);
 
 #endif

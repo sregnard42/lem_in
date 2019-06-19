@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:12:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 17:36:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/19 18:13:15 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,16 @@ int shortest_path(t_li *li, t_ant *ant, t_room *room)
 	return (SUCCESS);
 }*/
 
-static int	first_path(t_li *li, t_ant *ant, t_room *room)
+static int	first_path(t_li *li, t_ant *ant, t_room *room, int round)
 {
 	t_link	*tmp;
 
 	if (room->flags & FLAG_VISITED)
 		return (FAIL);
-	ft_printf("room-=>name = %s\n", room->name);
 	ant += 0;
 	if (room == li->end)
 	{
-		add_to_path(ant, room);
+		add_to_path(ant, room, round);
 		ft_printf("Je suis a la fin Youhou \n");
 		return (SUCCESS);
 	}
@@ -65,22 +64,50 @@ static int	first_path(t_li *li, t_ant *ant, t_room *room)
 	while (tmp != NULL)
 	{
 		room->flags |= FLAG_VISITED;
-		if (first_path(li, ant, tmp->dst) == SUCCESS)
-			add_to_path(ant, room);
+		if (first_path(li, ant, tmp->dst, round + 1) == SUCCESS)
+			add_to_path(ant, room, round);
 		tmp = tmp->next;
+	}
+	if (ant->path_start == NULL)
+	{
+		ft_printf("Je suis dans le if\n");
+		return (FAIL);
 	}
 	return (SUCCESS);
 }
 
+void	tmp_reset_rooms_flags(t_li *li)
+{
+	li->room = li->start;
+	while (li->room != NULL)
+	{
+		li->room->flags = 0;
+		li->room = li->room->next;
+	}
+}
+
 int init_paths(t_li *li)
 {
+	int		cpt;
+	int		round;
+
+	cpt = 0;
+	round = 0;
 	li->ants = li->ants_start;
-	while (li->ants)
+	while (cpt < li->nb_ants)
 	{
-		if (first_path(li, li->ants, li->start) == FAIL)
-			return (FAIL);
-		li->ants = li->ants->next;
+		while (li->ants)
+		{
+			if (first_path(li, li->ants, li->start, round) == FAIL)
+				break;
+			cpt++;
+			li->ants = li->ants->next;
+		}
+		tmp_reset_rooms_flags(li);
+		round++;
 	}
 	path_print(li->ants_start->path_start);
+	path_print(li->ants_start->next->path_start);
+	path_print(li->ants_start->next->next->path_start);
 	return (SUCCESS);
 }
