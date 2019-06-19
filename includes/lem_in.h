@@ -135,6 +135,12 @@ void				link_free(t_link **ptr);
 void				link_print(t_link *link);
 
 /*
+**		path.c
+*/
+
+int					add_to_path(t_ant *ant, t_room *room);
+
+/*
 **		ant.c
 */
 
