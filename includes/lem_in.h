@@ -152,6 +152,4 @@ int					move_ant(t_ant *ant, t_room *dst);
 **		algo.c
 */
 
-int					search_path(t_ant *ant, t_room *room);
-
 #endif

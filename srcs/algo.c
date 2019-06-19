@@ -24,7 +24,6 @@ int	valid_path(t_li *li, t_ant *ant, t_room *room)
 	}
 	
 	room->flags |= FLAG_VISITED;
-
 	if (valid_path(li, ant, room) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
@@ -44,7 +43,7 @@ int shortest_path(t_li *li, t_ant *ant, t_room *room)
 	   path = new_path
 	 */
 	room->links = room->links->next;
-	search_path(li, ant, room);
+	shortest_path(li, ant, room);
 	return (SUCCESS);
 }
 
@@ -53,7 +52,7 @@ int init_paths(t_li *li)
 	li->ants = li->ants_start;
 	while (li->ants)
 	{
-		if (search_path(li, li->ants, li->start) == FAIL)
+		if (shortest_path(li, li->ants, li->start) == FAIL)
 			return (FAIL);
 		li->ants = li->ants->next;
 	}
