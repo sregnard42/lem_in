@@ -34,6 +34,7 @@ typedef struct		s_ant
 	bool			moved;
 	struct s_room	*room;
 	struct s_path	*path;
+	struct s_path	*path_last;
 	struct s_ant	*next;
 }					t_ant;
 
@@ -51,9 +52,9 @@ typedef struct		s_room
 	t_link			*links;
 	t_link			*links_last;
 	int				nb_links;
+	unsigned int	flags;
 	struct s_room	*next;
 	struct s_room	*prev;
-	unsigned int	flags;
 }					t_room;
 
 typedef struct		s_path
