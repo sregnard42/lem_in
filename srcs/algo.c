@@ -47,36 +47,38 @@ int shortest_path(t_li *li, t_ant *ant, t_room *room)
 	return (SUCCESS);
 }*/
 
-static int	first_path(t_li *li, t_ant *ant, t_room *room, int round)
+static int first_path(t_li *li, t_ant *ant, t_room *room, int round)
 {
-	t_link	*tmp;
+	t_link *tmp;
 
-	if (room->flags & FLAG_VISITED)
+	if (room->flags & FLAG_VISITED && room != li->start)
 		return (FAIL);
-	ant += 0;
 	if (room == li->end)
 	{
 		add_to_path(ant, room, round);
-		ft_printf("Je suis a la fin Youhou \n");
+		ft_printf("Path found\n");
 		return (SUCCESS);
 	}
+	room->flags |= FLAG_VISITED;
 	tmp = room->links_start;
 	while (tmp != NULL)
 	{
-		room->flags |= FLAG_VISITED;
 		if (first_path(li, ant, tmp->dst, round + 1) == SUCCESS)
+		{
 			add_to_path(ant, room, round);
+			return (SUCCESS);
+		}
 		tmp = tmp->next;
 	}
 	if (ant->path_start == NULL)
 	{
-		ft_printf("Je suis dans le if\n");
+		ft_printf("No path\n");
 		return (FAIL);
 	}
 	return (SUCCESS);
 }
 
-void	tmp_reset_rooms_flags(t_li *li)
+void tmp_reset_rooms_flags(t_li *li)
 {
 	li->room = li->start;
 	while (li->room != NULL)
@@ -88,8 +90,8 @@ void	tmp_reset_rooms_flags(t_li *li)
 
 int init_paths(t_li *li)
 {
-	int		cpt;
-	int		round;
+	int cpt;
+	int round;
 
 	cpt = 0;
 	round = 0;
@@ -100,14 +102,22 @@ int init_paths(t_li *li)
 		{
 			if (first_path(li, li->ants, li->start, round) == FAIL)
 				break;
+			else
+				path_print(li->ants->path_start);
 			cpt++;
 			li->ants = li->ants->next;
 		}
+		ft_printf("Rooooommmssssss\n");
 		tmp_reset_rooms_flags(li);
 		round++;
 	}
-	path_print(li->ants_start->path_start);
-	path_print(li->ants_start->next->path_start);
-	path_print(li->ants_start->next->next->path_start);
+	li->ants = li->ants_start;
+	/*
+	while (li->ants)
+	{
+		path_print(li->ants->path);
+		li->ants = li->ants->next;
+	}
+	*/
 	return (SUCCESS);
 }
