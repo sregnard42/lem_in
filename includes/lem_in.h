@@ -33,8 +33,8 @@ typedef struct		s_ant
 	int				id;
 	bool			moved;
 	struct s_room	*room;
-	struct s_ant	*next;
 	struct s_path	*path;
+	struct s_ant	*next;
 }					t_ant;
 
 typedef struct		s_link
@@ -58,9 +58,8 @@ typedef struct		s_room
 
 typedef struct		s_path
 {
-	t_room			*start;
 	t_room			*room;
-	t_room			*end;
+	struct s_path	*next;
 }					t_path;
 
 
