@@ -8,14 +8,15 @@ int     add_to_path(t_ant *ant, t_room *room)
 		return (FAIL);
 	path->room = room;
 	path->next = NULL;
-	if (!ant->path || !ant->path_last)
+	if (!ant->path_start)
 	{
+        ant->path_start = path;
 		ant->path = path;
 		ant->path_last = path;
 		return (SUCCESS);
 	}
-	ant->path_last->next = path;
-	ant->path_last = path;
+	path->next = ant->path_start;
+    ant->path_start = path;
 	return (SUCCESS);
 }
 
