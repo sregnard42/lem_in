@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 17:09:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/19 17:10:53 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_ant
 	bool			moved;
 	struct s_room	*room;
 	struct s_path	*path;
+	struct s_path	*path_last;
 	struct s_ant	*next;
 }					t_ant;
 
