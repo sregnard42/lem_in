@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 13:31:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:46:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			main()
 	}
 	li.ants = li.ants_start;
 	ft_putln();
+	init_paths(&li);
 	/*******
 	  ALGO
 	 *****/
