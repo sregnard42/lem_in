@@ -18,3 +18,16 @@ int     add_to_path(t_ant *ant, t_room *room)
 	ant->path_last = path;
 	return (SUCCESS);
 }
+
+void    path_print(t_path *path)
+{
+    t_path *tmp;
+
+    tmp = path;
+    while (tmp)
+    {
+        ft_putstr(tmp->room->name);
+        tmp = tmp->next;
+        tmp ? ft_putstr("->") : ft_putstr("\n");
+    }
+}
