@@ -17,6 +17,7 @@ int     add_to_path(t_ant *ant, t_room *room)
 	}
 	path->next = ant->path_start;
     ant->path_start = path;
+    ant->path = path;
 	return (SUCCESS);
 }
 
