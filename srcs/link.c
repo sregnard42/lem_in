@@ -12,10 +12,12 @@
 
 #include "lem_in.h"
 
-static int		link_add(t_room *src, t_room *dst)
+static int		link_add(t_li *li, t_room *src, t_room *dst)
 {
 	t_link	*link;
 
+	if (dst == li->start || src == li->end)
+		return (SUCCESS);
 	if (!(link = (t_link *)malloc(sizeof(t_link))))
 		return (FAIL);
 	link->dst = dst;
@@ -34,7 +36,7 @@ static int		link_add(t_room *src, t_room *dst)
 	return (SUCCESS);
 }
 
-int				link_new(t_room *a, t_room *b)
+int				link_new(t_li *li, t_room *a, t_room *b)
 {
 	if (!a)
 	{
@@ -46,9 +48,9 @@ int				link_new(t_room *a, t_room *b)
 		ft_putendl("b NULL");
 		return (FAIL);
 	}
-	if (link_add(a, b) == FAIL)
+	if (link_add(li, a, b) == FAIL)
 		return (FAIL);
-	if (link_add(b, a) == FAIL)
+	if (link_add(li, b, a) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
 }

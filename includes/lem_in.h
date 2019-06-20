@@ -138,7 +138,7 @@ void				room_print(t_room *room);
 **		links.c
 */
 
-int					link_new(t_room *a, t_room *b);
+int					link_new(t_li *li, t_room *a, t_room *b);
 void				link_free(t_link **ptr);
 void				link_print(t_link *link);
 

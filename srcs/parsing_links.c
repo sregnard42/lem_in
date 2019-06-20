@@ -74,7 +74,7 @@ int		get_link(t_li *li, char *line)
 	find_rooms(li, tab[0], tab[1], &a, &b);
 	if (!(a && b))
 		trigger_error(li, "Room name not found\n");
-	link_new(a, b);
+	link_new(li, a, b);
 	ft_free_tab(&tab);
 	return (SUCCESS);
 }
