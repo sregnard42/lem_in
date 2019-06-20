@@ -12,42 +12,39 @@
 
 #include "lem_in.h"
 
-/*int	valid_path(t_li *li, t_ant *ant, t_room *room)
+static int	length_path(t_path *path)
 {
-	if (room->links->dst == li->end)
+	int	len;
+
+	len = 0;
+	while (path && ++len)
+		path = path->next;
+	return (len);
+}
+
+static int	shortest_path(t_ant *ant, t_path **path_new, t_path **path_old)
+{
+	if (!path_old || !(*path_old))
 		return (SUCCESS);
-	if (!room->links->dst)
+	ft_putendl("Old path");
+	path_print(*path_old);
+	ft_putendl("New path");
+	path_print(*path_new);
+	if (length_path(*path_old) < length_path(*path_new))
 	{
-		room->flags &= ~FLAG_VISITED;
-		room->links = room->links_start;
-		return (FAIL);
+		ft_memdel((void **)path_new);
+		return (SUCCESS);
 	}
-	// ???
-	room->flags |= FLAG_VISITED;
-	if (valid_path(li, ant, room) == FAIL)
-		return (FAIL);
+	ft_memdel((void **)path_old);
+	ant->path_start = *path_new;
+	ant->path = *path_new;
+	ant->path_last = *path_new;
+	while (ant->path_last)
+		ant->path_last = ant->path_last->next;
 	return (SUCCESS);
 }
 
-int shortest_path(t_li *li, t_ant *ant, t_room *room)
-{
-	if (!room->links)
-	{
-		room->flags &= ~FLAG_VISITED;
-		room->links = room->links_start;
-		return (ant->path ? SUCCESS : FAIL);
-	}
-	room->flags |= FLAG_VISITED;
-	
-	//   if (new_path() <= path)
-	//  path = new_path
-	 
-	room->links = room->links->next;
-	shortest_path(li, ant, room);
-	return (SUCCESS);
-}*/
-
-static int first_path(t_li *li, t_ant *ant, t_room *room, int round)
+static int	first_path(t_li *li, t_ant *ant, t_room *room, int round)
 {
 	t_link *link;
 
@@ -102,25 +99,36 @@ void tmp_reset_rooms_flags(t_li *li)
 
 int init_paths(t_li *li)
 {
-	int cpt;
-	int round;
+	int		cpt;
+	int		round;
+	t_path	*path;
 
 	cpt = 0;
 	round = 0;
+	path = NULL;
 	li->ants = li->ants_start;
 	while (cpt < li->nb_ants)
 	{
 		while (li->ants)
 		{
-			if (first_path(li, li->ants, li->start, round) == FAIL)
-				break;
-			else
+			while (first_path(li, li->ants, li->start, round) == SUCCESS)
+			{
+				ant_print(li->ants);
 				path_print(li->ants->path_start);
+				shortest_path(li->ants, &li->ants->path, &path);
+				ft_putendl("Path kept :");
+				ant_print(li->ants);
+				path_print(li->ants->path_start);
+				path = li->ants->path_start;
+			}
+			if (!path)
+				break ;
 			cpt++;
+			ft_printf("\n\n");
 			li->ants = li->ants->next;
 			li->start->flags = 0;
 		}
-		ft_printf("Rooooommmssssss\n");
+		ft_printf("Reset flags\n");
 		tmp_reset_rooms_flags(li);
 		round++;
 	}
@@ -128,7 +136,11 @@ int init_paths(t_li *li)
 	
 	while (li->ants)
 	{
-		path_print(li->ants->path);
+		ant_print(li->ants);
+		if (li->ants->path)
+			path_print(li->ants->path);
+		else
+			ft_putendl("No path");
 		li->ants = li->ants->next;
 	}
 	
