@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:12:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/20 09:53:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/20 10:58:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ static int first_path(t_li *li, t_ant *ant, t_room *room, int round)
 {
 	t_link *link;
 
-	if (room == li->start && ant->path_start)
-		return (FAIL);
-	if (room->flags & FLAG_VISITED)
+	if (room->flags & FLAG_VISITED/* && room != li->start*/)
 		return (FAIL);
 	if (room == li->end)
 	{
@@ -65,6 +63,11 @@ static int first_path(t_li *li, t_ant *ant, t_room *room, int round)
 	link = room->links_start;
 	while (link != NULL)
 	{
+		if (link->flags & FLAG_USED)
+		{
+			link = link->next;
+			continue;
+		}
 		if (first_path(li, ant, link->dst, round + 1) == SUCCESS)
 		{
 			link->flags |= FLAG_USED;
@@ -115,6 +118,7 @@ int init_paths(t_li *li)
 				path_print(li->ants->path_start);
 			cpt++;
 			li->ants = li->ants->next;
+			li->start->flags = 0;
 		}
 		ft_printf("Rooooommmssssss\n");
 		tmp_reset_rooms_flags(li);
