@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 18:17:15 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/20 09:47:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_ant
 typedef struct		s_link
 {
 	struct s_room	*dst;
+	unsigned int	flags;
 	struct s_link	*next;
 }					t_link;
 
@@ -94,6 +95,11 @@ enum				e_flags_room
 {
 	FLAG_VISITED = (1 << 0),
 	FLAG_RESERVED = (2 << 0),
+};
+
+enum				e_flags_link
+{
+	FLAG_USED = (1 << 0),
 };
 
 /*

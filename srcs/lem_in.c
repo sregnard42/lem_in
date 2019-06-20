@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 16:46:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/20 09:48:29 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ int			main()
 	/*******
 	  ALGO
 	 *****/
-	move_ant(li.ants_start, li.end);
+	//move_ant(li.ants_start, li.end);
 	ft_printf("After Algo\n");
+	li.ants = li.ants_start;
 	while (li.ants)
 	{
 		ant_print(li.ants);
 		li.ants = li.ants->next;
 	}
-	li.ants = li.ants_start;
 	ft_putln();
-	free_all(&li);
+//	free_all(&li);
 	return (SUCCESS);
 }
