@@ -49,9 +49,11 @@ int shortest_path(t_li *li, t_ant *ant, t_room *room)
 
 static int first_path(t_li *li, t_ant *ant, t_room *room, int round)
 {
-	t_link *tmp;
+	t_link *link;
 
-	if (room->flags & FLAG_VISITED && room != li->start)
+	if (room == li->start && ant->path_start)
+		return (FAIL);
+	if (room->flags & FLAG_VISITED)
 		return (FAIL);
 	if (room == li->end)
 	{
@@ -60,16 +62,16 @@ static int first_path(t_li *li, t_ant *ant, t_room *room, int round)
 		return (SUCCESS);
 	}
 	room->flags |= FLAG_VISITED;
-	tmp = room->links_start;
-	while (tmp != NULL)
+	link = room->links_start;
+	while (link != NULL)
 	{
-		if (tmp->flags & FLAG_USED && first_path(li, ant, tmp->dst, round + 1) == SUCCESS)
+		if (first_path(li, ant, link->dst, round + 1) == SUCCESS)
 		{
-			tmp->flags |= FLAG_USED;
+			link->flags |= FLAG_USED;
 			add_to_path(ant, room, round);
 			return (SUCCESS);
 		}
-		tmp = tmp->next;
+		link = link->next;
 	}
 	if (ant->path_start == NULL)
 	{
@@ -119,12 +121,12 @@ int init_paths(t_li *li)
 		round++;
 	}
 	li->ants = li->ants_start;
-	/*
+	
 	while (li->ants)
 	{
 		path_print(li->ants->path);
 		li->ants = li->ants->next;
 	}
-	*/
+	
 	return (SUCCESS);
 }
