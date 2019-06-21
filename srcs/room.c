@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/20 09:45:55 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/21 10:30:51 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,16 @@ void	room_print(t_room *room)
 	ft_putln();
 	ft_printf("nb_links = %d\n", room->nb_links);
 	ft_printf("links :\n");
+	room->links = room->links_start;
 	while (room->links)
 	{
 		link_print(room->links);
 		room->links = room->links->next;
 	}
+	if (room->flags & FLAG_VISITED)
+		ft_printf("visited\n");
+	else
+		ft_printf("not visited\n");
 	ft_printf("ants :\n");
 	ft_printf("/ROOM_PRINT\n\n");
 }

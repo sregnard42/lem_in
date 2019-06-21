@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:12:26 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/20 11:53:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/21 10:50:16 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,45 @@ static int	length_path(t_path *path)
 	return (len);
 }
 
-static int	shortest_path(t_ant *ant, t_path **path_new, t_path **path_old)
+static void	reset_path_flags(t_path **path)
 {
-	if (!path_old || !(*path_old))
+	t_path	*tmp;
+//	t_link	*links;
+
+	ft_printf("Mauvais chemin, bye bye les flags\n");
+	tmp = *path;
+	while (tmp)
+	{
+		ft_printf("reset %s\n", tmp->room->name);
+		tmp->room->flags = 0;
+		/*links = tmp->room->links_start;
+		while (links)
+		{
+			links->flags = 0;
+			links = links->next;
+		}*/
+		tmp = tmp->next;
+	}
+}
+
+static int	shortest_path(t_ant *ant, t_path **path_new, t_path **path)
+{
+	if (!path || !(*path))
+	{
 		return (SUCCESS);
+	}
 	ft_putendl("Old path");
-	path_print(*path_old);
+	path_print(*path);
 	ft_putendl("New path");
 	path_print(*path_new);
-	if (length_path(*path_old) < length_path(*path_new))
+	if (length_path(*path) < length_path(*path_new))
 	{
+		reset_path_flags(path_new);
 		ft_memdel((void **)path_new);
 		return (SUCCESS);
 	}
-	ft_memdel((void **)path_old);
+	reset_path_flags(path);
+	ft_memdel((void **)path);
 	ant->path_start = *path_new;
 	ant->path = *path_new;
 	ant->path_last = *path_new;
@@ -51,7 +76,10 @@ static int	first_path(t_li *li, t_ant *ant, t_room *room, int round)
 	if (room == li->start)
 		ft_printf("Yo\n");
 	if (room->flags & FLAG_VISITED/* && room != li->start*/)
+	{
+		ft_printf("la room %s est ferme\n", room->name);
 		return (FAIL);
+	}
 	if (room == li->end)
 	{
 		add_to_path(ant, room, round);
@@ -107,12 +135,12 @@ int init_paths(t_li *li)
 
 	cpt = 0;
 	round = 0;
-	path = NULL;
 	li->ants = li->ants_start;
 	while (cpt < li->nb_ants)
 	{
 		while (li->ants)
 		{
+			path = NULL;
 			while (first_path(li, li->ants, li->start, round) == SUCCESS)
 			{
 				ant_print(li->ants);
@@ -122,16 +150,21 @@ int init_paths(t_li *li)
 				ant_print(li->ants);
 				path_print(li->ants->path_start);
 				path = li->ants->path_start;
+				li->ants->path_start = NULL;
+				li->start->flags = 0;
 			}
 			if (!path)
 				break ;
 			cpt++;
 			ft_printf("\nchange ants\n\n");
+			li->ants->path_start = path;
 			li->ants = li->ants->next;
 			li->start->flags = 0;
 			path = NULL;
+			//for (t_room *tmp = li->start; tmp; tmp = tmp->next)
+			//	room_print(tmp);
 		}
-		ft_printf("Reset flags\n");
+		ft_printf("\n------------------\nchange round\n------------------\n\n");
 		tmp_reset_rooms_flags(li);
 		round++;
 	}
@@ -145,6 +178,5 @@ int init_paths(t_li *li)
 			ft_putendl("No path");
 		li->ants = li->ants->next;
 	}
-	
 	return (SUCCESS);
 }
