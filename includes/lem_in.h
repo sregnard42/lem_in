@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/24 14:17:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:37:53 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define ERROR			-1
 # define FAIL			0
+# define FAILURE		0
 # define SUCCESS		1
 
 # define START			"##start"
@@ -143,6 +144,7 @@ t_room				*room_new(char *name, t_point *pos);
 void				room_add(t_room **rooms, t_room *new_room);
 void				room_free(t_room **ptr);
 void				room_print(t_room *room);
+void				room_clean(t_li *li, t_room *room);
 
 /*
 **		links.c
@@ -151,6 +153,7 @@ void				room_print(t_room *room);
 int					link_new(t_li *li, t_room *a, t_room *b);
 void				link_free(t_link **ptr);
 void				link_print(t_link *link);
+void				link_clean(t_li *li, t_link *link);
 
 /*
 **		path.c

@@ -6,11 +6,21 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/21 10:30:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/24 16:11:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	room_clean(t_li *li, t_room *room)
+{
+	while (room)
+	{
+		room->flags &= ~FLAG_VISITED;
+		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links_start);
+		room = room->next;
+	}
+}
 
 void	room_add(t_room **last, t_room *new_room)
 {

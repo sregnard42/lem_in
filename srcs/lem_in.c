@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/24 14:22:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:47:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int			main()
 	  ALGO END
 	 *************/
 	ant_print_all(&li);
-//	free_all(&li);
+	free_all(&li);
 	return (SUCCESS);
 }
