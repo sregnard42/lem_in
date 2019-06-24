@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/19 17:27:20 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/06/24 14:07:17 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ SRCNAME					=	lem_in.c		\
 							link.c			\
 							ant.c			\
 							move_ant.c		\
-							algo.c			\
-							path.c
+							path.c			\
+							bfs.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 

@@ -6,13 +6,50 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/20 09:34:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:17:42 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int     add_to_path(t_ant *ant, t_room *room, int round)
+static int		create_path(t_li *li, int turn)
+{
+	path_insert(li->ants, li->end, turn);
+	path_insert(li->ants, li->room, turn);
+	li->room = li->room->parent;
+	while (li->room)
+	{
+		path_insert(li->ants, li->room, turn);
+		li->room = li->room->parent;
+	}
+	return (SUCCESS);
+}
+
+int		path_init(t_li *li)
+{
+	int		cpt;
+	int		turn;
+
+	cpt = 0;
+	turn = 0;
+	li->ants = li->ants_start;
+	while (cpt < li->nb_ants)
+	{
+		while (li->ants)
+		{
+			if (bfs(li, turn) == FAIL)
+				break ;
+			create_path(li, turn);
+			++cpt;
+		}
+		++turn;
+		if (turn > 1)
+			return (FAIL);
+	}
+	return (SUCCESS);
+}
+
+int     path_insert(t_ant *ant, t_room *room, int round)
 {
     t_path	*path;
 

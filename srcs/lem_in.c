@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/20 09:48:29 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:22:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,19 @@ int			main()
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);
 	ft_putstr(li.buf);
-	while (li.ants)
-	{
-		ant_print(li.ants);
-		li.ants = li.ants->next;
-	}
-	li.ants = li.ants_start;
-	ft_putln();
-	init_paths(&li);
-	/*******
-	  ALGO
-	 *****/
-	//move_ant(li.ants_start, li.end);
-	ft_printf("After Algo\n");
-	li.ants = li.ants_start;
-	while (li.ants)
-	{
-		ant_print(li.ants);
-		li.ants = li.ants->next;
-	}
-	ft_putln();
+	ant_print_all(&li);
+	/*************
+	  ALGO START
+	 *************/
+	ft_printf("ALGO START\n");
+
+	path_init(&li);
+
+	ft_printf("ALGO END\n");
+	/*************
+	  ALGO END
+	 *************/
+	ant_print_all(&li);
 //	free_all(&li);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/20 09:47:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:17:08 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_room
 	t_link			*links;
 	t_link			*links_last;
 	int				nb_links;
+	struct s_room	*parent;
 	struct s_room	*next;
 	struct s_room	*prev;
 	unsigned int	flags;
@@ -66,6 +67,11 @@ typedef struct		s_path
 	struct s_path	*next;
 }					t_path;
 
+typedef struct		s_queue
+{
+	t_room			*room;
+	struct s_queue	*next;
+}					t_queue;
 
 typedef struct		s_li
 {
@@ -79,6 +85,9 @@ typedef struct		s_li
 	t_ant			*ants_last;
 	int				nb_ants;
 	int				moves;
+	t_queue			*queue_start;
+	t_queue			*queue;
+	t_queue			*queue_last;
 	unsigned int	flags;
 }					t_li;
 
@@ -95,6 +104,7 @@ enum				e_flags_room
 {
 	FLAG_VISITED = (1 << 0),
 	FLAG_RESERVED = (2 << 0),
+	FLAG_QUEUED = (3 << 0),
 };
 
 enum				e_flags_link
@@ -146,7 +156,8 @@ void				link_print(t_link *link);
 **		path.c
 */
 
-int					add_to_path(t_ant *ant, t_room *room, int round);
+int					path_init(t_li *li);
+int					path_insert(t_ant *ant, t_room *room, int round);
 void				path_print(t_path *path);
 
 /*
@@ -165,9 +176,9 @@ void				ant_print_all(t_li *li);
 int					move_ant(t_ant *ant, t_room *dst);
 
 /*
-**		algo.c
+**		bfs.c
 */
 
-int					init_paths(t_li *li);
+int					bfs(t_li *li, int turn);
 
 #endif

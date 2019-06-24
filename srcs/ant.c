@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 13:31:14 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:22:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ void	ant_print(t_ant	*ant)
 
 void	ant_print_all(t_li *li)
 {
+	li->ants = li->ants_start;
 	while (li->ants)
 	{
-		li->ants->moved ? ant_print(li->ants) : 0;
+		//li->ants->moved ? ant_print(li->ants) : 0;
+		ant_print(li->ants);
 		li->ants = li->ants->next;
 	}
+	li->ants = li->ants_start;
+	ft_putln();
 }
