@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 15:20:59 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/24 15:37:53 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,37 @@
 
 # define LI_BUFF_SIZE	4096
 
+typedef struct		s_ant
+{
+	int				id;
+	bool			moved;
+	struct s_room	*room;
+	struct s_path	*path;
+	struct s_path	*path_start;
+	struct s_path	*path_last;
+	struct s_ant	*next;
+}					t_ant;
+
+typedef struct		s_link
+{
+	struct s_room	*dst;
+	unsigned int	flags;
+	struct s_link	*next;
+}					t_link;
+
 typedef struct		s_room
 {
 	char			*name;
 	t_point			pos;
-	t_list_link		*links;
+	t_link			*links_start;
+	t_link			*links;
+	t_link			*links_last;
+	int				nb_links;
 	struct s_room	*parent;
 	struct s_room	*next;
 	struct s_room	*prev;
 	unsigned int	flags;
 }					t_room;
-
-typedef struct		s_link
-{
-	t_room			*dst;
-	unsigned int	flags;
-	struct s_link	*next;
-}					t_link;
 
 typedef struct		s_path
 {
@@ -54,69 +68,27 @@ typedef struct		s_path
 	struct s_path	*next;
 }					t_path;
 
-typedef struct		s_ant
-{
-	int				id;
-	bool			moved;
-	t_room			*room;
-	t_list_path	*path;
-	struct s_ant	*next;
-}					t_ant;
-
 typedef struct		s_queue
 {
 	t_room			*room;
 	struct s_queue	*next;
 }					t_queue;
 
-typedef struct		s_list_room
-{
-	t_room			*start;
-	t_room			*current;
-	t_room			*end;
-	int				size;
-}					t_list_room;
-
-typedef struct		s_list_link
-{
-	t_link			*first;
-	t_link			*current;
-	t_link			*last;
-	int				size;
-}
-
-typedef struct		s_list_path
-{
-	t_path			*start;
-	t_path			*current;
-	t_path			*end;
-	int				size;
-}
-
-typedef struct		s_list_ant
-{
-	t_ant			*first;
-	t_ant			*current;
-	t_ant			*last;
-	int				size;
-}
-
-typedef struct		s_list_queue
-{
-	t_queue			*first;
-	t_queue			*current
-	t_queue			*last;
-}					t_list_queue;
-
 typedef struct		s_li
 {
 	char			buf[LI_BUFF_SIZE];
 	unsigned int	index;
-	t_list_rooms	*rooms;
-	t_list_ants		*ants;
-	t_list_queue	*queue;
+	t_room			*start;
+	t_room			*room;
+	t_room			*end;
+	t_ant			*ants_start;
+	t_ant			*ants;
+	t_ant			*ants_last;
 	int				nb_ants;
 	int				moves;
+	t_queue			*queue_start;
+	t_queue			*queue;
+	t_queue			*queue_last;
 	unsigned int	flags;
 }					t_li;
 
