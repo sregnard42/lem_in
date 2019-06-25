@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/24 14:48:27 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:40:47 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ int		ants_init(t_li *li, int nb_ants)
 	int		i;
 
 	i = 0;
-	li->nb_ants = nb_ants;
+	li->ants->size = nb_ants;
 	while (++i <= nb_ants)
 	{
 		if (!(ant = (t_ant *)malloc(sizeof(t_ant))))
 			return (FAIL);
 		ft_bzero(ant, sizeof(t_ant));
 		ant->id = i;
-		ant->room = li->start;
+		ant->room = li->rooms->start;
 		if (i == 1)
 		{
-			li->ants_start = ant;
-			li->ants = ant;
-			li->ants_last = ant;
+			li->ants->first = ant;
+			li->ants->current = ant;
+			li->ants->last = ant;
 		}
 		else
 		{
-			li->ants_last->next = ant;
-			li->ants_last = ant;
+			li->ants->last->next = ant;
+			li->ants->last = ant;
 		}
 	}
 	return (SUCCESS);
@@ -55,13 +55,13 @@ void	ant_print(t_ant	*ant)
 
 void	ant_print_all(t_li *li)
 {
-	li->ants = li->ants_start;
+	li->ants->current = li->ants->first;
 	while (li->ants)
 	{
 		//li->ants->moved ? ant_print(li->ants) : 0;
-		ant_print(li->ants);
-		li->ants = li->ants->next;
+		ant_print(li->ants->current);
+		li->ants->current = li->ants->current->next;
 	}
-	li->ants = li->ants_start;
+	li->ants->current = li->ants->first;
 	ft_putln();
 }

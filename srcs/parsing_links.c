@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/19 13:32:12 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:33:36 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		is_link(t_li *li, char **line)
 {
-	li += 0;
 	if (!line)
 		return (FAIL);
 	if (*line[0] == '#')
@@ -35,7 +34,7 @@ int		find_rooms(t_li *li, char *a, char *b, t_room **ra, t_room **rb)
 
 	fa = false;
 	fb = false;
-	tmp = li->start;
+	tmp = li->rooms->start;
 	while (tmp)
 	{
 		if (!fa && ft_strequ(a, tmp->name))
@@ -61,7 +60,7 @@ int		get_link(t_li *li, char *line)
 	t_room	*a;
 	t_room	*b;
 
-	if (!li->room)
+	if (!li->rooms->current)
 		trigger_error(li, "No room\n");
 	tab = ft_strsplit(line, '-');
 	if (is_link(li, tab) == FAIL)
