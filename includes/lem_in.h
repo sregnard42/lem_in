@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 15:56:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 15:56:38 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ int						li_buffer(t_li *li, const char *s, size_t len);
 
 /*
 **						parsing.c
-**						parsing_links.c
 **						parsing_rooms.c
+**						parsing_links.c
 */
 
 int						parsing(t_li *li);
