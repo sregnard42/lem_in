@@ -6,14 +6,14 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 21:10:13 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:20:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PATH_H
 # define PATH_H
 
-#include "lem_in.h"
+# include "lem_in.h"
 
 /*
 **		PATHS

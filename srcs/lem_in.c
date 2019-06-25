@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 20:38:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:49:52 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	init_li(t_li *li)
 	ft_bzero(li->ants, sizeof(t_list_ant));
 	ft_bzero(li->queue, sizeof(t_list_queue));
 	ft_bzero(li->bookings, sizeof(t_list_booking));
+	if (!li->rooms || !li->ants || !li->queue || !li->bookings)
+		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
 
@@ -59,9 +61,7 @@ int			main()
 	  ALGO START
 	 *************/
 	ft_printf("ALGO START\n");
-
 	path_init(&li);
-
 	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END

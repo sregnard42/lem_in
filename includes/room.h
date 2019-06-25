@@ -6,14 +6,14 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:55:45 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 21:10:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:19:59 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ROOM_H
 # define ROOM_H
 
-#include "lem_in.h"
+# include "lem_in.h"
 
 /*
 **		ROOMS

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 21:11:37 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:06:19 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "ant.h"
 # include "link.h"
 
-# define DEBUG			0
+# define DEBUG			1
 # define ERR_DEFAULT	"ERROR\n"
 
 # define ERROR			-1

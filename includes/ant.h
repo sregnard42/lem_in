@@ -6,14 +6,14 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:00:00 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 21:11:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:19:55 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANT_H
 # define ANT_H
 
-#include "lem_in.h"
+# include "lem_in.h"
 
 /*
 **		ANTS

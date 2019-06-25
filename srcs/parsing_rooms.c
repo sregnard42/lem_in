@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 18:33:18 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 22:20:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	t_point	pos;
 
 	ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
-	new = room_new(tab[0], &pos);
+	if ((new = room_new(tab[0], &pos)) == NULL)
+		return (ERROR);
 	if (li->flags & FLAG_START || li->flags & FLAG_END)
 	{
 		li->flags & FLAG_START ?
@@ -49,9 +50,8 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	*rooms == new ? *last = *rooms : 0;
 	return (SUCCESS);
 }
-int	get_room(t_li *li, char *line, t_room **last)
+int			get_room(t_li *li, char *line, t_room **last)
 {
-
 	t_room	*rooms;
 	char	**tab;
 
@@ -77,7 +77,11 @@ int	get_room(t_li *li, char *line, t_room **last)
 		ft_free_tab(&tab);
 		return (FAIL);
 	}
-	add_room(li, &rooms, tab, last);
+	if (add_room(li, &rooms, tab, last) == ERROR)
+	{
+		ft_free_tab(&tab);
+		return (FAIL);
+	}
 	li->rooms->current = rooms;
 	ft_free_tab(&tab);
 	return (SUCCESS);
