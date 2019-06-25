@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/24 14:47:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:31:49 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,7 @@ int			li_buffer(t_li *li, const char *s, size_t len)
 
 int			free_all(t_li *li)
 {
-	while (li->start)
-	{
-		li->room = li->start;
-		li->start = li->room->next;
-		room_free(&li->room);
-	}
-	while (li->ants_start)
-	{
-		li->ants = li->ants_start;
-		li->ants_start = li->ants->next;
-		ant_free(&li->ants);
-	}
+	li += 0;
 	return (SUCCESS);
 }
 

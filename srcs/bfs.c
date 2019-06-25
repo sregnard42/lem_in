@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/24 16:12:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:48:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ static int	enqueue(t_li *li, t_room *room)
 		trigger_error(li, "enqueue : error malloc\n");
 	elem->room = room;
 	elem->next = NULL;
-	if (li->queue_last)
+	if (li->queue->last)
 	{
-		li->queue_last->next = elem;
-		li->queue_last = elem;
+		li->queue->last->next = elem;
+		li->queue->last = elem;
 		return (SUCCESS);
 	}
-	li->queue_start = elem;
-	li->queue = elem;
-	li->queue_last = elem;
+	li->queue->first = elem;
+	li->queue->current = elem;
+	li->queue->last = elem;
 	return (SUCCESS);
 }
 
@@ -59,29 +59,29 @@ static int	dequeue(t_li *li)
 {
 	t_queue	*queue;
 
-	if (!li->queue_start)
+	if (!li->queue->first)
 		return (SUCCESS);
-	queue = li->queue_start->next;
-	free(li->queue_start);
-	li->queue_start = queue;
-	li->queue = queue;
+	queue = li->queue->first->next;
+	free(li->queue->first);
+	li->queue->first = queue;
+	li->queue->current = queue;
 	if (!queue)
-		li->queue_last = queue;
+		li->queue->last = queue;
 	return (SUCCESS);
 }
 
 static int	clear_queue(t_li *li, t_room *room)
 {
-	while (li->queue_start)
+	while (li->queue->first)
 	{
-		li->queue = li->queue_start;
-		li->queue_start = li->queue->next;
-		free(li->queue);
+		li->queue->current = li->queue->first;
+		li->queue->first = li->queue->current->next;
+		free(li->queue->current);
 	}
-	li->queue_start = NULL;
-	li->queue = NULL;
-	li->queue_last = NULL;
-	li->room = room;
+	li->queue->first = NULL;
+	li->queue->current = NULL;
+	li->queue->last = NULL;
+	li->rooms->current = room;
 	return (SUCCESS);
 }
 
@@ -90,27 +90,27 @@ static int	check_room(t_li *li, t_room *room)
 	t_room	*child;
 
 	dequeue(li);
-	room->links = room->links_start;
-	while (room->links)
+	room->links->current = room->links->first;
+	while (room->links->current)
 	{
-		if (room->links->flags & FLAG_USED)
+		if (room->links->current->flags & FLAG_USED)
 		{
-			room->links = room->links->next;
+			room->links->current = room->links->current->next;
 			continue ;
 		}
-		room->links->flags |= FLAG_USED;
-		child = room->links->dst;
+		room->links->current->flags |= FLAG_USED;
+		child = room->links->current->dst;
 		if (child->flags & FLAG_VISITED || child->flags & FLAG_RESERVED)
 		{
-			room->links = room->links->next;
+			room->links->current = room->links->current->next;
 			continue ;
 		}
 		child->flags |= FLAG_VISITED;
-		if (child == li->end)
+		if (child == li->rooms->end)
 			return (clear_queue(li, room));
-		enqueue(li, room->links->dst);
+		enqueue(li, room->links->current->dst);
 		child->parent = room;
-		room->links = room->links->next;
+		room->links->current = room->links->current->next;
 	}
 	return (FAIL);
 }
@@ -118,17 +118,17 @@ static int	check_room(t_li *li, t_room *room)
 int			bfs(t_li *li, int turn)
 {
 	turn += 0;
-	ant_print(li->ants);
+	ant_print(li->ants->current);
 	ft_putln();
-	if (check_room(li, li->start) == SUCCESS)
+	if (check_room(li, li->rooms->start) == SUCCESS)
 		return (SUCCESS);
-	li->queue = li->queue_start;
-	queue_print(li->queue);
-	while (li->queue)
+	li->queue->current = li->queue->first;
+	queue_print(li->queue->current);
+	while (li->queue->current)
 	{
-		if (check_room(li, li->queue->room) == SUCCESS)
+		if (check_room(li, li->queue->current->room) == SUCCESS)
 			return (SUCCESS);
-		queue_print(li->queue);
+		queue_print(li->queue->current);
 	}
 	return (FAIL);
 }
