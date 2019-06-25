@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/24 14:07:17 by sregnard         ###   ########.fr        #
+#    Updated: 2019/06/25 14:53:24 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ CFLAGS					=	-Wall -Wextra -Werror
 XFLAGS					=	-g3
 
 all						:	$(LIBFT) $(LEM_IN)
-	@make -C $(LIBDIR)
 
 $(LIBFT)				:
 	@make -C $(LIBDIR)
