@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/19 13:32:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:33:18 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	if (li->flags & FLAG_START || li->flags & FLAG_END)
 	{
 		li->flags & FLAG_START ?
-			(li->start = new) : (li->end = new);
+			(li->rooms->start = new) : (li->rooms->end = new);
 		li->flags & FLAG_START ?
 			(li->flags &= ~FLAG_START) : (li->flags &= ~FLAG_END);
 		return (SUCCESS);
@@ -58,19 +58,19 @@ int	get_room(t_li *li, char *line, t_room **last)
 	tab = ft_strsplit(line, '-');
 	if (is_link(li, tab) == SUCCESS)
 	{
-		if (!li->room || !li->start || !li->end)
+		if (!li->rooms->current || !li->rooms->start || !li->rooms->end)
 			trigger_error(li, "ERROR with room\n");
 		li->flags &= ~FLAG_ROOM;
 		li->flags |= FLAG_LINK;
-		li->start->next = li->room;
-		li->room->prev = li->start;
-		li->room = li->start;
-		room_add(last, li->end);
+		li->rooms->start->next = li->rooms->current;
+		li->rooms->current->prev = li->rooms->start;
+		li->rooms->current = li->rooms->start;
+		room_add(last, li->rooms->end);
 		ft_free_tab(&tab);
 		return (FAIL);
 	}
 	ft_free_tab(&tab);
-	rooms = li->room;
+	rooms = li->rooms->current;
 	tab = ft_strsplit(line, ' ');
 	if (is_room(li, tab) == FAIL)
 	{
@@ -78,7 +78,7 @@ int	get_room(t_li *li, char *line, t_room **last)
 		return (FAIL);
 	}
 	add_room(li, &rooms, tab, last);
-	li->room = rooms;
+	li->rooms->current = rooms;
 	ft_free_tab(&tab);
 	return (SUCCESS);
 }

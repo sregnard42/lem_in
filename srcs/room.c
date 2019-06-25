@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/24 16:11:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:40:19 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	room_clean(t_li *li, t_room *room)
 	while (room)
 	{
 		room->flags &= ~FLAG_VISITED;
-		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links_start);
+		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links->first);
 		room = room->next;
 	}
 }
@@ -49,11 +49,11 @@ void	room_free(t_room **ptr)
 
 	room = *ptr;
 	ft_memdel((void **)&room->name);
-	while (room->links_start)
+	while (room->links->first)
 	{
-		room->links = room->links_start;
-		room->links_start = room->links->next;
-		link_free(&room->links);
+		room->links->current = room->links->first;
+		room->links->first = room->links->current->next;
+		link_free(&room->links->current);
 	}
 	ft_memdel((void **)ptr);
 }
@@ -65,13 +65,13 @@ void	room_print(t_room *room)
 	ft_printf("pos : ");
 	ft_ptprint(&room->pos);
 	ft_putln();
-	ft_printf("nb_links = %d\n", room->nb_links);
+	ft_printf("nb_links = %d\n", room->links->size);
 	ft_printf("links :\n");
-	room->links = room->links_start;
-	while (room->links)
+	room->links->current = room->links->first;
+	while (room->links->current)
 	{
-		link_print(room->links);
-		room->links = room->links->next;
+		link_print(room->links->current);
+		room->links->current = room->links->current->next;
 	}
 	if (room->flags & FLAG_VISITED)
 		ft_printf("visited\n");
