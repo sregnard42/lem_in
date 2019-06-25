@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 15:56:38 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:26:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,25 @@ enum					e_flags_room
 	FLAG_RESERVED = (2 << 0),
 	FLAG_QUEUED = (3 << 0),
 };
+
+/*
+**		RESERVATION
+*/
+
+typedef struct			s_booking
+{
+	int					turn;
+	t_list_room			*rooms;
+	struct s_booking	*next;
+}						t_booking;
+
+typedef struct			s_list_booking
+{
+	t_booking			*first;
+	t_booking			*current;
+	t_booking			*last;
+	int					size;
+}						t_list_booking;
 
 /*
 **		LINKS
@@ -151,6 +170,7 @@ typedef struct			s_li
 	t_list_room			*rooms;
 	t_list_ant			*ants;
 	t_list_queue		*queue;
+	t_list_booking		*bookings;
 	int					moves;
 	unsigned int		flags;
 }						t_li;
