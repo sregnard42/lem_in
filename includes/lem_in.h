@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 15:44:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 15:56:08 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ typedef struct			s_li
 	unsigned int		flags;
 }						t_li;
 
-enum					e_flags
+enum					e_flags_li
 {
 	FLAG_START = (1 << 0),
 	FLAG_END = (1 << 1),
