@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 18:26:01 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:11:37 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define LEM_IN_H
 
 # include "libft.h"
-# include <stdbool.h>
+# include "room.h"
+# include "path.h"
+# include "ant.h"
+# include "link.h"
 
 # define DEBUG			0
 # define ERR_DEFAULT	"ERROR\n"
@@ -28,36 +31,6 @@
 # define END			"##end"
 
 # define LI_BUFF_SIZE	4096
-
-/*
-**		ROOMS
-*/
-
-typedef struct			s_room
-{
-	char				*name;
-	t_point				pos;
-	struct s_list_link	*links;
-	struct s_room		*parent;
-	struct s_room		*next;
-	struct s_room		*prev;
-	unsigned int		flags;
-}						t_room;
-
-typedef struct			s_list_room
-{
-	t_room				*start;
-	t_room				*current;
-	t_room				*end;
-	int					size;
-}						t_list_room;
-
-enum					e_flags_room
-{
-	FLAG_VISITED = (1 << 0),
-	FLAG_RESERVED = (2 << 0),
-	FLAG_QUEUED = (3 << 0),
-};
 
 /*
 **		RESERVATION
@@ -77,70 +50,6 @@ typedef struct			s_list_booking
 	t_booking			*last;
 	int					size;
 }						t_list_booking;
-
-/*
-**		LINKS
-*/
-
-typedef struct			s_link
-{
-	t_room				*dst;
-	unsigned int		flags;
-	struct s_link		*next;
-}						t_link;
-
-typedef struct			s_list_link
-{
-	t_link				*first;
-	t_link				*current;
-	t_link				*last;
-	int					size;
-}						t_list_link;
-
-enum					e_flags_link
-{
-	FLAG_USED = (1 << 0),
-};
-
-/*
-**		PATHS
-*/
-
-typedef struct			s_path
-{
-	t_room				*room;
-	int					round;
-	struct s_path		*next;
-}						t_path;
-
-typedef struct			s_list_path
-{
-	t_path				*start;
-	t_path				*current;
-	t_path				*end;
-	int					size;
-}						t_list_path;
-
-/*
-**		ANTS
-*/
-
-typedef struct			s_ant
-{
-	int					id;
-	bool				moved;
-	t_room				*room;
-	t_list_path			*path;
-	struct s_ant		*next;
-}						t_ant;
-
-typedef struct			s_list_ant
-{
-	t_ant				*first;
-	t_ant				*current;
-	t_ant				*last;
-	int					size;
-}						t_list_ant;
 
 /*
 **		QUEUE
@@ -214,7 +123,6 @@ void					trigger_error(t_li *li, char *error);
 
 t_room					*room_new(char *name, t_point *pos);
 void					room_add(t_room **rooms, t_room *new_room);
-void					room_free(t_room **ptr);
 void					room_print(t_room *room);
 void					room_clean(t_li *li, t_room *room);
 
@@ -223,7 +131,6 @@ void					room_clean(t_li *li, t_room *room);
 */
 
 int						link_new(t_li *li, t_room *a, t_room *b);
-void					link_free(t_link **ptr);
 void					link_print(t_link *link);
 void					link_clean(t_li *li, t_link *link);
 
@@ -240,7 +147,6 @@ void					path_print(t_path *path);
 */
 
 int						ants_init(t_li *li, int nb_ants);
-void					ant_free(t_ant **ptr);
 void					ant_print(t_ant *ant);
 void					ant_print_all(t_li *li);
 

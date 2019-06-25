@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 19:02:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:38:51 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ int			li_buffer(t_li *li, const char *s, size_t len)
 	return (SUCCESS);
 }
 
-int			free_all(t_li *li)
-{
-	li += 0;
-	return (SUCCESS);
-}
 
 static int	init_li(t_li *li)
 {

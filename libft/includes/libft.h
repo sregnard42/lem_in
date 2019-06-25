@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:49:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/03/21 16:21:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:10:54 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdbool.h>
 # include "list.h"
 # include "get_next_line.h"
 # include "read_file.h"

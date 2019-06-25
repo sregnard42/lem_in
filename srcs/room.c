@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 19:01:21 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:37:27 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,6 @@ t_room	*room_new(char *name, t_point *pos)
 	room->name = ft_strdup(name);
 	ft_ptcpy(&room->pos, pos);
 	return (room);
-}
-
-void	room_free(t_room **ptr)
-{
-	t_room	*room;
-
-	room = *ptr;
-	ft_memdel((void **)&room->name);
-	while (room->links->first)
-	{
-		room->links->current = room->links->first;
-		room->links->first = room->links->current->next;
-		link_free(&room->links->current);
-	}
-	ft_memdel((void **)ptr);
 }
 
 void	room_print(t_room *room)

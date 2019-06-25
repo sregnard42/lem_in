@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 18:38:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:37:06 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ int				link_new(t_li *li, t_room *a, t_room *b)
 	if (link_add(li, b, a) == FAIL)
 		return (FAIL);
 	return (SUCCESS);
-}
-
-void			link_free(t_link **ptr)
-{
-	ft_memdel((void **)ptr);
 }
 
 void			link_print(t_link *link)
