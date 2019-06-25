@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 22:06:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 23:13:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define LI_BUFF_SIZE	4096
 
 /*
-**		RESERVATION
+**		BOOKING
 */
 
 typedef struct			s_booking
