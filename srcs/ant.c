@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 18:40:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:06:21 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		ants_init(t_li *li, int nb_ants)
 		ft_bzero(ant, sizeof(t_ant));
 		ant->id = i;
 		ant->room = li->rooms->start;
+		ant->path = (t_list_path *)malloc(sizeof(t_list_path));
+		ft_bzero(ant->path, sizeof(t_list_path));
 		if (i == 1)
 		{
 			li->ants->first = ant;
@@ -50,13 +52,13 @@ void	ant_print(t_ant	*ant)
 {
 	ft_printf("L%d-%s ", ant->id, ant->room->name);
 	ant->moved ? 0 : ft_printf("(X) ");
-	ant->path ? ft_printf("yea\t") : ft_printf("nah\t");
+	ant->path->current ? ft_printf("yea\t") : ft_printf("nah\t");
 }
 
 void	ant_print_all(t_li *li)
 {
 	li->ants->current = li->ants->first;
-	while (li->ants)
+	while (li->ants->current)
 	{
 		//li->ants->moved ? ant_print(li->ants) : 0;
 		ant_print(li->ants->current);

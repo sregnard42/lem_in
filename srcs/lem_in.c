@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 18:31:49 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/25 19:02:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,26 @@ int			free_all(t_li *li)
 	return (SUCCESS);
 }
 
+static int	init_li(t_li *li)
+{
+
+	ft_bzero(li, sizeof(t_li));
+	li->rooms = (t_list_room *)malloc(sizeof(t_list_room));
+	li->ants = (t_list_ant *)malloc(sizeof(t_list_ant));
+	li->queue = (t_list_queue *)malloc(sizeof(t_list_queue));
+	li->bookings = (t_list_booking *)malloc(sizeof(t_list_booking));
+	ft_bzero(li->rooms, sizeof(t_list_room));
+	ft_bzero(li->ants, sizeof(t_list_ant));
+	ft_bzero(li->queue, sizeof(t_list_queue));
+	ft_bzero(li->bookings, sizeof(t_list_booking));
+	return (SUCCESS);
+}
+
 int			main()
 {
 	t_li	li;
 
-	ft_bzero(&li, sizeof(t_li));
+	init_li(&li);
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);
 	ft_putstr(li.buf);

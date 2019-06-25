@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 18:31:14 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:57:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	parsing(t_li *li)
 	t_room	*last;
 
 	line = NULL;
+	last = NULL;
 	li->flags |= FLAG_ANT;
 	while (li->flags & FLAG_ANT && get_next_line(0, &line))
 	{
