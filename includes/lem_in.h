@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 23:13:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:29:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "path.h"
 # include "ant.h"
 # include "link.h"
+# include "booking.h"
+# include "queue.h"
 
 # define DEBUG			1
 # define ERR_DEFAULT	"ERROR\n"
@@ -31,42 +33,6 @@
 # define END			"##end"
 
 # define LI_BUFF_SIZE	4096
-
-/*
-**		BOOKING
-*/
-
-typedef struct			s_booking
-{
-	int					turn;
-	t_list_room			*rooms;
-	struct s_booking	*next;
-}						t_booking;
-
-typedef struct			s_list_booking
-{
-	t_booking			*first;
-	t_booking			*current;
-	t_booking			*last;
-	int					size;
-}						t_list_booking;
-
-/*
-**		QUEUE
-*/
-
-typedef struct			s_queue
-{
-	t_room				*room;
-	struct s_queue		*next;
-}						t_queue;
-
-typedef struct			s_list_queue
-{
-	t_queue				*first;
-	t_queue				*current;
-	t_queue				*last;
-}						t_list_queue;
 
 /*
 **		LEM-IN
