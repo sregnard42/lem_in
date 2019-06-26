@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 13:29:30 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:47:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void					room_clean(t_li *li, t_room *room);
 */
 
 int						link_new(t_li *li, t_room *a, t_room *b);
+int						link_clean(t_li *li, t_link *link);
 void					link_print(t_link *link);
-void					link_clean(t_li *li, t_link *link);
 
 /*
 **						path.c
@@ -113,14 +113,9 @@ void					path_print(t_path *path);
 */
 
 int						ants_init(t_li *li, int nb_ants);
+int						ant_move(t_ant *ant, t_room *dst);
 void					ant_print(t_ant *ant);
 void					ant_print_all(t_li *li);
-
-/*
-**						move_ant.c
-*/
-
-int						move_ant(t_ant *ant, t_room *dst);
 
 /*
 **						bfs.c

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 18:33:36 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:53:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,39 +26,38 @@ int		is_link(t_li *li, char **line)
 	return (SUCCESS);
 }
 
-int		find_rooms(t_li *li, char *a, char *b, t_room **ra, t_room **rb)
+int		find_rooms(t_li *li, char *a, char *b)
 {
-	t_room	*tmp;
-	bool	fa;
-	bool	fb;
+	t_room	*room[2];
+	bool	found[2];
 
-	fa = false;
-	fb = false;
-	tmp = li->rooms->start;
-	while (tmp)
+	found[0] = false;
+	found[1] = false;
+	room[0] = NULL;
+	room[1] = NULL;
+	li->rooms->current = li->rooms->start;
+	while (li->rooms->current && (!found[0] || !found[1]))
 	{
-		if (!fa && ft_strequ(a, tmp->name))
+		if (!found[0] && ft_strequ(a, li->rooms->current->name))
 		{
-			*ra = tmp;
-			fa = true;
+			room[0] = li->rooms->current;
+			found[0] = true;
 		}
-		else if (!fb && ft_strequ(b, tmp->name))
+		else if (!found[1] && ft_strequ(b, li->rooms->current->name))
 		{
-			*rb = tmp;
-			fb = true;
+			room[1] = li->rooms->current;
+			found[1] = true;
 		}
-		tmp = tmp->next;
+		li->rooms->current = li->rooms->current->next;
 	}
-	if (!(a &&b))
-		return (FAIL);
+	li->rooms->current = li->rooms->start;
+	link_new(li, room[0], room[1]);
 	return (SUCCESS);
 }
 
 int		get_link(t_li *li, char *line)
 {
 	char	**tab;
-	t_room	*a;
-	t_room	*b;
 
 	if (!li->rooms->current)
 		trigger_error(li, "No room\n");
@@ -68,12 +67,7 @@ int		get_link(t_li *li, char *line)
 		ft_free_tab(&tab);
 		return (FAIL);
 	}
-	a = NULL;
-	b = NULL;
-	find_rooms(li, tab[0], tab[1], &a, &b);
-	if (!(a && b))
-		trigger_error(li, "Room name not found\n");
-	link_new(li, a, b);
+	find_rooms(li, tab[0], tab[1]);
 	ft_free_tab(&tab);
 	return (SUCCESS);
 }

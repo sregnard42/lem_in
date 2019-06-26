@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 10:56:55 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:38:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	queue_print(t_queue *queue)
 	}
 	return (SUCCESS);
 }
-
 
 /*
 **			Add room to the end of the queue
@@ -93,18 +92,14 @@ static int	check_room(t_li *li, t_room *room)
 	room->links->current = room->links->first;
 	while (room->links->current)
 	{
-		if (room->links->current->flags & FLAG_USED)
+		child = room->links->current->dst;
+		if (room->links->current->flags & FLAG_USED
+				|| child->flags & FLAG_VISITED || child->flags & FLAG_RESERVED)
 		{
 			room->links->current = room->links->current->next;
 			continue ;
 		}
 		room->links->current->flags |= FLAG_USED;
-		child = room->links->current->dst;
-		if (child->flags & FLAG_VISITED || child->flags & FLAG_RESERVED)
-		{
-			room->links->current = room->links->current->next;
-			continue ;
-		}
 		child->flags |= FLAG_VISITED;
 		if (child == li->rooms->end)
 			return (clear_queue(li, room));

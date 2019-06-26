@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 22:20:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:58:33 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	*rooms == new ? *last = *rooms : 0;
 	return (SUCCESS);
 }
+
 int			get_room(t_li *li, char *line, t_room **last)
 {
 	t_room	*rooms;

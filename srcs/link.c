@@ -6,19 +6,20 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 20:37:06 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:48:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	link_clean(t_li *li, t_link *link)
+int				link_clean(t_li *li, t_link *link)
 {
 	while (link)
 	{
 		link->dst != li->rooms->end ? link->flags &= ~FLAG_USED : 0;
 		link = link->next;
 	}
+	return (SUCCESS);
 }
 
 static int		link_add(t_li *li, t_room *src, t_room *dst)

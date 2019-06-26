@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/25 21:49:52 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:46:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int			li_buffer(t_li *li, const char *s, size_t len)
 	return (SUCCESS);
 }
 
-
 static int	init_li(t_li *li)
 {
-
 	ft_bzero(li, sizeof(t_li));
 	li->rooms = (t_list_room *)malloc(sizeof(t_list_room));
 	li->ants = (t_list_ant *)malloc(sizeof(t_list_ant));
@@ -48,7 +46,7 @@ static int	init_li(t_li *li)
 	return (SUCCESS);
 }
 
-int			main()
+int			main(void)
 {
 	t_li	li;
 
