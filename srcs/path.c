@@ -6,11 +6,25 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 20:36:50 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:12:09 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int				book_room(t_li *li, int turn)
+{
+	t_path	*path;
+
+	path = li->ants->current->path->current;
+	while (path != NULL)
+	{
+		path->turn = turn;
+		path = path->next;
+		++turn;
+	}
+	return (SUCCESS);
+}
 
 static int		path_new(t_li *li, int turn)
 {
@@ -22,6 +36,7 @@ static int		path_new(t_li *li, int turn)
 		path_insert(li->ants->current, li->rooms->current, turn);
 		li->rooms->current = li->rooms->current->parent;
 	}
+	book_room(li, turn); //Changer le nom mdr #Pas d'inspi
 	path_print(li->ants->current->path->current);
 	return (SUCCESS);
 }
@@ -52,7 +67,7 @@ int		path_init(t_li *li)
 	return (SUCCESS);
 }
 
-int     path_insert(t_ant *ant, t_room *room, int round)
+int     path_insert(t_ant *ant, t_room *room, int turn)
 {
 	t_path	*path;
 
@@ -60,7 +75,7 @@ int     path_insert(t_ant *ant, t_room *room, int round)
 		return (FAIL);
 	path->room = room;
 	path->next = NULL;
-	path->round = round;
+	path->turn = turn;
 	if (!ant->path->start)
 	{
 		ant->path->start = path;
@@ -81,7 +96,7 @@ void    path_print(t_path *path)
 	tmp = path;
 	while (tmp)
 	{
-		ft_printf("%s[%d]", tmp->room->name, tmp->round);
+		ft_printf("%s[%d]", tmp->room->name, tmp->turn);
 		tmp = tmp->next;
 		tmp ? ft_putstr("->") : ft_putstr("\n");
 	}

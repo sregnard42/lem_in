@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 21:20:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/26 11:06:18 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 typedef struct			s_path
 {
 	t_room				*room;
-	int					round;
+	int					turn;
 	struct s_path		*next;
 }						t_path;
 
