@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:01:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/02/19 23:41:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/26 16:18:16 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		ft_isnumber(char *s)
 {
 	if (s && (*s == '-' || *s == '+'))
 		s++;
+	if (!ft_isdigit(*s))
+		return (0);
 	while (s && *s)
 		if (!ft_isdigit(*s++))
 			return (0);

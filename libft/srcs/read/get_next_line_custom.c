@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_custom.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 08:12:48 by sregnard          #+#    #+#             */
-/*   Updated: 2018/12/13 08:39:53 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/27 16:55:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	err_found(const int fd, char **line, char **overflow)
 	return (0);
 }
 
-int			get_next_line(const int fd, char **line)
+int			get_next_line_custom(const int fd, char **line)
 {
 	static char	overflow[FD_MAX + 1][BUFF_SIZE + 1];
 	int			bytes_read;
@@ -64,8 +64,12 @@ int			get_next_line(const int fd, char **line)
 		*line = ft_stradd(*line, overflow[fd]);
 		found_eol = eol_found(fd, *line, (char **)overflow);
 	}
-	if (found_eol || (!bytes_read && ft_strlen(*line)))
+	if (bytes_read == 0)
+		ft_strclr(overflow[fd]);
+	if (found_eol)
 		return (1);
+	if (!bytes_read && ft_strlen(*line))
+		return (2);
 	ft_memdel((void **)line);
 	return (0);
 }

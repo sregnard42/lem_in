@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:47:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 11:25:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/26 17:26:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ int	ft_isinteger(char *s)
 		++s;
 	sign = (*s == '-') ? -1 : 1;
 	(*s == '-' || *s == '+') ? ++s : 0;
+	while (*s == '0')
+		++s;
+	if (ft_strlen(s) > 10)
+		return (0);
 	while (ft_isdigit(*s) && nb < INT_MAX)
 		nb = (nb * 10) + *s++ - '0';
 	return (sign == 1 ? nb <= INT_MAX : nb <= (unsigned int)INT_MAX + 1);

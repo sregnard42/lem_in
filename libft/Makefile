@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/12 17:38:39 by sregnard         ###   ########.fr        #
+#    Updated: 2019/06/27 17:05:37 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,8 +129,9 @@ SRCNAME		=	ft_print_tab.c \
 				ft_atoi_tab.c
 SRC			+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
-SUBDIR		=	file/
+SUBDIR		=	read/
 SRCNAME		=	get_next_line.c \
+				get_next_line_custom.c \
 				read_file.c
 SRC			+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
@@ -153,7 +154,7 @@ OBJDIR		=	objs/
 OBJ			=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC			=	gcc	
-CFLAGS		=	-Wall -Wextra -Werror -g3
+CFLAGS		=	-Wall -Wextra -Werror
 
 all			:	$(NAME)
 
