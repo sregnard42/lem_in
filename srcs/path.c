@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/30 12:07:09 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:28:43 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int				path_turn(t_li *li, int turn)
 	while (path != NULL)
 	{
 		path->turn = turn;
+		if (turn != 0)
+			add_booking(li, path->room, turn - 1);
 		path = path->next;
 		++turn;
 	}

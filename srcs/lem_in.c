@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/30 11:32:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:22:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int			main(void)
 	  ALGO START
 	*************/
 	ft_printf("ALGO START\n");
-	path_init(&li);
 	booking_init(&li);
+	path_init(&li);
+	print_booking(&li);
 	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END

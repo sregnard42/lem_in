@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/30 11:38:15 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/30 14:09:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct			s_li
 	t_list_room			*rooms;
 	t_list_ant			*ants;
 	t_list_queue		*queue;
-	t_booking			*bookings;
-	unsigned int		booking_size;
+	t_list_booking		**bookings;
+	int					booking_size;
 	int					moves;
 	unsigned int		flags;
 }						t_li;
@@ -124,6 +124,8 @@ void					ant_print_all(t_li *li);
 */
 
 int						booking_init(t_li *li);
+int						add_booking(t_li *li, t_room *room, int turn);
+void					print_booking(t_li *li);
 
 /*
 **						bfs.c
