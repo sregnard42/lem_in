@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/26 11:12:09 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/29 17:57:39 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		path_init(t_li *li)
 			++cpt;
 		}
 		++turn;
-		if (turn > 0)
+		if (turn > 1)
 			return (FAIL);
 	}
 	return (SUCCESS);
