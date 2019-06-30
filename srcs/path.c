@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/29 17:57:39 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/06/30 12:07:09 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				book_room(t_li *li, int turn)
+int				path_turn(t_li *li, int turn)
 {
 	t_path	*path;
 
@@ -36,7 +36,7 @@ static int		path_new(t_li *li, int turn)
 		path_insert(li->ants->current, li->rooms->current, turn);
 		li->rooms->current = li->rooms->current->parent;
 	}
-	book_room(li, turn); //Changer le nom mdr #Pas d'inspi
+	path_turn(li, turn); //Changer le nom mdr #Pas d'inspi
 	path_print(li->ants->current->path->current);
 	return (SUCCESS);
 }

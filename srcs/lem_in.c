@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 13:46:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/06/30 11:32:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ static int	init_li(t_li *li)
 	li->rooms = (t_list_room *)malloc(sizeof(t_list_room));
 	li->ants = (t_list_ant *)malloc(sizeof(t_list_ant));
 	li->queue = (t_list_queue *)malloc(sizeof(t_list_queue));
-	li->bookings = (t_list_booking *)malloc(sizeof(t_list_booking));
 	ft_bzero(li->rooms, sizeof(t_list_room));
 	ft_bzero(li->ants, sizeof(t_list_ant));
 	ft_bzero(li->queue, sizeof(t_list_queue));
-	ft_bzero(li->bookings, sizeof(t_list_booking));
-	if (!li->rooms || !li->ants || !li->queue || !li->bookings)
+	if (!li->rooms || !li->ants || !li->queue)
 		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
@@ -57,13 +55,14 @@ int			main(void)
 	ant_print_all(&li);
 	/*************
 	  ALGO START
-	 *************/
+	*************/
 	ft_printf("ALGO START\n");
 	path_init(&li);
+	booking_init(&li);
 	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END
-	 *************/
+	*************/
 	ant_print_all(&li);
 	free_all(&li);
 	return (SUCCESS);

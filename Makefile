@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/06/26 13:45:29 by sregnard         ###   ########.fr        #
+#    Updated: 2019/06/30 11:34:36 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCNAME					=	lem_in.c		\
 							link.c			\
 							ant.c			\
 							path.c			\
+							booking.c		\
 							bfs.c			\
 							free.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
