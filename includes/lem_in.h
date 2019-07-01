@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/30 14:09:35 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:23:37 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void					ant_print_all(t_li *li);
 
 int						booking_init(t_li *li);
 int						add_booking(t_li *li, t_room *room, int turn);
+int						booking_turn(t_li *li, int turn);
 void					print_booking(t_li *li);
 
 /*

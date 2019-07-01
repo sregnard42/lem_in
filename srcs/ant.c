@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 13:45:42 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:58:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		ant_print(t_ant *ant)
 {
 	ft_printf("L%d-%s ", ant->id, ant->room->name);
 	ant->moved ? 0 : ft_printf("(X) ");
-	ant->path->current ? ft_printf("yea\t") : ft_printf("nah\t");
+	ant->path->current ? path_print(ant->path->current) : ft_printf("nah\t");
 }
 
 void		ant_print_all(t_li *li)

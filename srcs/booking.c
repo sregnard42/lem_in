@@ -6,17 +6,42 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:45:26 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/30 14:28:53 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:12:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+int		booking_turn(t_li *li, int turn) //Changer le nom si plus d'inspiration
+{
+	ft_printf("booking_size = %d - ", li->booking_size);
+	ft_printf("turn = %d\n", turn);
+	li->rooms->start->links->current = li->rooms->start->links->first;
+	while (li->rooms->start->links->current)
+	{
+		li->rooms->start->links->current->flags = 0;
+		li->rooms->start->links->current = li->rooms->start->links->current->next;
+	}
+	li->rooms->current = li->rooms->start;
+	while (li->rooms->current)
+	{
+		li->rooms->current->flags = 0;
+		li->rooms->current = li->rooms->current->next;
+	}
+	li->bookings[turn]->current = li->bookings[turn]->first;
+	while (li->bookings[turn]->current)
+	{
+		li->bookings[turn]->current->room->flags |= FLAG_RESERVED;
+		li->bookings[turn]->current = li->bookings[turn]->current->next;
+	}
+	return (SUCCESS);
+}
+
 void	print_booking(t_li *li)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (++i < li->booking_size)
 	{
 		ft_printf("turn : [%d]\n", i);
@@ -46,6 +71,7 @@ t_booking	*new_booking(t_room *room)
 	new->next = NULL;
 	return (new);
 }
+
 int		add_booking(t_li *li, t_room *room, int turn)
 {
 	t_booking	*new;
@@ -75,8 +101,6 @@ int		add_booking(t_li *li, t_room *room, int turn)
 	(void)room;
 	return (SUCCESS);
 }
-
-// On doit creer une list chaine avec les rooms et etc
 
 int		booking_init(t_li *li)
 {

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/30 13:54:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/01 14:51:06 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	room_clean(t_li *li, t_room *room)
 	{
 		room->flags &= ~FLAG_VISITED;
 		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links->first);
+		link_clean(li, room->links->first);
 		room = room->next;
 	}
 }
