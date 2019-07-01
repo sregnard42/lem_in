@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/30 11:29:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/01 15:56:38 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	t_point	pos;
 
 	ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
-	if ((new = room_new(tab[0], &pos)) == NULL)
+	if ((new = room_new(li, tab[0], &pos)) == NULL)
 		return (ERROR);
 	if (li->flags & FLAG_START || li->flags & FLAG_END)
 	{
@@ -85,7 +85,7 @@ int			get_room(t_li *li, char *line, t_room **last)
 		return (FAIL);
 	}
 	li->rooms->current = rooms;
-	++li->rooms->size;
+	//++li->rooms->size;
 	ft_free_tab(&tab);
 	return (SUCCESS);
 }

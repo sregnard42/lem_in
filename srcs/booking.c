@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:45:26 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/01 15:12:17 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:26:24 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		booking_turn(t_li *li, int turn) //Changer le nom si plus d'inspiration
 {
-	ft_printf("booking_size = %d - ", li->booking_size);
+	ft_printf("booking_size = %d - ", li->max_turn);
 	ft_printf("turn = %d\n", turn);
 	li->rooms->start->links->current = li->rooms->start->links->first;
 	while (li->rooms->start->links->current)
@@ -42,7 +42,7 @@ void	print_booking(t_li *li)
 	int	i;
 
 	i = 0;
-	while (++i < li->booking_size)
+	while (++i < li->max_turn)
 	{
 		ft_printf("turn : [%d]\n", i);
 		li->bookings[i]->current = li->bookings[i]->first;
@@ -107,11 +107,11 @@ int		booking_init(t_li *li)
 	int	i;
 
 	i = -1;
-	li->booking_size = li->rooms->size + li->ants->size;
+	li->max_turn = li->rooms->size + li->ants->size;
 	if ((li->bookings = (t_list_booking **)malloc(sizeof(t_list_booking *) *
-	li->booking_size)) == NULL)
+	li->max_turn)) == NULL)
 		return (ERROR);
-	while (++i < li->booking_size)
+	while (++i < li->max_turn)
 	{
 		if ((li->bookings[i] = (t_list_booking *)malloc(sizeof(t_list_booking))) == NULL)
 			return (ERROR);

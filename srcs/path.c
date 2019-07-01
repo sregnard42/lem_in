@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/01 15:11:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:45:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int				path_turn(t_li *li, int turn)
 	while (path != NULL)
 	{
 		path->turn = turn;
-		if (turn != 0)
-			add_booking(li, path->room, turn);
+		path->room->reserv[turn] = true;
+	//	if (turn != 0)
+	//		add_booking(li, path->room, turn);
 		path = path->next;
 		++turn;
 	}
@@ -66,11 +67,8 @@ int		path_init(t_li *li)
 			++cpt;
 		}
 		++turn;
-		if (turn >= li->booking_size)
+		if (turn >= li->max_turn)
 			return (FAIL);
-		booking_turn(li, turn);
-//		if (turn > 1)
-//			return (FAIL);
 	}
 	return (SUCCESS);
 }

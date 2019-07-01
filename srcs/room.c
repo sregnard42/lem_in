@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/01 14:51:06 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:24:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	room_add(t_room **last, t_room *new_room)
 	(*last) = new_room;
 }
 
-t_room	*room_new(char *name, t_point *pos)
+t_room	*room_new(t_li *li, char *name, t_point *pos)
 {
 	t_room	*room;
 
@@ -43,6 +43,7 @@ t_room	*room_new(char *name, t_point *pos)
 		return (NULL);
 	ft_bzero(room->links, sizeof(t_list_link));
 	room->name = ft_strdup(name);
+	li->rooms->size++;
 	ft_ptcpy(&room->pos, pos);
 	return (room);
 }

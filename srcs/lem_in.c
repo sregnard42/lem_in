@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/30 14:22:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:35:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,21 @@ static int	init_li(t_li *li)
 	return (SUCCESS);
 }
 
+static int	tab_reserv(t_li *li)
+{
+	li->max_turn = li->rooms->size + li->ants->size;
+	li->rooms->current = li->rooms->start;
+	while (li->rooms->current)
+	{
+		if ((li->rooms->current->reserv =
+			malloc(sizeof(bool) * li->max_turn)) == NULL)
+			return (ERROR);
+		ft_bzero(li->rooms->current->reserv, sizeof(bool) * li->max_turn);
+		li->rooms->current = li->rooms->current->next;
+	}
+	return (SUCCESS);
+}
+
 int			main(void)
 {
 	t_li	li;
@@ -57,14 +72,16 @@ int			main(void)
 	  ALGO START
 	*************/
 	ft_printf("ALGO START\n");
-	booking_init(&li);
+	//booking_init(&li);
+	tab_reserv(&li);
 	path_init(&li);
-	print_booking(&li);
+	//print_booking(&li);
 	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END
 	*************/
 	ant_print_all(&li);
+	ft_printf("nb_rooms = %d\n", li.rooms->size);
 	free_all(&li);
 	return (SUCCESS);
 }

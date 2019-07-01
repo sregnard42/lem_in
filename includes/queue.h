@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 13:27:48 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 13:29:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:32:56 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct			s_queue
 {
 	t_room				*room;
+	int					turn;
 	struct s_queue		*next;
 }						t_queue;
 
