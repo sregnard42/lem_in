@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/05 12:14:01 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:50:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		path_init(t_li *li)
 		if (turn >= li->max_turn)
 			return (FAIL);
 	}
+	ft_printf("Final turn = %d\tMax turn = %d\n", turn, li->max_turn);
 	return (SUCCESS);
 }
 

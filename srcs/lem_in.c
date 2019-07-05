@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/05 10:51:36 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:50:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int			main(void)
 	/*************
 	  ALGO END
 	*************/
-	ant_print_all(&li);
-	ft_printf("nb_rooms = %d\n", li.rooms->size);
+//	ant_print_all(&li);
 	free_all(&li);
 	return (SUCCESS);
 }

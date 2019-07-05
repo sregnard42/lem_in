@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/05 12:31:19 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:49:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,6 @@ static int	check_room(t_li *li, t_room *room, int turn)
 
 int			bfs(t_li *li, int turn)
 {
-	ant_print(li->ants->current);
-	ft_putln();
 	if (check_room(li, li->rooms->start, turn) == SUCCESS)
 		return (SUCCESS);
 	li->queue->current = li->queue->first;
