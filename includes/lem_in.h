@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/05 11:58:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:23:22 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,11 @@ void					print_booking(t_li *li);
 */
 
 int						bfs(t_li *li, int turn);
+
+/*
+**						print_lem_in.c
+*/
+
+void					print_lem_in(t_li *li);
 
 #endif

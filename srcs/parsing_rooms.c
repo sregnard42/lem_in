@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/05 12:27:37 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:32:57 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			place_start_end(t_li *li, t_room **last)
 	(!li->rooms->current) ? li->rooms->current = li->rooms->start : 0;
 	(!(*last)) ? *last = li->rooms->current : 0;
 	if (li->rooms->current != li->rooms->start)
-	{	
+	{
 		li->rooms->start->next = li->rooms->current;
 		li->rooms->current->prev = li->rooms->start;
 		li->rooms->current = li->rooms->start;
@@ -96,7 +96,7 @@ int			get_room(t_li *li, char *line, t_room **last)
 		ft_free_tab(&tab);
 		return (FAIL);
 	}
-	li->rooms->current = rooms;
+li->rooms->current = rooms;
 	//++li->rooms->size;
 	ft_free_tab(&tab);
 	return (SUCCESS);

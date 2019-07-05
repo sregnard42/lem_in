@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:00:00 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 21:19:55 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:06:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct			s_ant
 	t_room				*room;
 	t_list_path			*path;
 	struct s_ant		*next;
+	unsigned int		flags;
 }						t_ant;
 
 typedef struct			s_list_ant
@@ -35,5 +36,10 @@ typedef struct			s_list_ant
 	t_ant				*last;
 	int					size;
 }						t_list_ant;
+
+enum					e_flags_ants
+{
+	FLAG_ARRIVED = (1 << 0),
+};
 
 #endif
