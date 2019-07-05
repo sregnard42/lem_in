@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/01 16:53:08 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:31:19 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	enqueue(t_li *li, t_room *room, int turn)
 	if (!(elem = (t_queue *)malloc(sizeof(t_queue))))
 		trigger_error(li, "enqueue : error malloc\n");
 	elem->room = room;
-	elem->turn = turn + 1;
+	elem->turn = turn;
 	elem->next = NULL;
 	if (li->queue->last)
 	{
@@ -51,7 +51,7 @@ static int	enqueue(t_li *li, t_room *room, int turn)
 	return (SUCCESS);
 }
 
-/*
+/* 
 **			Eject first room from the queue
 */
 
@@ -95,17 +95,22 @@ static int	check_room(t_li *li, t_room *room, int turn)
 	while (room->links->current)
 	{
 		child = room->links->current->dst;
-		if (room->links->current->flags & FLAG_USED
-				|| child->flags & FLAG_VISITED || child->reserv[turn + 1])
+		if (child == li->rooms->end && 
+			!(room == li->rooms->start && li->flags & FLAG_DIRECT))
+		{
+			if (room == li->rooms->start)
+				li->flags |= FLAG_DIRECT;
+			return (clear_queue(li, room));
+		}
+		if (child->flags & FLAG_VISITED || child->reserv[turn + 1]
+				|| room->links->current->flags & FLAG_USED)
 		{
 			room->links->current = room->links->current->next;
 			continue ;
 		}
 		room->links->current->flags |= FLAG_USED;
 		child->flags |= FLAG_VISITED;
-		if (child == li->rooms->end)
-			return (clear_queue(li, room));
-		enqueue(li, room->links->current->dst, turn);
+		enqueue(li, room->links->current->dst, turn + 1);
 		child->parent = room;
 		room->links->current = room->links->current->next;
 	}

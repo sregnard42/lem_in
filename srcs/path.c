@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/01 16:45:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:14:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ int				path_turn(t_li *li, int turn)
 	while (path != NULL)
 	{
 		path->turn = turn;
-		path->room->reserv[turn] = true;
-	//	if (turn != 0)
-	//		add_booking(li, path->room, turn);
+		path->room->reserv[turn++] = true;
 		path = path->next;
-		++turn;
 	}
 	return (SUCCESS);
 }
@@ -54,10 +51,12 @@ int		path_init(t_li *li)
 	li->ants->current = li->ants->first;
 	while (cpt < li->ants->size)
 	{
+		ft_printf("|| TURN %d ||\n", turn);
 		while (li->ants->current)
 		{
 			if (bfs(li, turn) == FAIL)
 			{
+				ft_printf("BFS FAILED\n");
 				room_clean(li, li->rooms->start);
 				break ;
 			}
@@ -66,6 +65,7 @@ int		path_init(t_li *li)
 			li->ants->current = li->ants->current->next;
 			++cpt;
 		}
+		li->flags &= ~FLAG_DIRECT;
 		++turn;
 		if (turn >= li->max_turn)
 			return (FAIL);

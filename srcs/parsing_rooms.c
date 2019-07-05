@@ -6,12 +6,19 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/01 15:56:38 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/05 12:27:37 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
+
+/*
+**	current	: first room in the list
+**	last	: last room in the list
+**	start	: starting room, placed at the beginning when parsing done
+**	end		: ending room, placed at the end when parsing done
+*/
 
 static int	is_room(t_li *li, char **line)
 {
@@ -51,9 +58,21 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	return (SUCCESS);
 }
 
-int			place_start_end(t_li *li)
+int			place_start_end(t_li *li, t_room **last)
 {
-	li += 0;
+	if (!li->rooms->start || !li->rooms->end)
+		trigger_error(li, "No start or end #room\n");
+	li->flags &= ~FLAG_ROOM;
+	li->flags |= FLAG_LINK;
+	(!li->rooms->current) ? li->rooms->current = li->rooms->start : 0;
+	(!(*last)) ? *last = li->rooms->current : 0;
+	if (li->rooms->current != li->rooms->start)
+	{	
+		li->rooms->start->next = li->rooms->current;
+		li->rooms->current->prev = li->rooms->start;
+		li->rooms->current = li->rooms->start;
+	}
+	room_add(last, li->rooms->end);
 	return (SUCCESS);
 }
 
@@ -65,14 +84,7 @@ int			get_room(t_li *li, char *line, t_room **last)
 	tab = ft_strsplit(line, '-');
 	if (is_link(li, tab) == SUCCESS)
 	{
-		if (!li->rooms->current || !li->rooms->start || !li->rooms->end)
-			trigger_error(li, "ERROR with room\n");
-		li->flags &= ~FLAG_ROOM;
-		li->flags |= FLAG_LINK;
-		li->rooms->start->next = li->rooms->current;
-		li->rooms->current->prev = li->rooms->start;
-		li->rooms->current = li->rooms->start;
-		room_add(last, li->rooms->end);
+		place_start_end(li, last);
 		ft_free_tab(&tab);
 		return (FAIL);
 	}
