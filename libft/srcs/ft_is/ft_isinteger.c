@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:47:24 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/26 17:26:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/07 12:19:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	ft_isinteger(char *s)
 {
 	int				sign;
-	unsigned int	nb;
+	unsigned long	nb;
 
 	if (!s || !ft_isnumber(s))
 		return (0);
