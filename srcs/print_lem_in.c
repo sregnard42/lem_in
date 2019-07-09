@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:00:28 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/05 13:50:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:11:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	current_to_first(t_li *li)
+static int	current_to_first(t_li *li)
 {
 	li->ants->current = li->ants->first;
 	while (li->ants->current != NULL)
@@ -23,25 +23,25 @@ void	current_to_first(t_li *li)
 	li->ants->current = li->ants->first;
 }
 
-void	print_lem_in(t_li *li)
+void		print_lem_in(t_li *li)
 {
 	int		turn;
 	t_ant	*ant;
 	int		i;
+	int		moved;
 
 	turn = -1;
+	i = 0;
 	current_to_first(li);
-	while (++turn < li->max_turn)
+	while (++turn < li->max_turn && i < li->ants->size)
 	{
 		ant = li->ants->current;
-		i = 0;
+		moved = 0;
+		turn != 0 ? ft_putln() : 0;
 		while (ant != NULL)
 		{
 			if (ant->flags & FLAG_ARRIVED)
 			{
-				++i;
-				if (i == li->ants->size)
-					return ;
 				ant = ant->next;
 				continue ;
 			}
@@ -49,11 +49,14 @@ void	print_lem_in(t_li *li)
 			{
 				ant->path->current = ant->path->current->next;
 				if (ant->path->current != NULL)
+				{
+					moved++ != 0 ? ft_putstr(" ") : 0;
 					ant_print(ant);
-				ant->path->current == NULL ? ant->flags |= FLAG_ARRIVED : 0;
+				}
+				if (!ant->path->current && ++i)
+					ant->flags |= FLAG_ARRIVED;
 			}
 			ant = ant->next;
 		}
-		ft_putln();
 	}
 }
