@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:00:28 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/09 15:11:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/09 15:25:12 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	current_to_first(t_li *li)
+static void	current_to_first(t_li *li)
 {
 	li->ants->current = li->ants->first;
 	while (li->ants->current != NULL)
@@ -21,6 +21,31 @@ static int	current_to_first(t_li *li)
 		li->ants->current = li->ants->current->next;
 	}
 	li->ants->current = li->ants->first;
+}
+
+static int	check_is_arrived(t_ant **ant)
+{
+	if ((*ant)->flags & FLAG_ARRIVED)
+	{
+		(*ant) = (*ant)->next;
+		return (SUCCESS);
+	}
+	return (FAIL);
+}
+
+void		check_ant_turn(t_ant **ant, int *moved, int *i)
+{
+	(*ant)->path->current = (*ant)->path->current->next;
+	if ((*ant)->path->current != NULL)
+	{
+		(*moved)++ != 0 ? ft_putstr(" ") : 0;
+		ant_print(*ant);
+	}
+	if (!(*ant)->path->current)
+	{
+		(*ant)->flags |= FLAG_ARRIVED;
+		++(*i);
+	}
 }
 
 void		print_lem_in(t_li *li)
@@ -40,22 +65,10 @@ void		print_lem_in(t_li *li)
 		turn != 0 ? ft_putln() : 0;
 		while (ant != NULL)
 		{
-			if (ant->flags & FLAG_ARRIVED)
-			{
-				ant = ant->next;
+			if (check_is_arrived(&ant) == SUCCESS)
 				continue ;
-			}
 			if (ant->path->current->turn == turn)
-			{
-				ant->path->current = ant->path->current->next;
-				if (ant->path->current != NULL)
-				{
-					moved++ != 0 ? ft_putstr(" ") : 0;
-					ant_print(ant);
-				}
-				if (!ant->path->current && ++i)
-					ant->flags |= FLAG_ARRIVED;
-			}
+				check_ant_turn(&ant, &moved, &i);
 			ant = ant->next;
 		}
 	}
