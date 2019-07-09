@@ -5,69 +5,89 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/20 08:12:48 by sregnard          #+#    #+#             */
-/*   Updated: 2019/06/27 16:52:56 by sregnard         ###   ########.fr       */
+/*   Created: 2019/07/07 13:31:37 by sregnard          #+#    #+#             */
+/*   Updated: 2019/07/07 14:24:36 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-static int	eol_found(const int fd, char *line, char **overflow)
+/*
+** ft_read() reads the file and returns -1 in case of problem, and 0 if the
+** file was entirely browsed and no line was found. Else, it fills line with
+** what is in static_buff and calls get_next_line() to retrieve a new line.
+*/
+
+static int	ft_read(const int fd, char *static_buff, char **line)
 {
-	int		i;
+	int		read_nb;
+	char	*tmp;
 
-	i = 0;
-	while (line && line[i])
-	{
-		if (line[i] == EOL)
-		{
-			line[i] = EOS;
-			overflow[fd] = ft_strdup(&line[i + 1]);
-			ft_strclr(&line[i + 1]);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	read_nb = read(fd, static_buff, BUFF_SIZE);
+	if (read_nb == -1)
+		return (-1);
+	if (read_nb == 0)
+		return (0);
+	static_buff[read_nb] = '\0';
+	tmp = *line;
+	*line = ft_strjoin(*line, static_buff);
+	if (*line == NULL)
+		return (-1);
+	ft_strdel(&tmp);
+	ft_strclr(static_buff);
+	return (1);
 }
 
-static int	err_found(const int fd, char **line, char **overflow)
+/*
+** ft_n_found() browses line to check if there is a \n. If it does, we fill
+** static_buff with what is after \n and clear line after \n.
+*/
+
+static int	ft_n_found(char *static_buff, char **line)
 {
-	if (BUFF_SIZE < 1 || fd < 0 || fd > FD_MAX || !line || read(fd, NULL, 0))
+	int	c;
+
+	c = 0;
+	while ((*line)[c] && (*line)[c] != '\n')
+		c++;
+	if ((*line)[c] == '\n')
+	{
+		ft_strcpy(static_buff, *line + c + 1);
+		ft_strclr(*line + c);
 		return (1);
-	if (overflow[fd])
-	{
-		*line = ft_strdup(overflow[fd]);
-		ft_strclr(overflow[fd]);
-		ft_memdel((void **)&overflow[fd]);
-		if (!(*line))
-			return (1);
 	}
-	else
-		*line = NULL;
 	return (0);
 }
+
+/*
+** get_next_line_custom() checks if we have something in static_buff. If we do
+** we put it in line and call ft_n_found() to check if we find a \n. Else, we
+** call ft_read() and ft_f_found() on the line.
+*/
 
 int			get_next_line(const int fd, char **line)
 {
-	static char	overflow[FD_MAX + 1][BUFF_SIZE + 1];
-	int			bytes_read;
-	int			found_eol;
+	static char	static_buff[FD_MAX + 1][BUFF_SIZE + 1];
+	int			ret;
 
-	if (err_found(fd, line, (char **)overflow))
+	if (fd < 0 || fd > FD_MAX || line == NULL || BUFF_SIZE < 0 ||
+		read(fd, NULL, 0))
 		return (-1);
-	if ((found_eol = eol_found(fd, *line, (char **)overflow)))
-		return (1);
-	while (!found_eol && (bytes_read = read(fd, overflow[fd], BUFF_SIZE)))
+	*line = NULL;
+	if (ft_strlen(static_buff[fd]))
 	{
-		overflow[fd][bytes_read] = EOS;
-		*line = ft_stradd(*line, overflow[fd]);
-		found_eol = eol_found(fd, *line, (char **)overflow);
+		*line = ft_strdup(static_buff[fd]);
+		if (*line == NULL)
+			return (-1);
+		ft_strclr(static_buff[fd]);
+		if ((ft_n_found(static_buff[fd], line)) == 1)
+			return (1);
 	}
-	if (bytes_read == 0)
-		ft_strclr(overflow[fd]);
-	if (found_eol || (!bytes_read && ft_strlen(*line)))
+	while ((ret = ft_read(fd, static_buff[fd], line)))
+		if (ft_strlen(*line))
+			if ((ft_n_found(static_buff[fd], line)) == 1)
+				return (1);
+	if (*line)
 		return (1);
-	ft_memdel((void **)line);
-	return (0);
+	return (ret);
 }
