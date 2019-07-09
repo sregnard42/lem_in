@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/05 12:50:17 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:48:42 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		path_new(t_li *li, int turn)
 		li->rooms->current = li->rooms->current->parent;
 	}
 	path_turn(li, turn); //Changer le nom mdr #Pas d'inspi
-	path_print(li->ants->current->path->current);
+	//path_print(li->ants->current->path->current);
 	return (SUCCESS);
 }
 
@@ -51,12 +51,10 @@ int		path_init(t_li *li)
 	li->ants->current = li->ants->first;
 	while (cpt < li->ants->size)
 	{
-		ft_printf("|| TURN %d ||\n", turn);
 		while (li->ants->current)
 		{
 			if (bfs(li, turn) == FAIL)
 			{
-				ft_printf("BFS FAILED\n");
 				room_clean(li, li->rooms->start);
 				break ;
 			}
@@ -70,7 +68,6 @@ int		path_init(t_li *li)
 		if (turn >= li->max_turn)
 			return (FAIL);
 	}
-	ft_printf("Final turn = %d\tMax turn = %d\n", turn, li->max_turn);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/01 14:59:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/09 14:43:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int				link_new(t_li *li, t_room *a, t_room *b)
 
 void			link_print(t_link *link)
 {
+	link->flags & FLAG_CLOSED ? ft_printf("CLOSED ") : 0;
 	ft_printf("-> %s\n", link->dst->name);
 }

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/05 13:23:22 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/09 13:56:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "link.h"
 # include "booking.h"
 # include "queue.h"
+# include "parent.h"
 
 # define DEBUG			1
 # define ERR_DEFAULT	"ERROR\n"
@@ -33,7 +34,7 @@
 # define START			"##start"
 # define END			"##end"
 
-# define LI_BUFF_SIZE	4096
+# define LI_BUFF_SIZE	10000
 
 /*
 **		LEM-IN
@@ -92,8 +93,9 @@ void					trigger_error(t_li *li, char *error);
 
 t_room					*room_new(t_li *li, char *name, t_point *pos);
 void					room_add(t_room **rooms, t_room *new_room);
-void					room_print(t_room *room);
 void					room_clean(t_li *li, t_room *room);
+void					room_print(t_room *room);
+void					room_print_all(t_room *room);
 
 /*
 **						links.c
@@ -140,5 +142,19 @@ int						bfs(t_li *li, int turn);
 */
 
 void					print_lem_in(t_li *li);
+
+/*
+**						parent.c
+*/
+
+int						parent_add(t_room *child, t_room *room);
+int						parent_of(t_room *room, t_room *child);
+int						parent_print_all(t_room *room);
+
+/*
+**						tree.c
+*/
+
+int						tree(t_li *li, int turn);
 
 #endif

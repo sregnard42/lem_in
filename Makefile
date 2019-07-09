@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/07/05 13:23:43 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/07/09 13:39:53 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ SRCNAME					=	lem_in.c		\
 							booking.c		\
 							bfs.c			\
 							print_lem_in.c	\
-							free.c
+							free.c			\
+							tree.c			\
+							parent.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
