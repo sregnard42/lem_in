@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/07/09 13:39:53 by sregnard         ###   ########.fr        #
+#    Updated: 2019/07/17 13:53:41 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,18 @@ LIBDIR					=	libft/
 LIBFT					=	$(LIBDIR)libft.a
 
 HEADDIR					=	includes/
-HEADERS					=	-I $(HEADDIR)
-HEADERS					+=	-I $(LIBDIR)$(HEADDIR)
+INCLUDES				=	-I $(HEADDIR)
+INCLUDES				+=	-I $(LIBDIR)$(HEADDIR)
 
-DEPENDENCIES			=	lem_in.h
+HEADERS					=	lem_in.h	\
+							ant.h		\
+							booking.h	\
+							link.h		\
+							parent.h	\
+							path.h		\
+							queue.h		\
+							room.h
+DEPENDENCIES			:=	$(addprefix $(HEADDIR), $(HEADERS))
 
 SRCDIR					=	srcs/
 OBJDIR					=	objs/
@@ -51,12 +59,12 @@ all						:	$(LIBFT) $(LEM_IN)
 $(LIBFT)				:
 	@make -C $(LIBDIR)
 
-$(LEM_IN)				:	$(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(XFLAGS) $(HEADERS) $(LIBFT) -o $@ $(OBJ)
+$(LEM_IN)				:	$(LIBFT) $(OBJ) $(DEPENDENCIES)
+	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
 
 $(OBJDIR)%.o			:	$(SRCDIR)%.c
 	@mkdir -p $(OBJDIR);
-	$(CC) $(CFLAGS) $(XFLAGS) $(HEADERS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean					:
 	rm -rf $(OBJDIR)
