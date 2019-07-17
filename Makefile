@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/07/17 13:53:41 by sregnard         ###   ########.fr        #
+#    Updated: 2019/07/17 14:34:36 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,10 +59,10 @@ all						:	$(LIBFT) $(LEM_IN)
 $(LIBFT)				:
 	@make -C $(LIBDIR)
 
-$(LEM_IN)				:	$(LIBFT) $(OBJ) $(DEPENDENCIES)
+$(LEM_IN)				:	$(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
 
-$(OBJDIR)%.o			:	$(SRCDIR)%.c
+$(OBJDIR)%.o			:	$(SRCDIR)%.c $(DEPENDENCIES)
 	@mkdir -p $(OBJDIR);
 	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
 
