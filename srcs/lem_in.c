@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 14:46:32 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/17 14:10:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ int			main(void)
 	/*************
 	  ALGO START
 	*************/
-	ft_printf("ALGO START\n");
+//	ft_printf("ALGO START\n");
 	tab_reserv(&li);
 	tree(&li, 0);
 	path_init(&li);
-	ft_printf("ALGO END\n");
+//	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END
 	*************/
