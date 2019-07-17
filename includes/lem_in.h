@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 13:56:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/17 14:16:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void					path_print(t_path *path);
 
 int						ants_init(t_li *li, int nb_ants);
 int						ant_move(t_ant *ant, t_room *dst);
-void					ant_print(t_ant *ant);
+void					ant_print(t_ant *ant, t_room *end);
 void					ant_print_all(t_li *li);
 
 /*

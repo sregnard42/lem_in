@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/17 13:44:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/17 14:27:53 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ int			ant_move(t_ant *ant, t_room *dst)
 	return (SUCCESS);
 }
 
-void		ant_print(t_ant *ant)
+void		ant_print(t_ant *ant, t_room *end)
 {
+	char	*color;
+
+	color = ant->path->current->room == end ? "1;32" : "1;33";
+	ft_printf("\033[%sm", color);
 	ft_printf("L%d-%s", ant->id, ant->path->current->room->name);
+	ft_printf("\033[0m");
 }
 
 void		ant_print_all(t_li *li)
@@ -69,7 +74,8 @@ void		ant_print_all(t_li *li)
 	li->ants->current = li->ants->first;
 	while (li->ants->current)
 	{
-		li->ants->current->moved ? ant_print(li->ants->current) : 0;
+		li->ants->current->moved ? ant_print(li->ants->current,
+				li->rooms->end) : 0;
 		li->ants->current = li->ants->current->next;
 	}
 	li->ants->current = li->ants->first;

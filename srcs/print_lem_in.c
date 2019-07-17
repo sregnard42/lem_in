@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:00:28 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/09 15:25:12 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/17 14:26:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ static int	check_is_arrived(t_ant **ant)
 	return (FAIL);
 }
 
-void		check_ant_turn(t_ant **ant, int *moved, int *i)
+static void	check_ant_turn(t_li *li, t_ant **ant, int *moved, int *i)
 {
 	(*ant)->path->current = (*ant)->path->current->next;
 	if ((*ant)->path->current != NULL)
 	{
 		(*moved)++ != 0 ? ft_putstr(" ") : 0;
-		ant_print(*ant);
+		ant_print(*ant, li->rooms->end);
 	}
 	if (!(*ant)->path->current)
 	{
@@ -68,7 +68,7 @@ void		print_lem_in(t_li *li)
 			if (check_is_arrived(&ant) == SUCCESS)
 				continue ;
 			if (ant->path->current->turn == turn)
-				check_ant_turn(&ant, &moved, &i);
+				check_ant_turn(li, &ant, &moved, &i);
 			ant = ant->next;
 		}
 	}
