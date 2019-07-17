@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/07/17 14:05:52 by sregnard         ###   ########.fr        #
+#    Updated: 2019/07/17 14:40:51 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,12 +167,12 @@ CFLAGS			=	-Wall -Wextra -Werror
 
 all				:	$(NAME)
 
-$(NAME)			:	$(OBJ) $(DEPENDENCIES)
+$(NAME)			:	$(OBJ)
 					ar rcs $@ $?
 
-$(OBJDIR)%.o	:	$(SRCDIR)%.c
+$(OBJDIR)%.o	:	$(SRCDIR)%.c $(DEPENDENCIES)
 					@mkdir -p $(dir $@);
-					$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $^
+					$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean			:
 					rm -rf $(OBJDIR)
