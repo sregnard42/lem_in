@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 14:54:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:44:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int			ant_move(t_ant *ant, t_room *dst)
 void		ant_print(t_ant *ant)
 {
 	ft_printf("L%d-%s", ant->id, ant->path->current->room->name);
-//	ant->moved ? 0 : ft_printf("(X) ");
-//	ant->path->current ? path_print(ant->path->current) : ft_printf("nah\n");
 }
 
 void		ant_print_all(t_li *li)
@@ -72,7 +70,6 @@ void		ant_print_all(t_li *li)
 	while (li->ants->current)
 	{
 		li->ants->current->moved ? ant_print(li->ants->current) : 0;
-		//ant_print(li->ants->current);
 		li->ants->current = li->ants->current->next;
 	}
 	li->ants->current = li->ants->first;

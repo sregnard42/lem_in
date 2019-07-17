@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 14:48:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/17 13:46:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ static int	check_room(t_li *li, t_room *room, int turn)
 		if (child == li->rooms->end && 
 			!(room == li->rooms->start && li->flags & FLAG_DIRECT))
 		{
-			if (room == li->rooms->start)
-				li->flags |= FLAG_DIRECT;
+			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
 			return (clear_queue(li, room));
 		}
 		if (child->flags & FLAG_VISITED || child->reserv[turn + 1]
