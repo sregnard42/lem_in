@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/24 09:52:53 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:52:22 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int			ants_init(t_li *li, int nb_ants)
 		ft_bzero(ant, sizeof(t_ant));
 		ant->id = i;
 		ant->room = li->rooms->start;
-		if ((ant->path = (t_list_path *)malloc(sizeof(t_list_path))) == NULL)
+		if ((ant->path = (t_path *)malloc(sizeof(t_path))) == NULL)
 			trigger_error(li, "ants_init malloc NULL\n");
-		ft_bzero(ant->path, sizeof(t_list_path));
+		ft_bzero(ant->path, sizeof(t_path));
 		ants_add(li, ant);
 	}
 	return (SUCCESS);

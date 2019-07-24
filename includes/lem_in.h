@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/17 14:16:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:50:33 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct			s_li
 	t_list_booking		**bookings;
 	int					max_turn;
 	int					moves;
+	char				**path_mat;
 	unsigned int		flags;
 }						t_li;
 
@@ -111,7 +112,7 @@ void					link_print(t_link *link);
 
 int						path_init(t_li *li);
 int						path_insert(t_ant *ant, t_room *room, int round);
-void					path_print(t_path *path);
+void					path_print(t_stage *path);
 
 /*
 **						ant.c

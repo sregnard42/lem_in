@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/24 10:03:09 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:51:14 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			path_turn(t_li *li, int turn)
 {
-	t_path	*path;
+	t_stage	*path;
 
 	path = li->ants->current->path->current;
 	while (path != NULL)
@@ -72,9 +72,9 @@ int			path_init(t_li *li)
 
 int			path_insert(t_ant *ant, t_room *room, int turn)
 {
-	t_path	*path;
+	t_stage	*path;
 
-	if (!(path = (t_path *)malloc(sizeof(t_path))))
+	if (!(path = (t_stage *)malloc(sizeof(t_stage))))
 		return (FAIL);
 	path->room = room;
 	path->next = NULL;
@@ -92,9 +92,9 @@ int			path_insert(t_ant *ant, t_room *room, int turn)
 	return (SUCCESS);
 }
 
-void		path_print(t_path *path)
+void		path_print(t_stage *path)
 {
-	t_path *tmp;
+	t_stage *tmp;
 
 	tmp = path;
 	while (tmp)
