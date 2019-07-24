@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/05 12:27:30 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:14:33 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,11 @@ static int	get_ants(t_li *li, char *line, int *nb_ants)
 	return (SUCCESS);
 }
 
-int			parsing(t_li *li)
+static void	parsing_room_link(t_li *li, char *line)
 {
-	char	*line;
-	int		nb_ants;
 	t_room	*last;
 
-	line = NULL;
 	last = NULL;
-	li->flags |= FLAG_ANT;
-	while (li->flags & FLAG_ANT && get_next_line(0, &line))
-	{
-		get_ants(li, line, &nb_ants);
-		line = ft_stradd(line, "\n");
-		li_buffer(li, line, ft_strlen(line));
-		ft_memdel((void **)&line);
-	}
 	while (get_next_line(0, &line))
 	{
 		li->flags & FLAG_ROOM ? get_room(li, line, &last) : 0;
@@ -52,6 +41,23 @@ int			parsing(t_li *li)
 		li_buffer(li, line, ft_strlen(line));
 		ft_memdel((void **)&line);
 	}
+}
+
+int			parsing(t_li *li)
+{
+	char	*line;
+	int		nb_ants;
+
+	line = NULL;
+	li->flags |= FLAG_ANT;
+	while (li->flags & FLAG_ANT && get_next_line(0, &line))
+	{
+		get_ants(li, line, &nb_ants);
+		line = ft_stradd(line, "\n");
+		li_buffer(li, line, ft_strlen(line));
+		ft_memdel((void **)&line);
+	}
+	parsing_room_link(li, line);
 	ants_init(li, nb_ants);
 	li->rooms->current = li->rooms->start;
 	li->rooms->start->prev = NULL;

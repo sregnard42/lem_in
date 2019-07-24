@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 14:47:38 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/24 09:59:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	enqueue(t_li *li, t_room *room, int turn)
 	return (SUCCESS);
 }
 
-/* 
+/*
 **			Eject first room from the queue
 */
 

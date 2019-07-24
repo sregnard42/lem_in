@@ -6,27 +6,28 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/17 13:46:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:20:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-//TMP
-/*
-static int	queue_print(t_queue *queue)
-{
-	if (!queue)
-		ft_printf("Empty queue\n");
-	while (queue)
-	{
-		ft_printf("%s [%d]", queue->room->name, queue->turn);
-		queue = queue->next;
-		queue ? ft_printf(", ") : ft_printf("\n");
-	}
-	return (SUCCESS);
-}
+/* TMP
+**
+** static int	queue_print(t_queue *queue)
+** {
+**	if (!queue)
+**		ft_printf("Empty queue\n");
+**	while (queue)
+**	{
+**		ft_printf("%s [%d]", queue->room->name, queue->turn);
+**		queue = queue->next;
+**		queue ? ft_printf(", ") : ft_printf("\n");
+**	}
+**	return (SUCCESS);
+** }
 */
+
 /*
 **			Add room to the end of the queue
 */
@@ -52,7 +53,7 @@ static int	enqueue(t_li *li, t_room *room, int turn)
 	return (SUCCESS);
 }
 
-/* 
+/*
 **			Eject first room from the queue
 */
 
@@ -94,7 +95,7 @@ static int	check_room(t_li *li, t_room *room, int turn)
 	while (room->links->current)
 	{
 		child = room->links->current->dst;
-		if (child == li->rooms->end && 
+		if (child == li->rooms->end &&
 			!(room == li->rooms->start && li->flags & FLAG_DIRECT))
 		{
 			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;

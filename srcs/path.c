@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/09 14:48:42 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:03:09 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				path_turn(t_li *li, int turn)
+int			path_turn(t_li *li, int turn)
 {
 	t_path	*path;
 
@@ -26,7 +26,7 @@ int				path_turn(t_li *li, int turn)
 	return (SUCCESS);
 }
 
-static int		path_new(t_li *li, int turn)
+static int	path_new(t_li *li, int turn)
 {
 	path_insert(li->ants->current, li->rooms->end, turn);
 	while (li->rooms->current)
@@ -41,7 +41,7 @@ static int		path_new(t_li *li, int turn)
 	return (SUCCESS);
 }
 
-int		path_init(t_li *li)
+int			path_init(t_li *li)
 {
 	int		cpt;
 	int		turn;
@@ -64,14 +64,13 @@ int		path_init(t_li *li)
 			++cpt;
 		}
 		li->flags &= ~FLAG_DIRECT;
-		++turn;
-		if (turn >= li->max_turn)
+		if (++turn >= li->max_turn)
 			return (FAIL);
 	}
 	return (SUCCESS);
 }
 
-int     path_insert(t_ant *ant, t_room *room, int turn)
+int			path_insert(t_ant *ant, t_room *room, int turn)
 {
 	t_path	*path;
 
@@ -93,7 +92,7 @@ int     path_insert(t_ant *ant, t_room *room, int turn)
 	return (SUCCESS);
 }
 
-void    path_print(t_path *path)
+void		path_print(t_path *path)
 {
 	t_path *tmp;
 

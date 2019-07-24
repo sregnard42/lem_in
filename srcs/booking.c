@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/29 17:45:26 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/01 16:26:24 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/24 10:18:47 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		booking_turn(t_li *li, int turn) //Changer le nom si plus d'inspiration
+int			booking_turn(t_li *li, int turn)
 {
 	ft_printf("booking_size = %d - ", li->max_turn);
 	ft_printf("turn = %d\n", turn);
@@ -20,7 +20,8 @@ int		booking_turn(t_li *li, int turn) //Changer le nom si plus d'inspiration
 	while (li->rooms->start->links->current)
 	{
 		li->rooms->start->links->current->flags = 0;
-		li->rooms->start->links->current = li->rooms->start->links->current->next;
+		li->rooms->start->links->current =
+		li->rooms->start->links->current->next;
 	}
 	li->rooms->current = li->rooms->start;
 	while (li->rooms->current)
@@ -37,7 +38,7 @@ int		booking_turn(t_li *li, int turn) //Changer le nom si plus d'inspiration
 	return (SUCCESS);
 }
 
-void	print_booking(t_li *li)
+void		print_booking(t_li *li)
 {
 	int	i;
 
@@ -72,7 +73,7 @@ t_booking	*new_booking(t_room *room)
 	return (new);
 }
 
-int		add_booking(t_li *li, t_room *room, int turn)
+int			add_booking(t_li *li, t_room *room, int turn)
 {
 	t_booking	*new;
 
@@ -89,20 +90,10 @@ int		add_booking(t_li *li, t_room *room, int turn)
 	}
 	li->bookings[turn]->last->next = new;
 	li->bookings[turn]->last = new;
-	/*rooms = li->bookings[turn]->rooms;
-	if (rooms->size == 0)
-	{
-		rooms->start = room;
-		rooms->current = room;
-		rooms->end = room;
-		++rooms->size;
-		return (SUCCESS);
-	}*/
-	(void)room;
 	return (SUCCESS);
 }
 
-int		booking_init(t_li *li)
+int			booking_init(t_li *li)
 {
 	int	i;
 
@@ -113,7 +104,8 @@ int		booking_init(t_li *li)
 		return (ERROR);
 	while (++i < li->max_turn)
 	{
-		if ((li->bookings[i] = (t_list_booking *)malloc(sizeof(t_list_booking))) == NULL)
+		if ((li->bookings[i] =
+		(t_list_booking *)malloc(sizeof(t_list_booking))) == NULL)
 			return (ERROR);
 		ft_bzero(li->bookings[i], sizeof(t_list_booking));
 	}
