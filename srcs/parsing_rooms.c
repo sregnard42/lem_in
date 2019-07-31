@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/24 10:05:42 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 13:43:54 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int			place_start_end(t_li *li, t_room **last)
 		li->rooms->current = li->rooms->start;
 	}
 	room_add(last, li->rooms->end);
+	(*last)->id = li->rooms->size - 1;
+	new_matrice(li, li->rooms->size);
 	return (SUCCESS);
 }
 

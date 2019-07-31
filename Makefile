@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/07/17 14:34:36 by sregnard         ###   ########.fr        #
+#    Updated: 2019/07/31 13:42:58 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCNAME					=	lem_in.c		\
 							parsing.c		\
 							parsing_rooms.c	\
 							parsing_links.c	\
+							matrice.c		\
 							error.c			\
 							room.c			\
 							link.c			\
@@ -43,6 +44,7 @@ SRCNAME					=	lem_in.c		\
 							path.c			\
 							booking.c		\
 							bfs.c			\
+							bfs_maxflow.c	\
 							print_lem_in.c	\
 							free.c			\
 							tree.c			\

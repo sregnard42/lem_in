@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/24 10:51:14 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 14:05:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	path_new(t_li *li, int turn)
 		li->rooms->current != li->rooms->start ?
 		li->rooms->current->flags |= FLAG_RESERVED : 0;
 		path_insert(li->ants->current, li->rooms->current, turn);
+		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
 	path_turn(li, turn); //Changer le nom mdr #Pas d'inspi
@@ -53,7 +54,12 @@ int			path_init(t_li *li)
 	{
 		while (li->ants->current)
 		{
-			if (bfs(li, turn) == FAIL)
+			/*if (bfs(li, turn) == FAIL)
+			{
+				room_clean(li, li->rooms->start);
+				break ;
+			}*/
+			if (bfs_maxflow(li, turn) == FAIL)
 			{
 				room_clean(li, li->rooms->start);
 				break ;

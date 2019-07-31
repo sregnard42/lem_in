@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.c                                             :+:      :+:    :+:   */
+/*   bfs_maxflow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 11:16:14 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 11:14:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/* TMP
+**
+** static int	queue_print(t_queue *queue)
+** {
+**	if (!queue)
+**		ft_printf("Empty queue\n");
+**	while (queue)
+**	{
+**		ft_printf("%s [%d]", queue->room->name, queue->turn);
+**		queue = queue->next;
+**		queue ? ft_printf(", ") : ft_printf("\n");
+**	}
+**	return (SUCCESS);
+** }
+*/
 
 /*
 **			Add room to the end of the queue
@@ -56,6 +72,21 @@ static int	dequeue(t_li *li)
 	return (SUCCESS);
 }
 
+static int	clear_queue(t_li *li, t_room *room)
+{
+	while (li->queue->first)
+	{
+		li->queue->current = li->queue->first;
+		li->queue->first = li->queue->current->next;
+		free(li->queue->current);
+	}
+	li->queue->first = NULL;
+	li->queue->current = NULL;
+	li->queue->last = NULL;
+	li->rooms->current = room;
+	return (SUCCESS);
+}
+
 static int	check_room(t_li *li, t_room *room, int turn)
 {
 	t_room	*child;
@@ -64,28 +95,38 @@ static int	check_room(t_li *li, t_room *room, int turn)
 	while (room->links->current)
 	{
 		child = room->links->current->dst;
-		parent_of(child, room) ? room->links->current->flags |= FLAG_CLOSED : 0;
-		if (room->links->current->flags & FLAG_CLOSED)
+		if (child == li->rooms->end &&
+			!(room == li->rooms->start && li->flags & FLAG_DIRECT))
+		{
+			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
+			return (clear_queue(li, room));
+		}
+		if (child->flags & FLAG_VISITED || child->reserv[turn + 1]
+				|| room->links->current->flags & FLAG_USED)
 		{
 			room->links->current = room->links->current->next;
 			continue ;
 		}
+		room->links->current->flags |= FLAG_USED;
+		child->flags |= FLAG_VISITED;
 		enqueue(li, room->links->current->dst, turn + 1);
-		parent_add(child, room);
+		child->parent = room;
 		room->links->current = room->links->current->next;
 	}
-	return (SUCCESS);
+	return (FAIL);
 }
 
-int			tree(t_li *li, int turn)
+int			bfs_maxflow(t_li *li, int turn)
 {
-	check_room(li, li->rooms->start, turn);
+	if (check_room(li, li->rooms->start, turn) == SUCCESS)
+		return (SUCCESS);
 	li->queue->current = li->queue->first;
 	while (li->queue->current)
 	{
 		li->queue->current ? turn = li->queue->current->turn : 0;
-		check_room(li, li->queue->current->room, turn);
+		if (check_room(li, li->queue->current->room, turn) == SUCCESS)
+			return (SUCCESS);
 		dequeue(li);
 	}
-	return (SUCCESS);
+	return (FAIL);
 }

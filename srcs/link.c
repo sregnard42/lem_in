@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 14:43:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/31 13:53:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ int				link_new(t_li *li, t_room *a, t_room *b)
 		ft_putendl("b NULL");
 		return (FAIL);
 	}
+	if (li->matrice[a->id][b->id] == true)
+		return (SUCCESS);
+	li->matrice[a->id][b->id] = true;
+	li->matrice[b->id][a->id] = true;
 	if (link_add(li, a, b) == FAIL)
 		return (FAIL);
 	if (link_add(li, b, a) == FAIL)

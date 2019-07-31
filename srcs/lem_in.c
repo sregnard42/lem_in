@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/17 14:10:01 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/31 13:50:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,14 @@ int			main(void)
 	tab_reserv(&li);
 	tree(&li, 0);
 	path_init(&li);
+	print_matrice(li.matrice, li.rooms->size);
 //	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END
 	*************/
 //	ant_print_all(&li);
-	print_lem_in(&li);
+	room_print_all(li.rooms->start);
+	//print_lem_in(&li);
 	free_all(&li);
 	return (SUCCESS);
 }

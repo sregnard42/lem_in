@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:40:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 14:38:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/31 14:00:46 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int		parent_add(t_room *child, t_room *room)
 		child->parents->last->next = parent;
 		child->parents->last = parent;
 	}
+	++room->nb_child;
+	++room->weight;
+	ft_printf("papa = %s\npetit = %s\nnb enfant = %d\n\n------\n\n", parent->room->name, child->name, room->nb_child);
 	return (SUCCESS);
 }
 

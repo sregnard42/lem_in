@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/09 13:49:20 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/07/31 14:04:20 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	room_add(t_room **last, t_room *new_room)
 
 t_room	*room_new(t_li *li, char *name, t_point *pos)
 {
-	t_room	*room;
+	t_room				*room;
+	static unsigned int	id = 1;
 
 	if (!(room = (t_room *)malloc(sizeof(t_room))))
 		return (NULL);
@@ -45,6 +46,8 @@ t_room	*room_new(t_li *li, char *name, t_point *pos)
 	room->name = ft_strdup(name);
 	li->rooms->size++;
 	ft_ptcpy(&room->pos, pos);
+	if (!(li->flags & FLAG_START || li->flags & FLAG_END))
+		room->id = id++;
 	return (room);
 }
 
@@ -52,6 +55,7 @@ void	room_print(t_room *room)
 {
 	ft_printf("ROOM_PRINT\n");
 	ft_printf("name : %s\n", room->name);
+	ft_printf("id = %d\n", room->id);
 	ft_printf("pos : ");
 	ft_ptprint(&room->pos);
 	ft_putln();
@@ -67,7 +71,8 @@ void	room_print(t_room *room)
 		ft_printf("visited\n");
 	else
 		ft_printf("not visited\n");
-	ft_printf("ants :\n");
+	ft_printf("nb_child : %u\n", room->nb_child);
+	ft_printf("weight = %d\n", room->weight);
 	ft_printf("/ROOM_PRINT\n\n");
 }
 

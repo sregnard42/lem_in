@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/24 10:50:33 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 13:47:39 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct			s_li
 	int					moves;
 	char				**path_mat;
 	unsigned int		flags;
+	bool				**matrice;
 }						t_li;
 
 enum					e_flags_li
@@ -137,6 +138,7 @@ void					print_booking(t_li *li);
 */
 
 int						bfs(t_li *li, int turn);
+int						bfs_maxflow(t_li *li, int turn);
 
 /*
 **						print_lem_in.c
@@ -157,5 +159,12 @@ int						parent_print_all(t_room *room);
 */
 
 int						tree(t_li *li, int turn);
+
+/*
+** 						matrice.c
+*/
+
+void					print_matrice(bool **matrice, int nb); // tmpmptmptmptmpmtmt A delete
+void					new_matrice(t_li *li, int nb);
 
 #endif
