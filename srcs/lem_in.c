@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 13:50:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 14:46:34 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int			main(void)
 	  ALGO END
 	*************/
 //	ant_print_all(&li);
-	room_print_all(li.rooms->start);
-	//print_lem_in(&li);
+	//room_print_all(li.rooms->start);
+	print_lem_in(&li);
 	free_all(&li);
 	return (SUCCESS);
 }
