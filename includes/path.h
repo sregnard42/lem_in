@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 14:29:04 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 16:08:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_path
 	t_stage				*current;
 	t_stage				*end;
 	int					size;
+	struct s_path		*next;
 }						t_path;
 
 typedef struct			s_list_path

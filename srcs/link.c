@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 13:53:44 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:30:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int		link_add(t_li *li, t_room *src, t_room *dst)
 
 	if (dst == li->rooms->start || src == li->rooms->end)
 		return (SUCCESS);
+	li += 0;
 	if (!(link = (t_link *)malloc(sizeof(t_link))))
 		return (FAIL);
 	link->dst = dst;
@@ -71,6 +72,7 @@ int				link_new(t_li *li, t_room *a, t_room *b)
 
 void			link_print(t_link *link)
 {
-	link->flags & FLAG_CLOSED ? ft_printf("CLOSED ") : 0;
+	link->flags & FLAG_CLOSED ? ft_printf("\033[1;31mCLOSED\033[0m ")
+	: ft_printf("\033[1;32mOPENED\033[0m ");
 	ft_printf("-> %s\n", link->dst->name);
 }

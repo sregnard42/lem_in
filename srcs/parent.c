@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:40:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 14:00:46 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 16:19:51 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		parent_add(t_room *child, t_room *room)
 	{
 		if (!(child->parents = (t_list_parent *)malloc(sizeof(t_list_parent))))
 			return (ERROR);
+		ft_bzero(child->parents, sizeof(t_list_parent));
 		child->parents->first = parent;
 		child->parents->current = parent;
 		child->parents->last = parent;
@@ -39,7 +40,7 @@ int		parent_add(t_room *child, t_room *room)
 	}
 	++room->nb_child;
 	++room->weight;
-	ft_printf("papa = %s\npetit = %s\nnb enfant = %d\n\n------\n\n", parent->room->name, child->name, room->nb_child);
+	++child->parents->size;
 	return (SUCCESS);
 }
 

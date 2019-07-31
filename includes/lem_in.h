@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 13:47:39 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:04:33 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_li
 	t_list_ant			*ants;
 	t_list_queue		*queue;
 	t_list_booking		**bookings;
+	t_list_path			*paths;
 	int					max_turn;
 	int					moves;
 	char				**path_mat;
@@ -63,6 +64,7 @@ enum					e_flags_li
 	FLAG_ROOM = (1 << 3),
 	FLAG_LINK = (1 << 4),
 	FLAG_DIRECT = (1 << 5),
+	FLAG_FIRST_TRY = (1 << 6)
 };
 
 /*
@@ -158,7 +160,7 @@ int						parent_print_all(t_room *room);
 **						tree.c
 */
 
-int						tree(t_li *li, int turn);
+int						tree(t_li *li);
 
 /*
 ** 						matrice.c

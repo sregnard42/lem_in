@@ -6,12 +6,41 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 14:05:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:53:18 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+static int	path_new(t_li *li)
+{
+	li += 0;
+	return (SUCCESS);
+}
+
+int			path_init(t_li *li)
+{
+	int	max_path;
+
+	max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
+	li->rooms->end->parents->size : li->rooms->start->nb_child);
+	room_print_all(li->rooms->start);
+	while (max_path != li->paths->size)
+	{
+		if (bfs_maxflow(li, 0) == FAIL)
+		{
+			ft_printf("BFS FAIL\n");
+			room_clean(li, li->rooms->start);
+			break ;
+		}
+		break ;
+		ft_printf("BFS SUCCESS\n");
+		path_new(li);
+		room_clean(li, li->rooms->start);
+	}
+	return (SUCCESS);
+}
+/*
 int			path_turn(t_li *li, int turn)
 {
 	t_stage	*path;
@@ -38,7 +67,7 @@ static int	path_new(t_li *li, int turn)
 		li->rooms->current = li->rooms->current->parent;
 	}
 	path_turn(li, turn); //Changer le nom mdr #Pas d'inspi
-	//path_print(li->ants->current->path->current);
+	path_print(li->ants->current->path->current);
 	return (SUCCESS);
 }
 
@@ -54,12 +83,7 @@ int			path_init(t_li *li)
 	{
 		while (li->ants->current)
 		{
-			/*if (bfs(li, turn) == FAIL)
-			{
-				room_clean(li, li->rooms->start);
-				break ;
-			}*/
-			if (bfs_maxflow(li, turn) == FAIL)
+			if (bfs(li, turn) == FAIL)
 			{
 				room_clean(li, li->rooms->start);
 				break ;
@@ -75,7 +99,7 @@ int			path_init(t_li *li)
 	}
 	return (SUCCESS);
 }
-
+*/
 int			path_insert(t_ant *ant, t_room *room, int turn)
 {
 	t_stage	*path;

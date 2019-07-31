@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 14:46:34 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:49:50 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ static int	init_li(t_li *li)
 	li->rooms = (t_list_room *)malloc(sizeof(t_list_room));
 	li->ants = (t_list_ant *)malloc(sizeof(t_list_ant));
 	li->queue = (t_list_queue *)malloc(sizeof(t_list_queue));
+	li->paths = (t_list_path *)malloc(sizeof(t_list_path));
 	ft_bzero(li->rooms, sizeof(t_list_room));
 	ft_bzero(li->ants, sizeof(t_list_ant));
 	ft_bzero(li->queue, sizeof(t_list_queue));
-	if (!li->rooms || !li->ants || !li->queue)
+	ft_bzero(li->paths, sizeof(t_list_path));
+	if (!li->rooms || !li->ants || !li->queue || !li->paths)
 		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
@@ -66,6 +68,7 @@ int			main(void)
 	init_li(&li);
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);
+	print_matrice(li.matrice, li.rooms->size);
 	//ft_putstr(li.buf);
 	//ant_print_all(&li);
 	/*************
@@ -73,16 +76,16 @@ int			main(void)
 	*************/
 //	ft_printf("ALGO START\n");
 	tab_reserv(&li);
-	tree(&li, 0);
+	tree(&li);
+	room_print_all(li.rooms->start);
 	path_init(&li);
-	print_matrice(li.matrice, li.rooms->size);
 //	ft_printf("ALGO END\n");
 	/*************
 	  ALGO END
 	*************/
 //	ant_print_all(&li);
-	//room_print_all(li.rooms->start);
-	print_lem_in(&li);
+//	room_print_all(li.rooms->start);
+//	print_lem_in(&li);
 	free_all(&li);
 	return (SUCCESS);
 }

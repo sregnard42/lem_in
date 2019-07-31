@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 14:04:20 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:06:41 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	room_print(t_room *room)
 		ft_printf("not visited\n");
 	ft_printf("nb_child : %u\n", room->nb_child);
 	ft_printf("weight = %d\n", room->weight);
+	ft_printf("distance = %d\n", room->distance);
 	ft_printf("/ROOM_PRINT\n\n");
 }
 

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:55:45 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 13:58:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:03:23 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 typedef struct				s_room
 {
 	char					*name;
-	unsigned int			id;
+	int						id;
+	int						nb_child;
+	int						weight;
+	int						distance;
 	t_point					pos;
 	bool					*reserv;
 	struct s_list_link		*links;
@@ -31,8 +34,6 @@ typedef struct				s_room
 	struct s_room			*next;
 	struct s_room			*prev;
 	unsigned int			flags;
-	unsigned int			nb_child;
-	unsigned int			weight;
 }							t_room;
 
 typedef struct				s_list_room

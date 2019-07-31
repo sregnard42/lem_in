@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 11:16:14 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:23:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 **			Add room to the end of the queue
 */
 
-static int	enqueue(t_li *li, t_room *room, int turn)
+static int	enqueue(t_li *li, t_room *room)
 {
 	t_queue	*elem;
 
 	if (!(elem = (t_queue *)malloc(sizeof(t_queue))))
 		trigger_error(li, "enqueue : error malloc\n");
 	elem->room = room;
-	elem->turn = turn;
 	elem->next = NULL;
 	if (li->queue->last)
 	{
@@ -56,7 +55,7 @@ static int	dequeue(t_li *li)
 	return (SUCCESS);
 }
 
-static int	check_room(t_li *li, t_room *room, int turn)
+static int	check_room(t_li *li, t_room *room)
 {
 	t_room	*child;
 
@@ -70,21 +69,28 @@ static int	check_room(t_li *li, t_room *room, int turn)
 			room->links->current = room->links->current->next;
 			continue ;
 		}
-		enqueue(li, room->links->current->dst, turn + 1);
+		child->distance == 0 ? child->distance = room->distance + 1 : 0;
+		if (child->distance == room->distance)
+		{
+			++room->nb_child;
+			++room->weight;
+			room->links->current = room->links->current->next;
+			continue ;
+		}
+		enqueue(li, room->links->current->dst);
 		parent_add(child, room);
 		room->links->current = room->links->current->next;
 	}
 	return (SUCCESS);
 }
 
-int			tree(t_li *li, int turn)
+int			tree(t_li *li)
 {
-	check_room(li, li->rooms->start, turn);
+	check_room(li, li->rooms->start);
 	li->queue->current = li->queue->first;
 	while (li->queue->current)
 	{
-		li->queue->current ? turn = li->queue->current->turn : 0;
-		check_room(li, li->queue->current->room, turn);
+		check_room(li, li->queue->current->room);
 		dequeue(li);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 15:02:04 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/07/31 15:48:38 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,12 @@ static int	check_room(t_li *li, t_room *room, int turn)
 			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
 			return (clear_queue(li, room));
 		}
-		if (child->flags & FLAG_VISITED || child->weight < 1 )
+		if (child->flags & FLAG_RESERVED && li->flags & FLAG_FIRST_TRY)
+		{
+			room->links->current = room->links->current->next;
+			continue ;
+		}
+		if (child->flags & FLAG_VISITED || child->weight < 1)
 		{
 			room->links->current = room->links->current->next;
 			continue ;
@@ -114,7 +119,7 @@ static int	check_room(t_li *li, t_room *room, int turn)
 	return (FAIL);
 }
 
-int			bfs(t_li *li, int turn)
+int			bfs_maxflow(t_li *li, int turn)
 {
 	if (check_room(li, li->rooms->start, turn) == SUCCESS)
 		return (SUCCESS);
