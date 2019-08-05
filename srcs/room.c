@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 20:55:09 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 23:43:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,29 @@ void	room_print(t_room *room)
 	ft_printf("ID = %d, ", room->id);
 	ft_printf("Pos : ");
 	ft_ptprint(&room->pos);
-	ft_putstr(", ");
-	ft_printf("Links : %d\n", room->links->size);
-	ft_printf("Nb child : %u, ", room->nb_child);
+	ft_putstr("\n");
 	ft_printf("Weight = %d, ", room->weight);
 	ft_printf("Distance = %d\n", room->distance);
-	ft_printf("Flags = %d\n", room->flags);
 	room->links->current = room->links->first;
 	while (room->links->current)
 	{
 		link_print(room->links->current);
 		room->links->current = room->links->current->next;
 	}
-	ft_printf("\033[1;34m/ROOM_PRINT\033[0m\n");
+	if (!(room->parents))
+	{
+		ft_printf("\033[1;34m/ROOM_PRINT\033[0m\n\n");
+		return ;
+	}
+	ft_printf("\033[1;33mParents : ");
+	room->parents->current = room->parents->first;
+	while (room->parents->current)
+	{
+		ft_printf("%s", room->parents->current->room->name);
+		room->parents->current = room->parents->current->next;
+		room->parents->current ? ft_printf(", ") : ft_printf("\033[0m\n");
+	}
+	ft_printf("\033[1;34m/ROOM_PRINT\033[0m\n\n");
 }
 
 void	room_print_all(t_room *room)
