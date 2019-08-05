@@ -6,54 +6,11 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 17:23:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:28:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-/*
-**			Add room to the end of the queue
-*/
-
-static int	enqueue(t_li *li, t_room *room)
-{
-	t_queue	*elem;
-
-	if (!(elem = (t_queue *)malloc(sizeof(t_queue))))
-		trigger_error(li, "enqueue : error malloc\n");
-	elem->room = room;
-	elem->next = NULL;
-	if (li->queue->last)
-	{
-		li->queue->last->next = elem;
-		li->queue->last = elem;
-		return (SUCCESS);
-	}
-	li->queue->first = elem;
-	li->queue->current = elem;
-	li->queue->last = elem;
-	return (SUCCESS);
-}
-
-/*
-**			Eject first room from the queue
-*/
-
-static int	dequeue(t_li *li)
-{
-	t_queue	*queue;
-
-	if (!li->queue->first)
-		return (SUCCESS);
-	queue = li->queue->first->next;
-	free(li->queue->first);
-	li->queue->first = queue;
-	li->queue->current = queue;
-	if (!queue)
-		li->queue->last = queue;
-	return (SUCCESS);
-}
 
 static int	check_room(t_li *li, t_room *room)
 {
@@ -77,7 +34,7 @@ static int	check_room(t_li *li, t_room *room)
 			room->links->current = room->links->current->next;
 			continue ;
 		}
-		enqueue(li, room->links->current->dst);
+		enqueue(li, room->links->current->dst, 0);
 		parent_add(child, room);
 		room->links->current = room->links->current->next;
 	}

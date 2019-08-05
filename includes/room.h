@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:55:45 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 17:03:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:23:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ typedef struct				s_list_room
 
 enum						e_flags_room
 {
-	FLAG_VISITED = (1 << 0),
-	FLAG_RESERVED = (2 << 0),
-	FLAG_QUEUED = (3 << 0),
+	FLAG_VISITED			=	(1 << 0),
+	FLAG_RESERVED			=	(1 << 1),
+	FLAG_QUEUED				=	(1 << 2),
 };
 
 #endif

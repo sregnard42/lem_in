@@ -6,19 +6,20 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 13:41:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 17:32:17 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:27:33 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	print_matrice(bool **matrice, int nb) // tmpmptmptmptmpmtmt A delete
+//TMP
+void	print_matrice(bool **matrice, int nb)
 {
-	for (int j = 0; j < nb ; j++)
+	for (int i = 0; i < nb; i++)
 	{
-		for (int i = 0; i < nb; i++)
-			matrice[j][i] == false ? ft_putstr("\033[1;31m0\033[0m ")
-			: ft_putstr("\033[1;32m1\033[0m ");
+		for (int j = 0; j < nb; j++)
+			matrice[i][j] == false ? ft_printf("\033[1;31m%s\033[0m", "0 ")
+			: ft_printf("\033[1;32m%s\033[0m", "1 ");
 		ft_printf("\n");
 	}
 }

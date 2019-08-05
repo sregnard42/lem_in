@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 17:06:41 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:23:03 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,28 +53,24 @@ t_room	*room_new(t_li *li, char *name, t_point *pos)
 
 void	room_print(t_room *room)
 {
-	ft_printf("ROOM_PRINT\n");
-	ft_printf("name : %s\n", room->name);
-	ft_printf("id = %d\n", room->id);
-	ft_printf("pos : ");
+	ft_printf("\n\033[1;34mROOM_PRINT : %s\033[0m\n", room->name);
+	ft_printf("Name : %s, ", room->name);
+	ft_printf("ID = %d, ", room->id);
+	ft_printf("Pos : ");
 	ft_ptprint(&room->pos);
-	ft_putln();
-	ft_printf("nb_links = %d\n", room->links->size);
-	ft_printf("links :\n");
+	ft_putstr(", ");
+	ft_printf("Links : %d\n", room->links->size);
+	ft_printf("Nb child : %u, ", room->nb_child);
+	ft_printf("Weight = %d, ", room->weight);
+	ft_printf("Distance = %d\n", room->distance);
+	ft_printf("Flags = %d\n", room->flags);
 	room->links->current = room->links->first;
 	while (room->links->current)
 	{
 		link_print(room->links->current);
 		room->links->current = room->links->current->next;
 	}
-	if (room->flags & FLAG_VISITED)
-		ft_printf("visited\n");
-	else
-		ft_printf("not visited\n");
-	ft_printf("nb_child : %u\n", room->nb_child);
-	ft_printf("weight = %d\n", room->weight);
-	ft_printf("distance = %d\n", room->distance);
-	ft_printf("/ROOM_PRINT\n\n");
+	ft_printf("\033[1;34m/ROOM_PRINT\033[0m\n");
 }
 
 void	room_print_all(t_room *room)

@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/07/31 13:42:58 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/08/05 18:50:27 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCNAME					=	lem_in.c		\
 							ant.c			\
 							path.c			\
 							booking.c		\
+							queue.c			\
 							bfs.c			\
 							bfs_maxflow.c	\
 							print_lem_in.c	\

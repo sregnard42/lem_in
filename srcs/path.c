@@ -6,12 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 17:53:18 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:24:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+/*
 static int	path_new(t_li *li)
 {
 	li += 0;
@@ -40,7 +41,8 @@ int			path_init(t_li *li)
 	}
 	return (SUCCESS);
 }
-/*
+*/
+
 int			path_turn(t_li *li, int turn)
 {
 	t_stage	*path;
@@ -99,7 +101,7 @@ int			path_init(t_li *li)
 	}
 	return (SUCCESS);
 }
-*/
+
 int			path_insert(t_ant *ant, t_room *room, int turn)
 {
 	t_stage	*path;

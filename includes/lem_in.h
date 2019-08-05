@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 17:04:33 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:24:03 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ typedef struct			s_li
 
 enum					e_flags_li
 {
-	FLAG_START = (1 << 0),
-	FLAG_END = (1 << 1),
-	FLAG_ANT = (1 << 2),
-	FLAG_ROOM = (1 << 3),
-	FLAG_LINK = (1 << 4),
-	FLAG_DIRECT = (1 << 5),
-	FLAG_FIRST_TRY = (1 << 6)
+	FLAG_START		= (1 << 0),
+	FLAG_END		= (1 << 1),
+	FLAG_ANT		= (1 << 2),
+	FLAG_ROOM		= (1 << 3),
+	FLAG_LINK		= (1 << 4),
+	FLAG_DIRECT		= (1 << 5),
+	FLAG_FIRST_TRY	= (1 << 6)
 };
 
 /*
@@ -141,6 +141,15 @@ void					print_booking(t_li *li);
 
 int						bfs(t_li *li, int turn);
 int						bfs_maxflow(t_li *li, int turn);
+
+/*
+**						queue.c
+*/
+
+int						queue_print(t_queue *queue);
+int						enqueue(t_li *li, t_room *room, int turn);	
+int						dequeue(t_li *li);
+int						clear_queue(t_li *li, t_room *room);
 
 /*
 **						print_lem_in.c
