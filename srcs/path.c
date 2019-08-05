@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/05 23:23:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 23:48:53 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,12 @@ int			path_init(t_li *li)
 		path_print(li->paths->last);
 		ft_printf("\033[0m\n");
 	}
-	ft_printf("li->paths->size : %d\n", li->paths->size);
+	ft_printf("%s nb childs : %d\n", li->rooms->start->name, li->rooms->start->nb_child);
+	ft_printf("%s nb parents : %d\n", li->rooms->end->name, li->rooms->end->parents->size);
+	ft_printf("max_path : %d\n", max_path);
+	ft_printf("li->paths->size : %d\n\n", li->paths->size);
 	path_print_all(li->paths);
-	ft_printf("path_init : END\n");
+	ft_printf("\npath_init : END\n");
 	return (SUCCESS);
 }
 
