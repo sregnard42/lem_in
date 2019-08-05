@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 16:08:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/05 20:41:21 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ typedef struct			s_path
 	t_stage				*end;
 	int					size;
 	struct s_path		*next;
+	struct s_path		*prev;
 }						t_path;
 
 typedef struct			s_list_path
 {
-	t_path				*start;
+	t_path				*first;
 	t_path				*current;
-	t_path				*end;
+	t_path				*last;
 	int					size;
 }						t_list_path;
 

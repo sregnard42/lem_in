@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 18:46:42 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 18:51:07 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 22:50:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 int	queue_print(t_queue *queue)
 {
-	if (!queue)
+	t_queue_e	*elem;
+
+	elem = queue->first;
+	if (!elem)
 		ft_printf("Empty queue\n");
-	while (queue)
+	while (elem)
 	{
-		ft_printf("%s [%d]", queue->room->name, queue->turn);
-		queue = queue->next;
-		queue ? ft_printf(", ") : ft_printf("\n");
+		ft_printf("%4s", elem->room->name);
+		elem = elem->next;
+		elem ? 0 : ft_printf("\n");
 	}
 	return (SUCCESS);
 }
@@ -29,24 +32,24 @@ int	queue_print(t_queue *queue)
 **			Add room to the end of the queue
 */
 
-int	enqueue(t_li *li, t_room *room, int turn)
+int	enqueue(t_li *li, t_queue *queue, t_room *room, int turn)
 {
-	t_queue	*elem;
+	t_queue_e	*elem;
 
-	if (!(elem = (t_queue *)malloc(sizeof(t_queue))))
+	if (!(elem = (t_queue_e *)malloc(sizeof(t_queue_e))))
 		trigger_error(li, "enqueue : error malloc\n");
 	elem->room = room;
 	elem->turn = turn;
 	elem->next = NULL;
-	if (li->queue->last)
+	if (queue->last)
 	{
-		li->queue->last->next = elem;
-		li->queue->last = elem;
+		queue->last->next = elem;
+		queue->last = elem;
 		return (SUCCESS);
 	}
-	li->queue->first = elem;
-	li->queue->current = elem;
-	li->queue->last = elem;
+	queue->first = elem;
+	queue->current = elem;
+	queue->last = elem;
 	return (SUCCESS);
 }
 
@@ -54,32 +57,29 @@ int	enqueue(t_li *li, t_room *room, int turn)
 **			Eject first room from the queue
 */
 
-int	dequeue(t_li *li)
+int	dequeue(t_queue *queue)
 {
-	t_queue	*queue;
+	t_queue_e	*elem;
 
-	if (!li->queue->first)
+	if (!queue->first)
 		return (SUCCESS);
-	queue = li->queue->first->next;
-	free(li->queue->first);
-	li->queue->first = queue;
-	li->queue->current = queue;
-	if (!queue)
-		li->queue->last = queue;
+	elem = queue->first->next;
+	free(queue->first);
+	queue->first = elem;
+	queue->current = elem;
+	if (!elem)
+		queue->last = elem;
 	return (SUCCESS);
 }
 
-int	clear_queue(t_li *li, t_room *room)
+int	clear_queue(t_queue *queue)
 {
-	while (li->queue->first)
+	while (queue->first)
 	{
-		li->queue->current = li->queue->first;
-		li->queue->first = li->queue->current->next;
-		free(li->queue->current);
+		queue->current = queue->first;
+		queue->first = queue->current->next;
+		free(queue->current);
 	}
-	li->queue->first = NULL;
-	li->queue->current = NULL;
-	li->queue->last = NULL;
-	li->rooms->current = room;
+	ft_bzero(queue, sizeof(t_queue));
 	return (SUCCESS);
 }

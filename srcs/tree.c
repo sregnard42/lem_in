@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 19:28:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 22:18:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_room(t_li *li, t_room *room)
 			room->links->current = room->links->current->next;
 			continue ;
 		}
-		enqueue(li, room->links->current->dst, 0);
+		enqueue(li, li->queue, room->links->current->dst, 0);
 		parent_add(child, room);
 		room->links->current = room->links->current->next;
 	}
@@ -48,7 +48,7 @@ int			tree(t_li *li)
 	while (li->queue->current)
 	{
 		check_room(li, li->queue->current->room);
-		dequeue(li);
+		dequeue(li->queue);
 	}
 	return (SUCCESS);
 }

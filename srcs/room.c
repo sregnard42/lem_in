@@ -6,19 +6,22 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 19:23:03 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 20:55:09 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	room_clean(t_li *li, t_room *room)
+void	room_clean(t_li *li)
 {
+	t_room	*room;
+
+	room = li->rooms->start;
 	while (room)
 	{
 		room->flags &= ~FLAG_VISITED;
-		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links->first);
-		link_clean(li, room->links->first);
+//		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links->first);
+//		link_clean(li, room->links->first);
 		room = room->next;
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_per_ant.c                                     :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/05 19:33:37 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 22:20:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	path_new(t_li *li, int turn)
 		li->rooms->current = li->rooms->current->parent;
 	}
 	path_turn(li, turn); //Changer le nom mdr #Pas d'inspi
-	path_print(li->ants->current->path->current);
+	path_print(li->ants->current->path);
 	return (SUCCESS);
 }
 
@@ -78,11 +78,11 @@ int			path_init(t_li *li)
 		{
 			if (bfs(li, turn) == FAIL)
 			{
-				room_clean(li, li->rooms->start);
+				room_clean(li);
 				break ;
 			}
 			path_new(li, turn);
-			room_clean(li, li->rooms->start);
+			room_clean(li);
 			li->ants->current = li->ants->current->next;
 			++cpt;
 		}
@@ -93,15 +93,25 @@ int			path_init(t_li *li)
 	return (SUCCESS);
 }
 
-void		path_print(t_stage *path)
+void		path_print(t_path *path)
 {
-	t_stage *tmp;
+	t_stage *stage;
 
-	tmp = path;
-	while (tmp)
+	stage = path->start;
+	while (stage)
 	{
-		ft_printf("%s[%d]", tmp->room->name, tmp->turn);
-		tmp = tmp->next;
-		tmp ? ft_putstr("->") : ft_putstr("\n");
+		ft_printf("%s[%d]", stage->room->name, stage->turn);
+		stage = stage->next;
+		stage ? ft_putstr("->") : ft_putstr("\n");
+	}
+}
+
+void		path_print_all(t_list_path *paths)
+{
+	paths->current = paths->first;
+	while (paths->current)
+	{
+		path_print(paths->current);
+		paths->current = paths->current->next;
 	}
 }

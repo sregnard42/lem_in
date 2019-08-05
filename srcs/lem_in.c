@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 20:20:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 22:02:43 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ static int	init_li(t_li *li)
 	ft_bzero(li, sizeof(t_li));
 	li->rooms = (t_list_room *)malloc(sizeof(t_list_room));
 	li->ants = (t_list_ant *)malloc(sizeof(t_list_ant));
-	li->queue = (t_list_queue *)malloc(sizeof(t_list_queue));
+	li->queue = (t_queue *)malloc(sizeof(t_queue));
+	li->queue_res = (t_queue *)malloc(sizeof(t_queue));
 	li->paths = (t_list_path *)malloc(sizeof(t_list_path));
 	ft_bzero(li->rooms, sizeof(t_list_room));
 	ft_bzero(li->ants, sizeof(t_list_ant));
-	ft_bzero(li->queue, sizeof(t_list_queue));
+	ft_bzero(li->queue, sizeof(t_queue));
+	ft_bzero(li->queue_res, sizeof(t_queue));
 	ft_bzero(li->paths, sizeof(t_list_path));
-	if (!li->rooms || !li->ants || !li->queue || !li->paths)
+	if (!li->rooms || !li->ants || !li->queue || !li->queue_res || !li->paths)
 		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
@@ -68,7 +70,6 @@ int			main(void)
 	init_li(&li);
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);
-	print_matrice(li.matrice, li.rooms->size);
 	/*************
 	  ALGO START
 	*************/
