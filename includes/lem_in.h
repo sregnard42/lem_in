@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 19:24:03 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 19:37:21 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void					link_print(t_link *link);
 */
 
 int						path_init(t_li *li);
-int						path_insert(t_ant *ant, t_room *room, int round);
 void					path_print(t_stage *path);
 
 /*
@@ -175,7 +174,7 @@ int						tree(t_li *li);
 ** 						matrice.c
 */
 
-void					print_matrice(bool **matrice, int nb); // tmpmptmptmptmpmtmt A delete
+void					print_matrice(bool **matrice, int nb);
 void					new_matrice(t_li *li, int nb);
 
 #endif
