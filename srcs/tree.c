@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:18:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/05 23:48:07 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	check_room(t_li *li, t_room *room)
 			continue ;
 		}
 		child->distance == 0 ? child->distance = room->distance + 1 : 0;
-		if (child->distance == room->distance)
+		if (child->distance == room->distance &&
+			child != li->rooms->end && room != li->rooms->end)
 		{
 			++room->nb_child;
 			++room->weight;
