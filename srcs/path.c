@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/05 23:48:53 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 13:45:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,15 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 		trigger_error(li, "Error malloc stage\n");
 	ft_bzero(stage, sizeof(t_stage));
 	stage->room = room;
+	
 	if (room->path && room != li->rooms->end)
 	{
 		ft_printf("%s already in a path, deleting path...\n", room->name);
 		path_delete(li, &room->path);
 	}
 	room->path = path;
+	
+	path->size++;
 	if (!path->start)
 	{
 		path->start = stage;
@@ -99,6 +102,66 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 	stage->next = path->start;
 	path->start = stage;
 	return (SUCCESS);
+}
+
+/*
+**	Check if path found = first path
+*/
+/*
+static int	path_cmp(t_path *path_a, t_path *path_b)
+{
+	t_stage	*stage_a;
+	t_stage	*stage_b;
+
+	if (path_a->size != path_b->size)
+		return (FAILURE);
+	stage_a = path_a->start;
+	stage_b = path_b->start;
+	while (stage_a && stage_b)
+	{
+		if (stage_a->room != stage_b->room)
+			return (FAILURE);
+		stage_a = stage_a->next;
+		stage_b = stage_b->next;
+	}
+	return (FAILURE);
+}
+*/
+
+/*
+**
+*/
+
+static t_path	*path_dup(t_path *path)
+{
+	t_path	*new;
+	t_stage	*stage;
+
+	if (!(new = (t_path *)malloc(sizeof(t_path))))
+		return (NULL);
+	ft_bzero(new, sizeof(t_path));
+	path->current = path->start;
+	while (path->current)
+	{
+		if (!(stage = (t_stage *)malloc(sizeof(t_stage))))
+			return (NULL); //free new_path
+		ft_bzero(stage, sizeof(t_stage));
+		stage->room = path->current->room;
+		if (!new->start)
+		{
+			new->start = stage;
+			new->current = stage;
+		}
+		else
+		{
+			new->current->next = stage;
+			new->current = new->current->next;
+		}
+		path->current = path->current->next;
+	}
+	new->end = new->current;
+	new->size = path->size;
+	return (new);
 }
 
 /*
@@ -121,6 +184,8 @@ static int	path_new(t_li *li)
 		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
+	if (!li->shortest_path)
+		li->shortest_path = path_dup(path);
 	li->paths->size++;
 	if (!li->paths->first)
 	{
@@ -167,15 +232,15 @@ int			path_init(t_li *li)
 		}
 		ft_printf("\033[1;32mBFS: PATH FOUND\n");
 		room_clean(li);
-		path_new(li);
+		if (path_new(li) == FAILURE)
+			return (SUCCESS);
 		path_print(li->paths->last);
 		ft_printf("\033[0m\n");
 	}
-	ft_printf("%s nb childs : %d\n", li->rooms->start->name, li->rooms->start->nb_child);
-	ft_printf("%s nb parents : %d\n", li->rooms->end->name, li->rooms->end->parents->size);
-	ft_printf("max_path : %d\n", max_path);
-	ft_printf("li->paths->size : %d\n\n", li->paths->size);
+//	room_print_all(li->rooms->start);
 	path_print_all(li->paths);
+	li->shortest_path ? ft_printf("\033[1;36mShortest path :\n\033[0m") : 0;
+	li->shortest_path ? path_print(li->shortest_path) : 0;
 	ft_printf("\npath_init : END\n");
 	return (SUCCESS);
 }
@@ -189,8 +254,9 @@ void		path_print(t_path *path)
 	{
 		ft_printf("%s", stage->room->name);
 		stage = stage->next;
-		stage ? ft_putstr(" -> ") : ft_putstr("\n");
+		stage ?ft_putstr(" -> ") : 0;
 	}
+	ft_printf("\t[%d]\n", path->size);
 }
 
 void		path_print_all(t_list_path *paths)

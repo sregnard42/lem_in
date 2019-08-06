@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:10:22 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 12:24:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_li
 	t_list_ant			*ants;
 	t_list_booking		**bookings;
 	t_list_path			*paths;
+	t_path				*shortest_path;
 	t_queue				*queue;
 	t_queue				*queue_res;
 	int					max_turn;

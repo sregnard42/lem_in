@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 23:48:07 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 13:20:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ static int	check_room(t_li *li, t_room *room)
 			room->links->current = room->links->current->next;
 			continue ;
 		}
-		enqueue(li, li->queue, room->links->current->dst, 0);
+		if (!(child->flags & FLAG_QUEUED))
+		{
+			enqueue(li, li->queue, child, 0);
+			child->flags |= FLAG_QUEUED;
+		}
 		parent_add(child, room);
 		room->links->current = room->links->current->next;
 	}
@@ -44,12 +48,15 @@ static int	check_room(t_li *li, t_room *room)
 
 int			tree(t_li *li)
 {
+	ft_printf("tree : BEGIN\n");
 	check_room(li, li->rooms->start);
 	li->queue->current = li->queue->first;
 	while (li->queue->current)
 	{
+		queue_print(li->queue);
 		check_room(li, li->queue->current->room);
 		dequeue(li->queue);
 	}
+	ft_printf("tree : END\n");
 	return (SUCCESS);
 }
