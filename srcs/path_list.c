@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/06 16:06:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:19:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int			path_init(t_li *li)
 	ft_printf("path_init : BEGIN\n\n");
 	max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
 	li->rooms->end->parents->size : li->rooms->start->nb_child);
-	while (max_path > li->paths->size)
+	while (max_path > li->paths->size && li->ants->size > li->paths->size)
 	{
 		if (bfs_maxflow(li) == FAIL)
 		{
