@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:56:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:05:23 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			bfs_maxflow(t_li *li)
 	int			cpt = 1;
 	t_queue		*queue;
 
+	ft_printf("\033[1;36m");
 	ft_printf("BFS: START\n\n");
 	ft_printf("Existing paths :\n");
 	path_print_all(li->paths);
@@ -73,5 +74,6 @@ int			bfs_maxflow(t_li *li)
 		dequeue(queue);
 	}
 	ft_printf("BFS: END\n\n");
+	ft_printf("\033[0m");
 	return (FAILURE);
 }

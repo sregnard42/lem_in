@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:02:43 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:01:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	init_li(t_li *li)
 		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
-
+/*
 static int	tab_reserv(t_li *li)
 {
 	li->max_turn = li->rooms->size + li->ants->size;
@@ -62,7 +62,7 @@ static int	tab_reserv(t_li *li)
 	}
 	return (SUCCESS);
 }
-
+*/
 int			main(void)
 {
 	t_li	li;
@@ -73,9 +73,12 @@ int			main(void)
 	/*************
 	  ALGO START
 	*************/
-	tab_reserv(&li);
 	tree(&li);
 	path_init(&li);
+	ft_printf("\033[1;36m\nAll paths :\n\033[0m");
+	path_print_all(li.paths);
+	li.shortest_path ? ft_printf("\033[1;36m\nShortest path :\n\033[0m") : 0;
+	li.shortest_path ? path_print(li.shortest_path) : 0;
 	/*************
 	  ALGO END
 	*************/

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/06 13:20:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:05:57 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,12 @@ static int	check_room(t_li *li, t_room *room)
 
 int			tree(t_li *li)
 {
-	ft_printf("tree : BEGIN\n");
 	check_room(li, li->rooms->start);
 	li->queue->current = li->queue->first;
 	while (li->queue->current)
 	{
-		queue_print(li->queue);
 		check_room(li, li->queue->current->room);
 		dequeue(li->queue);
 	}
-	ft_printf("tree : END\n");
 	return (SUCCESS);
 }

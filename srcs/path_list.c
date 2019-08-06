@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/06 15:33:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/06 16:06:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ int	path_collision(t_li *li, t_path *path)
 
 	if (!li->paths || !path)
 		trigger_error(li, "Path collision : li->paths = NULL or path = NULL");
-	if (!li->paths->size)
-		return (FAILURE);
 	stage = path->start;
 	while (stage && stage->room != li->rooms->end)
 	{
 		if (stage->room->path)
 		{
+			ft_printf("\033[1;31m");
 			ft_printf("%s already in a path, deleting path...\n", stage->room->name);
 			path_delete(li, &stage->room->path);
+			ft_printf("\033[0m");
 		}
 		stage->room->path = path;
+		stage->room->flags |= FLAG_RESERVED;
 		stage = stage->next;
 	}
 	return (SUCCESS);
@@ -119,13 +120,13 @@ int			path_init(t_li *li)
 		ft_printf("\033[1;32mBFS: PATH FOUND\n");
 		room_clean(li);
 		path = path_new(li);
-		ft_printf("new path: ");
+		ft_printf("Path created : ");
 		path_print(path);
+		ft_printf("\033[0m\n");
 		if (li->shortest_path)
 		{
 			if (path_cmp(path, li->shortest_path) == SUCCESS)
 			{
-				path_print_all(li->paths);
 				ft_printf("\npath_init : END\n");
 				return (SUCCESS);
 			}
@@ -134,12 +135,7 @@ int			path_init(t_li *li)
 			li->shortest_path = path_dup(path);
 		path_collision(li, path);
 		path_add(li, path);
-		ft_printf("\033[0m\n");
 	}
-//	room_print_all(li->rooms->start);
-	path_print_all(li->paths);
-	li->shortest_path ? ft_printf("\033[1;36mShortest path :\n\033[0m") : 0;
-	li->shortest_path ? path_print(li->shortest_path) : 0;
 	ft_printf("\npath_init : END\n");
 	return (SUCCESS);
 }
