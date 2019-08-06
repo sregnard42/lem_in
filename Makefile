@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/05 18:50:27 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/06 14:38:22 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCNAME					=	lem_in.c		\
 							link.c			\
 							ant.c			\
 							path.c			\
+							path_list.c			\
 							booking.c		\
 							queue.c			\
 							bfs.c			\

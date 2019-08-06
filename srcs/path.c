@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/06 13:45:12 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/06 15:40:51 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	Unreserved all rooms and delete all stages
 */
 
-static int	path_clear(t_path *path)
+int	path_clear(t_path *path)
 {
 	t_stage	*stage;
 
@@ -38,40 +38,6 @@ static int	path_clear(t_path *path)
 }
 
 /*
-**	SUCCESS if path has been successfully deleted
-**	FAILURE	if there is no path to delete
-*/
-
-static int	path_delete(t_li *li, t_path **path_ptr)
-{
-	t_path	*path;
-	t_path	*path_prev;
-	t_path	*path_next;
-
-	path = *path_ptr;
-	path_prev = path->prev;
-	path_next = path->next;
-	path_clear(path);
-	li->paths->size--;
-	if (!li->paths->size)
-	{
-		ft_bzero(li->paths, sizeof(t_list_path));
-		return (SUCCESS);
-	}
-	if (path_prev)
-		path_prev->next = path_next;
-	if (path_next)
-		path_next->prev = path_prev;
-	if (li->paths->size == 1)
-	{
-		li->paths->first = path_prev ? path_prev : path_next;
-		li->paths->current = path_prev ? path_prev : path_next;
-		li->paths->last = path_prev ? path_prev : path_next;
-	}
-	return (SUCCESS);
-}
-
-/*
 **	Insert stage at the beginning of the path
 */
 
@@ -83,14 +49,6 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 		trigger_error(li, "Error malloc stage\n");
 	ft_bzero(stage, sizeof(t_stage));
 	stage->room = room;
-	
-	if (room->path && room != li->rooms->end)
-	{
-		ft_printf("%s already in a path, deleting path...\n", room->name);
-		path_delete(li, &room->path);
-	}
-	room->path = path;
-	
 	path->size++;
 	if (!path->start)
 	{
@@ -107,12 +65,14 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 /*
 **	Check if path found = first path
 */
-/*
-static int	path_cmp(t_path *path_a, t_path *path_b)
+
+int	path_cmp(t_path *path_a, t_path *path_b)
 {
 	t_stage	*stage_a;
 	t_stage	*stage_b;
 
+//	path_print(path_a);
+//	path_print(path_b);
 	if (path_a->size != path_b->size)
 		return (FAILURE);
 	stage_a = path_a->start;
@@ -124,15 +84,14 @@ static int	path_cmp(t_path *path_a, t_path *path_b)
 		stage_a = stage_a->next;
 		stage_b = stage_b->next;
 	}
-	return (FAILURE);
+	return (SUCCESS);
 }
-*/
 
 /*
 **
 */
 
-static t_path	*path_dup(t_path *path)
+t_path	*path_dup(t_path *path)
 {
 	t_path	*new;
 	t_stage	*stage;
@@ -165,10 +124,10 @@ static t_path	*path_dup(t_path *path)
 }
 
 /*
-**	Add path to the list of paths
+**	Create a path
 */
 
-static int	path_new(t_li *li)
+t_path	*path_new(t_li *li)
 {
 	t_path	*path;
 
@@ -184,65 +143,8 @@ static int	path_new(t_li *li)
 		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
-	if (!li->shortest_path)
-		li->shortest_path = path_dup(path);
-	li->paths->size++;
-	if (!li->paths->first)
-	{
-		li->paths->first = path;
-		li->paths->current = path;
-		li->paths->last = path;
-		ft_printf("Path created\n");
-		return (SUCCESS);
-	}
-	path->prev = li->paths->last;
-	li->paths->last->next = path;
-	li->paths->last = path;
 	ft_printf("Path created\n");
-	return (SUCCESS);
-}
-
-/*
-**	Init the list of paths
-*/
-
-int			path_init(t_li *li)
-{
-	int	max_path;
-
-	ft_printf("path_init : BEGIN\n\n");
-	max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
-	li->rooms->end->parents->size : li->rooms->start->nb_child);
-	while (max_path > li->paths->size)
-	{
-		if (bfs_maxflow(li) == FAIL)
-		{
-			ft_printf("\033[1;31mBFS: NO PATH\n");
-			room_clean(li);
-			li->paths->last ? ft_printf("Delete last path : ")
-			: ft_printf("No path to delete...\n");
-			li->paths->last ? path_print(li->paths->last) : 0;
-			ft_printf("\033[0m\n");
-			if (path_delete(li, &li->paths->last) == FAILURE)
-			{
-				ft_printf("path_init : END\n");
-				return (FAILURE);
-			}
-			continue ;
-		}
-		ft_printf("\033[1;32mBFS: PATH FOUND\n");
-		room_clean(li);
-		if (path_new(li) == FAILURE)
-			return (SUCCESS);
-		path_print(li->paths->last);
-		ft_printf("\033[0m\n");
-	}
-//	room_print_all(li->rooms->start);
-	path_print_all(li->paths);
-	li->shortest_path ? ft_printf("\033[1;36mShortest path :\n\033[0m") : 0;
-	li->shortest_path ? path_print(li->shortest_path) : 0;
-	ft_printf("\npath_init : END\n");
-	return (SUCCESS);
+	return (path);
 }
 
 void		path_print(t_path *path)
