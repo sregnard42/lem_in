@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/07 13:18:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 16:50:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,35 @@ int			main(void)
 	init_li(&li);
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);
+
 	/*************
 	  ALGO START
 	*************/
+
 	tree(&li);
 	shortest_path_init(&li);
 	path_init(&li);
+
+	// REPARTITION BEGIN
+
+
+	repartition(&li, li.paths);
+	for (int i = 1; i <= li.max_path; i++)
+		repartition(&li, li.shortest_path[i]);
+
+	// REPARTITION END
+
+	ft_printf("\033[1;36m\nNb ants : %d\n\033[0m", li.ants->size);
 	ft_printf("\033[1;36m\nAll paths :\n\033[0m");
 	path_print_all(li.paths);
 	li.first_path ? ft_printf("\033[1;36m\nShortest path :\n\033[0m") : 0;
 	li.first_path ? path_print(li.first_path) : 0;
 	print_shortest_paths(&li);
+
 	/*************
 	  ALGO END
 	*************/
+
 //	print_lem_in(&li);
 	free_all(&li);
 	return (SUCCESS);

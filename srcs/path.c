@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 14:54:55 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/07 17:03:22 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,14 +155,17 @@ void		path_print(t_path *path)
 {
 	t_stage *stage;
 
+	ft_printf("[ %s = %3d ]", "len", path->size);
+	ft_printf("[ %s = %6f ]", "weight", path->weight);
+	ft_printf("[ %s = %4d ]\t", "capacity", path->capacity);
 	stage = path->start;
+	stage ? ft_putstr("[ ") : ft_putstr("[ No path ]\n");
 	while (stage)
 	{
 		ft_printf("%s", stage->room->name);
 		stage = stage->next;
-		stage ?ft_putstr(" -> ") : 0;
+		stage ?ft_putstr(" -> ") : ft_putstr(" ]\n");
 	}
-	ft_printf("\t[%d]\n", path->size);
 }
 
 void		path_print_all(t_list_path *paths)

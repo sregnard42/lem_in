@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 14:53:07 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/07 17:19:57 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	path_add(t_li *li, t_path *path)
 	li->paths->last->next = path;
 	li->paths->last = path;
 	if (li->paths->longest_path->size < path->size)
-		li->paths->longest_path->size = path->size;
+		li->paths->longest_path = path;
 	return (SUCCESS);
 }
 
