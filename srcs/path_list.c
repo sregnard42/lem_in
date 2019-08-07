@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 13:12:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 13:55:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_list_path	*path_list_dup(t_list_path *paths)
 
 	if (!(new = malloc(sizeof(t_list_path))))
 		return (NULL);
+	ft_bzero(new, sizeof(t_list_path));
 	new->size = paths->size;
 	paths->current = paths->first;
 	while (paths->current)
