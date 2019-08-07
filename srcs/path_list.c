@@ -6,11 +6,43 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/06 16:19:17 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/07 13:12:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+**	Duplicate a t_list_path
+*/
+
+t_list_path	*path_list_dup(t_list_path *paths)
+{
+	t_list_path	*new;
+
+	if (!(new = malloc(sizeof(t_list_path))))
+		return (NULL);
+	new->size = paths->size;
+	paths->current = paths->first;
+	while (paths->current)
+	{
+		if (!new->first)
+		{
+			new->first = path_dup(paths->first);
+			new->current = new->first;
+		}
+		else
+		{
+			new->current->next = path_dup(paths->current);
+			new->current = new->current->next;
+		}
+		paths->current = paths->current->next;
+	}
+	new->last = new->current;
+	paths->current = paths->first;
+	new->current = new->first;
+	return (new);
+}
 
 /*
 **
@@ -98,13 +130,10 @@ void	path_delete(t_li *li, t_path **path_ptr)
 
 int			path_init(t_li *li)
 {
-	int		max_path;
 	t_path	*path;
 
 	ft_printf("path_init : BEGIN\n\n");
-	max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
-	li->rooms->end->parents->size : li->rooms->start->nb_child);
-	while (max_path > li->paths->size && li->ants->size > li->paths->size)
+	while (li->max_path > li->paths->size && li->ants->size > li->paths->size)
 	{
 		if (bfs_maxflow(li) == FAIL)
 		{
@@ -123,18 +152,22 @@ int			path_init(t_li *li)
 		ft_printf("Path created : ");
 		path_print(path);
 		ft_printf("\033[0m\n");
-		if (li->shortest_path)
+		if (li->first_path)
 		{
-			if (path_cmp(path, li->shortest_path) == SUCCESS)
+			if (path_cmp(path, li->first_path) == SUCCESS)
 			{
 				ft_printf("\npath_init : END\n");
 				return (SUCCESS);
 			}
 		}
 		else
-			li->shortest_path = path_dup(path);
+			li->first_path = path_dup(path);
 		path_collision(li, path);
 		path_add(li, path);
+		ft_printf("\033[1;34mNow we have:\n");
+		path_print_all(li->paths);
+		shortest_path(li); // Je test ça
+		ft_printf("\033[0m");
 	}
 	ft_printf("\npath_init : END\n");
 	return (SUCCESS);

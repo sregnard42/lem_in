@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/06 16:01:20 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/07 13:18:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ int			main(void)
 	  ALGO START
 	*************/
 	tree(&li);
+	shortest_path_init(&li);
 	path_init(&li);
 	ft_printf("\033[1;36m\nAll paths :\n\033[0m");
 	path_print_all(li.paths);
-	li.shortest_path ? ft_printf("\033[1;36m\nShortest path :\n\033[0m") : 0;
-	li.shortest_path ? path_print(li.shortest_path) : 0;
+	li.first_path ? ft_printf("\033[1;36m\nShortest path :\n\033[0m") : 0;
+	li.first_path ? path_print(li.first_path) : 0;
+	print_shortest_paths(&li);
 	/*************
 	  ALGO END
 	*************/

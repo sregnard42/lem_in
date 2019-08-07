@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/06 15:25:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 13:18:20 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ typedef struct			s_li
 	t_list_ant			*ants;
 	t_list_booking		**bookings;
 	t_list_path			*paths;
-	t_path				*shortest_path;
+	t_path				*first_path;
+	t_list_path			**shortest_path;
 	t_queue				*queue;
 	t_queue				*queue_res;
+	int					max_path;
 	int					max_turn;
 	int					moves;
 	char				**path_mat;
@@ -127,7 +129,8 @@ void					path_print_all(t_list_path *pas);
 **						path_list.c
 */
 
-void						path_delete(t_li *li, t_path **path_ptr);
+void					path_delete(t_li *li, t_path **path_ptr);
+t_list_path				*path_list_dup(t_list_path *paths);
 
 /*
 **						ant.c
@@ -159,7 +162,7 @@ int						bfs_maxflow(t_li *li);
 */
 
 int						queue_print(t_queue *queue);
-int						enqueue(t_li *li, t_queue *queue, t_room *room, int turn);	
+int						enqueue(t_li *li, t_queue *queue, t_room *room, int turn);
 int						dequeue(t_queue *queue);
 int						clear_queue(t_queue *queue);
 
@@ -189,5 +192,12 @@ int						tree(t_li *li);
 
 void					print_matrice(bool **matrice, int nb);
 void					new_matrice(t_li *li, int nb);
+
+/*
+**						shortest_path.c
+*/
+int						shortest_path_init(t_li *li);
+int						shortest_path(t_li *li);
+void					print_shortest_paths(t_li *li);
 
 #endif

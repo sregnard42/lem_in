@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/06 14:38:22 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/08/06 18:14:20 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCNAME					=	lem_in.c		\
 							link.c			\
 							ant.c			\
 							path.c			\
-							path_list.c			\
+							path_list.c		\
 							booking.c		\
 							queue.c			\
 							bfs.c			\
@@ -50,7 +50,8 @@ SRCNAME					=	lem_in.c		\
 							print_lem_in.c	\
 							free.c			\
 							tree.c			\
-							parent.c
+							parent.c		\
+							shortest_path.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
