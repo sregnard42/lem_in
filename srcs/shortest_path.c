@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 13:55:44 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:14:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	shortest_path_init(t_li *li)
 	return (SUCCESS);
 }
 
-int	path_list_len(t_list_path *list)
+/*
+**	Fonction à supprimer car on peux l'opti
+*/
+
+int	path_list_len(t_list_path *list) //Ahah regarde le commentaire au dessus :D
 {
 	int	max;
 
@@ -56,13 +60,12 @@ int	shortest_path(t_li *li)
 			trigger_error(li, "Shortest_path : path_list_dup fail\n");
 		return (SUCCESS);
 	}
-	max_a = path_list_len(li->shortest_path[li->paths->size]);
+	max_a = path_list_len(li->shortest_path[li->paths->size]); //On peux opti ça
 	max_b = path_list_len(li->paths);
-	ft_printf("shortest = %d - new = %d\n", max_a, max_b);
 	if (max_a < max_b)
 		return (SUCCESS);
 	//Je sais pas si j'ai bien free mon t_list_path, alors Merci de checker ça Stanley <3
-	//Ici je vais faire ma fonction de free une t_list_path
+	//Ici il faut faire la fonction de free une t_list_path
 	if (!(li->shortest_path[li->paths->size] = path_list_dup(li->paths)))
 		trigger_error(li, "Shortest_path : path_list_dup fail\n");
 	ft_printf("------------------\n");
