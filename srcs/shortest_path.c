@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 15:13:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/07 17:29:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	shortest_path_init(t_li *li)
 {
 	li->max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
 	li->rooms->end->parents->size : li->rooms->start->nb_child);
-	if (!(li->shortest_path = malloc(sizeof(t_list_path *) * li->max_path + 1)))
+	if (!(li->shortest_path = 
+		malloc(sizeof(t_list_path *) * (li->max_path + 1))))
 		trigger_error(li, "Shortest_path_init : Malloc fail\n");
-	ft_bzero(li->shortest_path, sizeof(t_list_path) * li->max_path);
+	ft_bzero(li->shortest_path, sizeof(t_list_path *) * (li->max_path + 1));
 	return (SUCCESS);
 }
 
