@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 13:55:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:53:07 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,14 @@ t_list_path	*path_list_dup(t_list_path *paths)
 		{
 			new->first = path_dup(paths->first);
 			new->current = new->first;
+			new->longest_path = new->first;
 		}
 		else
 		{
 			new->current->next = path_dup(paths->current);
 			new->current = new->current->next;
+			if (new->current->size > new->longest_path->size)
+				new->longest_path = new->current;
 		}
 		paths->current = paths->current->next;
 	}
@@ -84,12 +87,15 @@ int	path_add(t_li *li, t_path *path)
 	if (!li->paths->first)
 	{
 		li->paths->first = path;
-			li->paths->current = path;
+		li->paths->current = path;
 		li->paths->last = path;
+		li->paths->longest_path = path;
 		return (SUCCESS);
 	}
 	li->paths->last->next = path;
 	li->paths->last = path;
+	if (li->paths->longest_path->size < path->size)
+		li->paths->longest_path->size = path->size;
 	return (SUCCESS);
 }
 
@@ -123,6 +129,7 @@ void	path_delete(t_li *li, t_path **path_ptr)
 		li->paths->current = path_prev ? path_prev : path_next;
 		li->paths->last = path_prev ? path_prev : path_next;
 	}
+	path == li->paths->longest_path ? longest_path(li->paths) : 0; 
 }
 
 /*

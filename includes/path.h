@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 12:28:13 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:34:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct			s_list_path
 	t_path				*first;
 	t_path				*current;
 	t_path				*last;
+	t_path				*longest_path;
 	int					size;
 }						t_list_path;
 

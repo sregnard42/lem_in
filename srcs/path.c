@@ -6,18 +6,18 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/06 15:40:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:54:55 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-**	Clear the path
-**	Unreserved all rooms and delete all stages
+**			Clear the path
+**			Unreserved all rooms and delete all stages
 */
 
-int	path_clear(t_path *path)
+int			path_clear(t_path *path)
 {
 	t_stage	*stage;
 
@@ -38,7 +38,7 @@ int	path_clear(t_path *path)
 }
 
 /*
-**	Insert stage at the beginning of the path
+**			Insert stage at the beginning of the path
 */
 
 static int	insert_stage(t_li *li, t_path *path, t_room *room)
@@ -63,10 +63,10 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 }
 
 /*
-**	Check if path found = first path
+**			Check if two paths are identical
 */
 
-int	path_cmp(t_path *path_a, t_path *path_b)
+int			path_cmp(t_path *path_a, t_path *path_b)
 {
 	t_stage	*stage_a;
 	t_stage	*stage_b;
@@ -88,10 +88,10 @@ int	path_cmp(t_path *path_a, t_path *path_b)
 }
 
 /*
-**
+**			Duplicate a path
 */
 
-t_path	*path_dup(t_path *path)
+t_path		*path_dup(t_path *path)
 {
 	t_path	*new;
 	t_stage	*stage;
@@ -124,10 +124,10 @@ t_path	*path_dup(t_path *path)
 }
 
 /*
-**	Create a path
+**			Create a path
 */
 
-t_path	*path_new(t_li *li)
+t_path		*path_new(t_li *li)
 {
 	t_path	*path;
 
@@ -147,6 +147,10 @@ t_path	*path_new(t_li *li)
 	return (path);
 }
 
+/*
+**			Print a path
+*/
+
 void		path_print(t_path *path)
 {
 	t_stage *stage;
@@ -163,6 +167,8 @@ void		path_print(t_path *path)
 
 void		path_print_all(t_list_path *paths)
 {
+	paths->longest_path ? ft_printf("Max length : %d\n",
+	paths->longest_path->size) : 0;
 	paths->current = paths->first;
 	while (paths->current)
 	{

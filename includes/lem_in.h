@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/07 13:18:20 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 14:43:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void					new_matrice(t_li *li, int nb);
 */
 int						shortest_path_init(t_li *li);
 int						shortest_path(t_li *li);
+int						longest_path(t_list_path *paths);
 void					print_shortest_paths(t_li *li);
 
 #endif

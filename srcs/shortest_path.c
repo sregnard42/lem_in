@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 14:14:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/07 15:13:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,32 @@ int	shortest_path_init(t_li *li)
 }
 
 /*
-**	Fonction à supprimer car on peux l'opti
+**	Update longest_path
 */
 
-int	path_list_len(t_list_path *list) //Ahah regarde le commentaire au dessus :D
+int		longest_path(t_list_path *paths)
 {
-	int	max;
+	t_path	*path;
+	int		max;
 
-	list->current = list->first;
-	while (list->current)
+	if (!paths->size)
 	{
-		if (max < list->current->size)
-			max = list->current->size;
-		list->current = list->current->next;
+		paths->longest_path = NULL;
+		return (SUCCESS);
 	}
-	return (max);
+	max = paths->first->size;;
+	paths->longest_path = paths->first;
+	path = paths->first->next;
+	while (path)
+	{
+		if (max < path->size)
+		{
+			max = path->size;
+			paths->longest_path = path;
+		}
+		path = path->next;
+	}
+	return (SUCCESS);
 }
 
 /*
@@ -60,8 +71,8 @@ int	shortest_path(t_li *li)
 			trigger_error(li, "Shortest_path : path_list_dup fail\n");
 		return (SUCCESS);
 	}
-	max_a = path_list_len(li->shortest_path[li->paths->size]); //On peux opti ça
-	max_b = path_list_len(li->paths);
+	max_a = (li->shortest_path[li->paths->size])->longest_path->size;
+	max_b = li->paths->longest_path->size;
 	if (max_a < max_b)
 		return (SUCCESS);
 	//Je sais pas si j'ai bien free mon t_list_path, alors Merci de checker ça Stanley <3
