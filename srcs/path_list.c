@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 10:50:22 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 10:59:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	path_add(t_li *li, t_path *path)
 **	FAILURE	if there is no path to delete
 */
 
-void	path_delete(t_li *li, t_list_path *paths, t_path **path_ptr)
+void	path_delete(t_list_path *paths, t_path **path_ptr)
 {
 	t_path	*path;
 	t_path	*path_prev;
@@ -123,7 +123,7 @@ void	path_delete(t_li *li, t_list_path *paths, t_path **path_ptr)
 	path == paths->first ? paths->first = path_next : 0;
 	path_prev ? path_prev->next = path_next : 0;
 	path_next ? path_next->prev = path_prev : 0;
-	if (li->paths->size == 1)
+	if (paths->size == 1)
 	{
 		paths->first = path_prev ? path_prev : path_next;
 		paths->current = path_prev ? path_prev : path_next;

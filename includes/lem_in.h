@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 10:44:54 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:00:19 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void					path_print_all(t_list_path *pas);
 **						path_list.c
 */
 
-void					path_delete(t_li *li, t_list_path *paths, t_path **path_ptr);
+void					path_delete(t_list_path *paths, t_path **path_ptr);
 t_list_path				*path_list_dup(t_list_path *paths);
 
 /*
