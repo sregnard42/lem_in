@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 11:32:22 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:44:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int	shortest_path(t_li *li)
 	}
 	max_a = (li->shortest_path[li->paths->size])->longest_path->size;
 	max_b = li->paths->longest_path->size;
-//	if (max_a < max_b)
-//		return (SUCCESS);
+	if (max_a < max_b)
+		return (SUCCESS);
 	//Je sais pas si j'ai bien free mon t_list_path, alors Merci de checker ça Stanley <3
 	//Ici il faut faire la fonction de free une t_list_path
 	path_list_delete(&li->shortest_path[li->paths->size]);
