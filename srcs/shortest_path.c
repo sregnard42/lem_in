@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 17:29:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:15:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,34 @@ int	shortest_path_init(t_li *li)
 {
 	li->max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
 	li->rooms->end->parents->size : li->rooms->start->nb_child);
-	if (!(li->shortest_path = 
+	if (!(li->shortest_path =
 		malloc(sizeof(t_list_path *) * (li->max_path + 1))))
 		trigger_error(li, "Shortest_path_init : Malloc fail\n");
 	ft_bzero(li->shortest_path, sizeof(t_list_path *) * (li->max_path + 1));
 	return (SUCCESS);
+}
+
+/*
+**	delete path list
+*/
+
+void	path_list_delete(t_li *li, int size)
+{
+	t_list_path	*paths;
+	t_path		*current;
+	t_path		*next;
+
+	if (li->shortest_path[size])
+		return ;
+	paths = li->shortest_path[size];
+	current = paths->first;
+	while (current)
+	{
+		next = current->next;
+		path_delete(paths, &current);
+		current = next;
+	}
+	ft_memdel((void **)&li->shortest_path[size]);
 }
 
 /*
@@ -78,6 +101,7 @@ int	shortest_path(t_li *li)
 		return (SUCCESS);
 	//Je sais pas si j'ai bien free mon t_list_path, alors Merci de checker ça Stanley <3
 	//Ici il faut faire la fonction de free une t_list_path
+	path_list_delete(li, li->paths->size);
 	if (!(li->shortest_path[li->paths->size] = path_list_dup(li->paths)))
 		trigger_error(li, "Shortest_path : path_list_dup fail\n");
 	ft_printf("------------------\n");
