@@ -21,9 +21,9 @@ int	paths_opti_init(t_li *li)
 	li->max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
 	li->rooms->end->parents->size : li->rooms->start->nb_child);
 	if (!(li->paths_opti =
-		malloc(sizeof(t_list_path *) * (li->max_path + 1))))
+		malloc(sizeof(t_list_path *) * (li->max_path + 2))))
 		trigger_error(li, "paths_opti_init : Malloc fail\n");
-	ft_bzero(li->paths_opti, sizeof(t_list_path *) * (li->max_path + 1));
+	ft_bzero(li->paths_opti, sizeof(t_list_path *) * (li->max_path + 2));
 	return (SUCCESS);
 }
 

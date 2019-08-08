@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 11:48:49 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 16:20:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdbool.h>
 # include "libft.h"
 # include "room.h"
-# include "path.h"
 # include "ant.h"
+# include "path.h"
 # include "link.h"
 # include "booking.h"
 # include "queue.h"
@@ -44,8 +44,9 @@ typedef struct			s_li
 {
 	char				buf[LI_BUFF_SIZE];
 	unsigned int		index;
+	int					nb_ants;
 	t_list_room			*rooms;
-	t_list_ant			*ants;
+	t_ant				**ants;
 	t_list_booking		**bookings;
 	t_list_path			*paths;
 	t_path				*first_path;
@@ -136,7 +137,7 @@ t_list_path				*path_list_dup(t_list_path *paths);
 **						ant.c
 */
 
-int						ants_init(t_li *li, int nb_ants);
+int						ants_init(t_li *li);
 int						ant_move(t_ant *ant, t_room *dst);
 void					ant_print(t_ant *ant, t_room *end);
 void					ant_print_all(t_li *li);
@@ -207,5 +208,8 @@ void					print_paths_opti(t_li *li);
 */
 
 int						repartition(t_li *li, t_list_path *paths);
+
+void					jesaispasquoimettre(t_li *li);
+void					jesaispasquoimettre_bis(t_li *li);
 
 #endif

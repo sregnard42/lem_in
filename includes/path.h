@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 16:38:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 16:30:33 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct			s_path
 	int					size;
 	double				weight;
 	int					capacity;
+	t_ant				*ant;
+	double				nb_turn;
 	struct s_path		*next;
 	struct s_path		*prev;
 }						t_path;
@@ -45,6 +47,7 @@ typedef struct			s_list_path
 	t_path				*last;
 	t_path				*longest_path;
 	int					size;
+	t_ant				*ant;
 }						t_list_path;
 
 #endif

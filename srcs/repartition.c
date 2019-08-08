@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repartition.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 11:33:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 15:14:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static int		set_capacity(t_list_path *paths, double x)
 	while (path)
 	{
 		nb = path->weight * x;
-		path->capacity = ((int)(nb * 10) % 10) >= 5 ? nb + 1 : nb;
+//		path->capacity = ((int)(nb * 10) % 10) >= 5 ? nb + 1 : nb;
+		path->capacity = nb;
+		path->nb_turn = nb + path->size -1;
 		path = path->next;
 	}
 	return (SUCCESS);
@@ -68,10 +70,10 @@ int				repartition(t_li *li, t_list_path *paths)
 	if (paths->size == 1)
 	{
 		paths->first->weight = 1;
-		paths->first->capacity = li->ants->size;
+		paths->first->capacity = li->nb_ants;
 		return (SUCCESS);
 	}
-	x = li->ants->size / sum(paths);
+	x = li->nb_ants / sum(paths);
 	set_capacity(paths, x);
 	return (SUCCESS);
 }

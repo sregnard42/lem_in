@@ -6,12 +6,12 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:00:28 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 15:49:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 15:13:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
+/*
 static void	current_to_first(t_li *li)
 {
 	li->ants->current = li->ants->first;
@@ -73,3 +73,4 @@ void		print_lem_in(t_li *li)
 		}
 	}
 }
+*/

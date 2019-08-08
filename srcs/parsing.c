@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/07/31 13:51:11 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 15:09:56 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int			parsing(t_li *li)
 		ft_memdel((void **)&line);
 	}
 	parsing_room_link(li, line);
-	ants_init(li, nb_ants);
+	li->nb_ants = nb_ants;
+//	ants_init(li, nb_ants);
 	li->rooms->current = li->rooms->start;
 	li->rooms->start->prev = NULL;
 	return (SUCCESS);

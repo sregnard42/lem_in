@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 11:49:44 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 15:12:48 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int			path_init(t_li *li)
 	t_path	*path;
 
 	ft_printf("path_init : BEGIN\n\n");
-	while (li->max_path > li->paths->size && li->ants->size > li->paths->size)
+	while (li->max_path > li->paths->size && li->nb_ants > li->paths->size)
 	{
 		if (bfs_maxflow(li) == FAIL)
 		{

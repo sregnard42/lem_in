@@ -6,12 +6,12 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/06/25 22:03:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 15:14:59 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
+/*
 static void	path_free(t_li *li)
 {
 	t_ant	*ant;
@@ -61,17 +61,17 @@ static void	room_free(t_li *li)
 		link_free(li);
 		ft_memdel((void **)&li->rooms->current);
 	}
-}
+}*/
 
 int			free_all(t_li *li)
 {
 	if (!li)
 		return (SUCCESS);
-	ant_free(li);
+/*	ant_free(li);
 	room_free(li);
 	ft_memdel((void **)&li->rooms);
 	ft_memdel((void **)&li->ants);
 	ft_memdel((void **)&li->queue);
-	ft_memdel((void **)&li->bookings);
+	ft_memdel((void **)&li->bookings);*/
 	return (SUCCESS);
 }

@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/24 10:52:22 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 17:00:10 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	ants_add(t_li *li, t_ant *ant)
+/*static int	ants_add(t_li *li, t_ant *ant)
 {
 	if (ant->id == 1)
 	{
@@ -26,30 +26,96 @@ static int	ants_add(t_li *li, t_ant *ant)
 		li->ants->last = ant;
 	}
 	return (SUCCESS);
-}
+}*/
 
-int			ants_init(t_li *li, int nb_ants)
+int			ants_init(t_li *li)
 {
-	t_ant	*ant;
-	int		i;
+	int	i;
 
 	i = 0;
-	li->ants->size = nb_ants;
-	while (++i <= nb_ants)
+	if (!(li->ants = malloc(sizeof(t_ant *) * li->nb_ants + 1)))
+		trigger_error(li, "Init ants : Malloc FAIL\n");
+	ft_bzero(li->ants, sizeof(t_ant *) * li->nb_ants + 1);
+	while (++i < li->nb_ants)
 	{
-		if (!(ant = (t_ant *)malloc(sizeof(t_ant))))
-			return (FAIL);
-		ft_bzero(ant, sizeof(t_ant));
-		ant->id = i;
-		ant->room = li->rooms->start;
-		if ((ant->path = (t_path *)malloc(sizeof(t_path))) == NULL)
-			trigger_error(li, "ants_init malloc NULL\n");
-		ft_bzero(ant->path, sizeof(t_path));
-		ants_add(li, ant);
+		if (!(li->ants[i] = malloc(sizeof(t_ant))))
+			trigger_error(li, "Init ants : Malloc FAIL\n");
+		ft_bzero(li->ants[i], sizeof(t_ant));
+		li->ants[i]->id = i;
 	}
 	return (SUCCESS);
 }
 
+void	jesaispasquoimettre(t_li *li)
+{
+	int			i;
+	int			j;
+	t_list_path	*paths;
+
+	i = 1;
+	while (li->paths_opti[i + 1])
+		++i;
+	paths = li->paths_opti[i];
+	// La je prend le dernier element de paths_opti mais il faut pas
+	path_print_all(paths);
+	paths->current = paths->first;
+	i = 1;
+	j = 1;
+	while (paths->current)
+	{
+//		ft_printf("i = %d\n", i);
+		j = i;
+		paths->current->ant = li->ants[i];
+		while (i < paths->current->capacity + j)
+			li->ants[i++]->stage = paths->current->start;
+		paths->current = paths->current->next;
+	}
+}
+
+void	move_ant(t_ant **ant)
+{
+	(*ant)->stage = (*ant)->stage->next;
+}
+
+void	jesaispasquoimettre_bis(t_li *li)
+{
+	int	nb_ant_arrived;
+	int	i;
+	t_list_path	*paths;
+
+	i = 1;
+	while (li->paths_opti[i + 1])
+		++i;
+	paths = li->paths_opti[i];
+	// La je prend le dernier element de paths_opti mais il faut pas
+	nb_ant_arrived = 0;
+	while (nb_ant_arrived < li->nb_ants)
+	{
+		paths->current = paths->first;
+		while (paths->current)
+		{
+			i = 0;
+			while (paths->current->ant->id + i < paths->current->ant->id + paths->current->capacity)
+			{
+				move_ant(&li->ants[i + paths->current->ant->id]);
+//				li->ants[i + paths->current->ant->id]->stage = li->ants[i + paths->current->ant->id]->stage->next;
+				if (paths->current->ant->stage->room->id == li->rooms->end->id)
+				{
+					ft_printf("Je suis la fourmie %d et je suis à la fin\n", paths->current->ant->id);
+					paths->current->ant = li->ants[paths->current->ant->id + 1];
+				}
+				ft_printf("i = %d\n", i);
+				ft_printf("ant->id = %d\n", paths->current->ant->id);
+				++i;
+			}
+			ft_printf("\n");
+			paths->current = paths->current->next;
+		}
+		ft_printf("----------\n");
+		//break ;
+	}
+}
+/*
 int			ant_move(t_ant *ant, t_room *dst)
 {
 	dst->flags |= FLAG_RESERVED;
@@ -80,4 +146,4 @@ void		ant_print_all(t_li *li)
 	}
 	li->ants->current = li->ants->first;
 	ft_putln();
-}
+}*/
