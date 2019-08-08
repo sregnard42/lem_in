@@ -2,3 +2,4 @@ Changer la liste des fourmis en tableau
 Changer le free all
 Clean les structures si variable inutile
 Enlever les turns dans queue.c
+Refaire le parser
