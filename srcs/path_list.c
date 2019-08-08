@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 10:59:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:13:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	path_collision(t_li *li, t_path *path)
 		{
 			ft_printf("\033[1;31m");
 			ft_printf("%s already in a path, deleting path...\n", stage->room->name);
-			path_delete(li, li->paths, &stage->room->path);
+			path_delete(li->paths, &stage->room->path);
 			ft_printf("\033[0m");
 		}
 		stage->room->path = path;
@@ -151,7 +151,7 @@ int			path_init(t_li *li)
 			: ft_printf("No path to delete...\n");
 			li->paths->last ? path_print(li->paths->last) : 0;
 			ft_printf("\033[0m\n");
-			path_delete(li, li->paths, &li->paths->last);
+			path_delete(li->paths, &li->paths->last);
 			continue ;
 		}
 		ft_printf("\033[1;32mBFS: PATH FOUND\n");
