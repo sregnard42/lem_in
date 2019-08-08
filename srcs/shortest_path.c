@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 11:15:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:32:22 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,21 @@ int	shortest_path_init(t_li *li)
 **	delete path list
 */
 
-void	path_list_delete(t_li *li, int size)
+void	path_list_delete(t_list_path **paths)
 {
-	t_list_path	*paths;
 	t_path		*current;
 	t_path		*next;
 
-	if (li->shortest_path[size])
+	if (!paths || !*paths)
 		return ;
-	paths = li->shortest_path[size];
-	current = paths->first;
+	current = (*paths)->first;
 	while (current)
 	{
 		next = current->next;
-		path_delete(paths, &current);
+		path_delete(*paths, &current);
 		current = next;
 	}
-	ft_memdel((void **)&li->shortest_path[size]);
+	ft_memdel((void **)paths);
 }
 
 /*
@@ -97,11 +95,11 @@ int	shortest_path(t_li *li)
 	}
 	max_a = (li->shortest_path[li->paths->size])->longest_path->size;
 	max_b = li->paths->longest_path->size;
-	if (max_a < max_b)
-		return (SUCCESS);
+//	if (max_a < max_b)
+//		return (SUCCESS);
 	//Je sais pas si j'ai bien free mon t_list_path, alors Merci de checker ça Stanley <3
 	//Ici il faut faire la fonction de free une t_list_path
-	path_list_delete(li, li->paths->size);
+	path_list_delete(&li->shortest_path[li->paths->size]);
 	if (!(li->shortest_path[li->paths->size] = path_list_dup(li->paths)))
 		trigger_error(li, "Shortest_path : path_list_dup fail\n");
 	ft_printf("------------------\n");
