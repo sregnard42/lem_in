@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:12:47 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:51:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	check_room(t_li *li, t_room *room, int turn)
+static int	check_room(t_li *li, t_room *room)
 {
 	t_room	*child;
 
@@ -24,35 +24,56 @@ static int	check_room(t_li *li, t_room *room, int turn)
 			!(room == li->rooms->start && li->flags & FLAG_DIRECT))
 		{
 			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
-			return (clear_queue(li->queue));
+			return (SUCCESS);
 		}
-		if (child->flags & FLAG_VISITED || child->reserv[turn + 1]
-				|| room->links->current->flags & FLAG_USED)
+		if (child->flags & FLAG_VISITED || child->weight < 1)
 		{
 			room->links->current = room->links->current->next;
 			continue ;
 		}
-		room->links->current->flags |= FLAG_USED;
 		child->flags |= FLAG_VISITED;
-		enqueue(li, li->queue, room->links->current->dst, turn + 1);
+		if (child->flags & FLAG_RESERVED)
+			enqueue(li, li->queue_res, room->links->current->dst, 0);
+		else
+			enqueue(li, li->queue, room->links->current->dst, 0);
 		child->parent = room;
 		room->links->current = room->links->current->next;
 	}
 	return (FAIL);
 }
 
-int			bfs(t_li *li, int turn)
+int			bfs_maxflow(t_li *li)
 {
-	if (check_room(li, li->rooms->start, turn) == SUCCESS)
+	int			cpt = 1;
+	t_queue		*queue;
+
+	ft_printf("\033[1;36m");
+	ft_printf("BFS: START\n\n");
+	ft_printf("Existing paths :\n");
+	path_print_all(li->paths);
+	ft_putln();
+	if (check_room(li, li->rooms->start) == SUCCESS)
 		return (SUCCESS);
 	li->queue->current = li->queue->first;
-	while (li->queue->current)
+	while (li->queue->current || li->queue_res->current)
 	{
-		li->rooms->current = li->queue->current->room;
-		li->queue->current ? turn = li->queue->current->turn : 0;
-		if (check_room(li, li->queue->current->room, turn) == SUCCESS)
+		queue = li->queue->current ? li->queue : li->queue_res;
+		ft_printf("li->queue\t[%d] : ", cpt);
+		queue_print(li->queue);
+		ft_printf("li->queue_res\t[%d] : ", cpt++);
+		queue_print(li->queue_res);
+		ft_putln();
+		li->rooms->current = queue->current->room;
+		if (check_room(li, li->rooms->current) == SUCCESS)
+		{
+			clear_queue(li->queue);
+			clear_queue(li->queue_res);
+			ft_printf("BFS: END\n\n");
 			return (SUCCESS);
-		dequeue(li->queue);
+		}
+		dequeue(queue);
 	}
-	return (FAIL);
+	ft_printf("BFS: END\n\n");
+	ft_printf("\033[0m");
+	return (FAILURE);
 }
