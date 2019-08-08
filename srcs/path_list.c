@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 11:13:17 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:49:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		paths->current = path_prev ? path_prev : path_next;
 		paths->last = path_prev ? path_prev : path_next;
 	}
-	path == paths->longest_path ? longest_path(paths) : 0; 
+	path == paths->longest_path ? longest_path(paths) : 0;
 }
 
 /*
@@ -174,7 +174,7 @@ int			path_init(t_li *li)
 		path_add(li, path);
 		ft_printf("\033[1;34mNow we have:\n");
 		path_print_all(li->paths);
-		shortest_path(li); // Je test ça
+		paths_opti(li); // Je test ça
 		ft_printf("\033[0m");
 	}
 	ft_printf("\npath_init : END\n");

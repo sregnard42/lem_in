@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 11:00:19 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:48:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct			s_li
 	t_list_booking		**bookings;
 	t_list_path			*paths;
 	t_path				*first_path;
-	t_list_path			**shortest_path;
+	t_list_path			**paths_opti;
 	t_queue				*queue;
 	t_queue				*queue_res;
 	int					max_path;
@@ -197,10 +197,10 @@ void					new_matrice(t_li *li, int nb);
 **						shortest_path.c
 */
 
-int						shortest_path_init(t_li *li);
-int						shortest_path(t_li *li);
+int						paths_opti_init(t_li *li);
+int						paths_opti(t_li *li);
 int						longest_path(t_list_path *paths);
-void					print_shortest_paths(t_li *li);
+void					print_paths_opti(t_li *li);
 
 /*
 **						repartition.c
