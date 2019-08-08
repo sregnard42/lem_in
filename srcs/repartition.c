@@ -6,7 +6,7 @@
 /*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/07 16:49:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 11:33:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 static int		set_capacity(t_list_path *paths, double x)
 {
 	t_path	*path;
+	double	nb;
 
 	path = paths->first;
 	while (path)
 	{
-		path->capacity = path->weight * x;
+		nb = path->weight * x;
+		path->capacity = ((int)(nb * 10) % 10) >= 5 ? nb + 1 : nb;
 		path = path->next;
 	}
 	return (SUCCESS);
