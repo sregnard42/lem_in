@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/07 17:19:57 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/08 10:50:22 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	path_collision(t_li *li, t_path *path)
 		{
 			ft_printf("\033[1;31m");
 			ft_printf("%s already in a path, deleting path...\n", stage->room->name);
-			path_delete(li, &stage->room->path);
+			path_delete(li, li->paths, &stage->room->path);
 			ft_printf("\033[0m");
 		}
 		stage->room->path = path;
@@ -104,7 +104,7 @@ int	path_add(t_li *li, t_path *path)
 **	FAILURE	if there is no path to delete
 */
 
-void	path_delete(t_li *li, t_path **path_ptr)
+void	path_delete(t_li *li, t_list_path *paths, t_path **path_ptr)
 {
 	t_path	*path;
 	t_path	*path_prev;
@@ -115,21 +115,21 @@ void	path_delete(t_li *li, t_path **path_ptr)
 	path_next = path->next;
 	path_clear(path);
 	ft_memdel((void **)path_ptr);
-	if (!(--li->paths->size))
+	if (!(--paths->size))
 	{
-		ft_bzero(li->paths, sizeof(t_list_path));
+		ft_bzero(paths, sizeof(t_list_path));
 		return ;
 	}
-	path == li->paths->first ? li->paths->first = path_next : 0;
+	path == paths->first ? paths->first = path_next : 0;
 	path_prev ? path_prev->next = path_next : 0;
 	path_next ? path_next->prev = path_prev : 0;
 	if (li->paths->size == 1)
 	{
-		li->paths->first = path_prev ? path_prev : path_next;
-		li->paths->current = path_prev ? path_prev : path_next;
-		li->paths->last = path_prev ? path_prev : path_next;
+		paths->first = path_prev ? path_prev : path_next;
+		paths->current = path_prev ? path_prev : path_next;
+		paths->last = path_prev ? path_prev : path_next;
 	}
-	path == li->paths->longest_path ? longest_path(li->paths) : 0; 
+	path == paths->longest_path ? longest_path(paths) : 0; 
 }
 
 /*
@@ -151,7 +151,7 @@ int			path_init(t_li *li)
 			: ft_printf("No path to delete...\n");
 			li->paths->last ? path_print(li->paths->last) : 0;
 			ft_printf("\033[0m\n");
-			path_delete(li, &li->paths->last);
+			path_delete(li, li->paths, &li->paths->last);
 			continue ;
 		}
 		ft_printf("\033[1;32mBFS: PATH FOUND\n");
