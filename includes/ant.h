@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:00:00 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 16:32:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 12:09:53 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ enum					e_flags_ants
 {
 	FLAG_ARRIVED = (1 << 0),
 	FLAG_MOVED = (1 << 1),
+	FLAG_LEAD = (1 << 2),
 };
 
 #endif

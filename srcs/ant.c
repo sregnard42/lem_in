@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 17:00:10 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:36:28 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,24 @@ void	jesaispasquoimettre(t_li *li)
 	{
 //		ft_printf("i = %d\n", i);
 		j = i;
-		paths->current->ant = li->ants[i];
+		paths->current->ant = i;
+		li->ants[i]->flags |= FLAG_LEAD;
+		ft_printf("lead = %d\n", i);
 		while (i < paths->current->capacity + j)
 			li->ants[i++]->stage = paths->current->start;
 		paths->current = paths->current->next;
 	}
 }
 
-void	move_ant(t_ant **ant)
+int	move_ant(t_li *li, t_ant **ant)
 {
 	(*ant)->stage = (*ant)->stage->next;
+	if ((*ant)->stage->room->id == li->rooms->end->id)
+	{
+		(*ant)->flags |= FLAG_ARRIVED;
+		ft_printf("Je suis la fourmi %d et je suis à la fin\n", (*ant)->id);
+	}
+	return ((*ant)->flags & FLAG_ARRIVED ? SUCCESS : FAIL);
 }
 
 void	jesaispasquoimettre_bis(t_li *li)
@@ -95,17 +103,21 @@ void	jesaispasquoimettre_bis(t_li *li)
 		while (paths->current)
 		{
 			i = 0;
-			while (paths->current->ant->id + i < paths->current->ant->id + paths->current->capacity)
+			while (paths->current->ant + i < paths->current->ant + paths->current->capacity)
 			{
-				move_ant(&li->ants[i + paths->current->ant->id]);
-//				li->ants[i + paths->current->ant->id]->stage = li->ants[i + paths->current->ant->id]->stage->next;
-				if (paths->current->ant->stage->room->id == li->rooms->end->id)
+				if (!(li->ants[paths->current->ant + i]->flags & FLAG_ARRIVED))
 				{
-					ft_printf("Je suis la fourmie %d et je suis à la fin\n", paths->current->ant->id);
-					paths->current->ant = li->ants[paths->current->ant->id + 1];
+					
+					if (move_ant(li, &li->ants[paths->current->ant + i]) == SUCCESS)
+					{
+						++nb_ant_arrived;
+						if (li->ants[paths->current->ant + 10]->flags & FLAG_LEAD)
+							++paths->current->ant;
+						// Passer la fourmi a un autre path
+					}
 				}
-				ft_printf("i = %d\n", i);
-				ft_printf("ant->id = %d\n", paths->current->ant->id);
+//				ft_printf("i = %d\n", i);
+//				ft_printf("ant->id = %d\n", paths->current);
 				++i;
 			}
 			ft_printf("\n");

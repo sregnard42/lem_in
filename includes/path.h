@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:02:38 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 16:30:33 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:21:54 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ typedef struct			s_path
 	t_stage				*current;
 	t_stage				*end;
 	int					size;
-	double				weight;
 	int					capacity;
-	t_ant				*ant;
-	double				nb_turn;
+	int					ant;
 	struct s_path		*next;
 	struct s_path		*prev;
 }						t_path;
