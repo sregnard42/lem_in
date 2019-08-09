@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 15:02:08 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:26:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,20 @@ void	jesaispasquoimettre(t_li *li)
 int	move_ant(t_li *li, t_ant **ant)
 {
 	//ft_printf("[ant:%d] -> %s -> %s\n", (*ant)->id, (*ant)->stage->room->name, (*ant)->stage->next->room->name);
+
 	(*ant)->stage = (*ant)->stage->next;
-	(*ant)->stage->room->id == li->rooms->end->id ? ft_printf("\033[1;31m"): ft_printf("\033[1;32m");
+	if (!((*ant)->flags & FLAG_DEPARTED))
+	{
+		(*ant)->flags |= FLAG_DEPARTED;
+		ft_printf("\033[1;32m");
+	}
+	else
+	{
+		(*ant)->stage->room == li->rooms->end ? ft_printf("\033[1;31m"):
+		ft_printf("\033[1;33m");
+	}
 	ft_printf("L%d-%s", (*ant)->id, (*ant)->stage->room->name);
-	if ((*ant)->stage->room->id == li->rooms->end->id)
+	if ((*ant)->stage->room == li->rooms->end)
 	{
 		(*ant)->flags |= FLAG_ARRIVED;
 		//ft_printf("Je suis la fourmi %d et je suis à la fin\n", (*ant)->id);
