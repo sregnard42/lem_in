@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 15:26:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:49:51 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int			ants_init(t_li *li)
 	int	i;
 
 	i = 0;
-	if (!(li->ants = malloc(sizeof(t_ant *) * li->nb_ants + 2)))
+	if (!(li->ants = (t_ant **)malloc(sizeof(t_ant *) * (li->nb_ants + 2))))
 		trigger_error(li, "Init ants : Malloc FAIL\n");
-	ft_bzero(li->ants, sizeof(t_ant *) * li->nb_ants + 2);
-	while (++i < li->nb_ants + 2)
+	ft_bzero(li->ants, sizeof(t_ant *) * (li->nb_ants + 2));
+	while (++i < li->nb_ants + 1)
 	{
-		if (!(li->ants[i] = malloc(sizeof(t_ant))))
+		if (!(li->ants[i] = (t_ant *)malloc(sizeof(t_ant))))
 			trigger_error(li, "Init ants : Malloc FAIL\n");
 		ft_bzero(li->ants[i], sizeof(t_ant));
 		li->ants[i]->id = i;
@@ -93,6 +93,7 @@ int	move_ant(t_li *li, t_ant **ant)
 		ft_printf("\033[1;33m");
 	}
 	ft_printf("L%d-%s", (*ant)->id, (*ant)->stage->room->name);
+		ft_printf("\033[0m");
 	if ((*ant)->stage->room == li->rooms->end)
 	{
 		(*ant)->flags |= FLAG_ARRIVED;
@@ -120,7 +121,8 @@ void	jesaispasquoimettre_bis(t_li *li)
 		while (paths->current)
 		{
 			i = 0;
-			while (i + paths->current->ant <= li->nb_ants && li->ants[paths->current->ant + i]->flags & FLAG_MOVING)
+			while (i + paths->current->ant <= li->nb_ants &&
+				li->ants[paths->current->ant + i]->flags & FLAG_MOVING)
 			{
 				if (i > 0 && li->ants[paths->current->ant + i]->flags & FLAG_LEAD)
 					break ;
@@ -130,13 +132,15 @@ void	jesaispasquoimettre_bis(t_li *li)
 					if (move_ant(li, &li->ants[paths->current->ant + i]) == SUCCESS)
 					{
 						++nb_ant_arrived;
+						if (li->ants[paths->current->ant + 1])
 						if (li->ants[paths->current->ant + 1]->flags & FLAG_LEAD)
 							++paths->current->ant;
 					}
 				}
 				++i;
 			}
-			li->ants[paths->current->ant + i]->flags |= FLAG_MOVING;
+			if (li->ants[paths->current->ant + i])
+				li->ants[paths->current->ant + i]->flags |= FLAG_MOVING;
 			paths->current = paths->current->next;
 		}
 		ft_printf("\n");
