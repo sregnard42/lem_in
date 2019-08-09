@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 15:38:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:24:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,18 @@ int			main(void)
 
 
 	repartition(&li, li.paths);
+	ft_printf("nb paths : %d\n", li.max_path);
 	for (int i = 1; i <= li.max_path; i++)
+	{
+		if (!li.paths_opti[i])
+			break ;
 		repartition(&li, li.paths_opti[i]);
+		if (!li.paths_opti[0] ||
+			li.paths_opti[0]->turns > li.paths_opti[i]->turns)
+			li.paths_opti[0] = li.paths_opti[i];
+	}
+	ft_printf("Best paths_opti ?\n");
+	path_print_all(li.paths_opti[0]);
 
 	// REPARTITION END
 
