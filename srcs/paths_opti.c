@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paths_opti.c                                    :+:      :+:    :+:   */
+/*   paths_opti.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 11:47:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:09:53 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int		longest_path(t_list_path *paths)
 		paths->longest_path = NULL;
 		return (SUCCESS);
 	}
+	(!paths->first) ? ft_printf("List size : %d\tFirst ? Bitch\n", paths->size) : 0;
+	(!paths->current) ? ft_printf("List size : %d\tCurrent ? Bitch\n", paths->size) : 0;
+	(!paths->last) ? ft_printf("List size : %d\tLast ? Bitch\n", paths->size) : 0;
 	max = paths->first->size;;
 	paths->longest_path = paths->first;
 	path = paths->first->next;

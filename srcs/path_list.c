@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/08 15:12:48 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:27:17 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_list_path	*path_list_dup(t_list_path *paths)
 		else
 		{
 			new->current->next = path_dup(paths->current);
+			new->current->next->prev = new->current;
 			new->current = new->current->next;
 			if (new->current->size > new->longest_path->size)
 				new->longest_path = new->current;
@@ -92,6 +93,7 @@ int	path_add(t_li *li, t_path *path)
 		li->paths->longest_path = path;
 		return (SUCCESS);
 	}
+	path->prev = li->paths->last;
 	li->paths->last->next = path;
 	li->paths->last = path;
 	if (li->paths->longest_path->size < path->size)
@@ -113,6 +115,9 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	path = *path_ptr;
 	path_prev = path->prev;
 	path_next = path->next;
+	ft_printf("List size :%d\n", paths->size);
+	ft_printf("Pointeur prev : %p\n", path_prev);
+	ft_printf("Pointeur next : %p\n", path_next);
 	path_clear(path);
 	ft_memdel((void **)path_ptr);
 	if (!(--paths->size))
@@ -121,6 +126,7 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		return ;
 	}
 	path == paths->first ? paths->first = path_next : 0;
+	path == paths->last ? paths->last = path_prev : 0;
 	path_prev ? path_prev->next = path_next : 0;
 	path_next ? path_next->prev = path_prev : 0;
 	if (paths->size == 1)

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/09 13:21:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:31:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,18 +163,24 @@ void		path_print(t_path *path)
 	{
 		ft_printf("%s", stage->room->name);
 		stage = stage->next;
-		stage ?ft_putstr(" -> ") : ft_putstr(" ]\n");
+		stage ?ft_putstr(" -> ") : ft_putstr(" ]\t");
 	}
+	path->capacity < 0 ? ft_printf("[ X ]\n") : ft_putln();
 }
 
 void		path_print_all(t_list_path *paths)
 {
+	int		sum_capacity;
+
+	sum_capacity = 0;
 	paths->longest_path ? ft_printf("Max length : %d\n",
 	paths->longest_path->size) : 0;
 	paths->current = paths->first;
 	while (paths->current)
 	{
+		sum_capacity += paths->current->capacity;
 		path_print(paths->current);
 		paths->current = paths->current->next;
 	}
+	ft_printf("Sum capacity : %d\n", sum_capacity);
 }
