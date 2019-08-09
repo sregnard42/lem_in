@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 13:36:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 15:02:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int			ants_init(t_li *li)
 	int	i;
 
 	i = 0;
-	if (!(li->ants = malloc(sizeof(t_ant *) * li->nb_ants + 1)))
+	if (!(li->ants = malloc(sizeof(t_ant *) * li->nb_ants + 2)))
 		trigger_error(li, "Init ants : Malloc FAIL\n");
-	ft_bzero(li->ants, sizeof(t_ant *) * li->nb_ants + 1);
-	while (++i < li->nb_ants)
+	ft_bzero(li->ants, sizeof(t_ant *) * li->nb_ants + 2);
+	while (++i < li->nb_ants + 2)
 	{
 		if (!(li->ants[i] = malloc(sizeof(t_ant))))
 			trigger_error(li, "Init ants : Malloc FAIL\n");
@@ -67,29 +67,35 @@ void	jesaispasquoimettre(t_li *li)
 		j = i;
 		paths->current->ant = i;
 		li->ants[i]->flags |= FLAG_LEAD;
+		li->ants[i]->flags |= FLAG_MOVING;
 		ft_printf("lead = %d\n", i);
 		while (i < paths->current->capacity + j)
+		{
 			li->ants[i++]->stage = paths->current->start;
+		}
 		paths->current = paths->current->next;
 	}
 }
 
 int	move_ant(t_li *li, t_ant **ant)
 {
+	//ft_printf("[ant:%d] -> %s -> %s\n", (*ant)->id, (*ant)->stage->room->name, (*ant)->stage->next->room->name);
 	(*ant)->stage = (*ant)->stage->next;
+	(*ant)->stage->room->id == li->rooms->end->id ? ft_printf("\033[1;31m"): ft_printf("\033[1;32m");
+	ft_printf("L%d-%s", (*ant)->id, (*ant)->stage->room->name);
 	if ((*ant)->stage->room->id == li->rooms->end->id)
 	{
 		(*ant)->flags |= FLAG_ARRIVED;
-		ft_printf("Je suis la fourmi %d et je suis à la fin\n", (*ant)->id);
+		//ft_printf("Je suis la fourmi %d et je suis à la fin\n", (*ant)->id);
 	}
 	return ((*ant)->flags & FLAG_ARRIVED ? SUCCESS : FAIL);
 }
 
 void	jesaispasquoimettre_bis(t_li *li)
 {
-	int	nb_ant_arrived;
-	int	i;
 	t_list_path	*paths;
+	int			nb_ant_arrived;
+	int			i;
 
 	i = 1;
 	while (li->paths_opti[i + 1])
@@ -99,34 +105,34 @@ void	jesaispasquoimettre_bis(t_li *li)
 	nb_ant_arrived = 0;
 	while (nb_ant_arrived < li->nb_ants)
 	{
+		li->flags &= ~FLAG_SP;
 		paths->current = paths->first;
 		while (paths->current)
 		{
 			i = 0;
-			while (paths->current->ant + i < paths->current->ant + paths->current->capacity)
+			while (i + paths->current->ant <= li->nb_ants && li->ants[paths->current->ant + i]->flags & FLAG_MOVING)
 			{
+				if (i > 0 && li->ants[paths->current->ant + i]->flags & FLAG_LEAD)
+					break ;
 				if (!(li->ants[paths->current->ant + i]->flags & FLAG_ARRIVED))
 				{
-					
+					li->flags & FLAG_SP ? ft_printf(" ") : (li->flags |= FLAG_SP);
 					if (move_ant(li, &li->ants[paths->current->ant + i]) == SUCCESS)
 					{
 						++nb_ant_arrived;
-						if (li->ants[paths->current->ant + 10]->flags & FLAG_LEAD)
+						if (li->ants[paths->current->ant + 1]->flags & FLAG_LEAD)
 							++paths->current->ant;
-						// Passer la fourmi a un autre path
 					}
 				}
-//				ft_printf("i = %d\n", i);
-//				ft_printf("ant->id = %d\n", paths->current);
 				++i;
 			}
-			ft_printf("\n");
+			li->ants[paths->current->ant + i]->flags |= FLAG_MOVING;
 			paths->current = paths->current->next;
 		}
-		ft_printf("----------\n");
-		//break ;
+		ft_printf("\n");
 	}
 }
+
 /*
 int			ant_move(t_ant *ant, t_room *dst)
 {

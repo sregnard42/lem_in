@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 16:20:25 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:59:43 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ enum					e_flags_li
 	FLAG_ROOM		= (1 << 3),
 	FLAG_LINK		= (1 << 4),
 	FLAG_DIRECT		= (1 << 5),
-	FLAG_SECOND_TRY	= (1 << 6)
+	FLAG_SECOND_TRY	= (1 << 6),
+	FLAG_SP			= (1 << 7),
 };
 
 /*
