@@ -6,11 +6,15 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 14:39:36 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 14:49:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+/*
+**			Return how many ants could reach END in given turns
+*/
 
 static int	get_ants(t_list_path *paths, int turns)
 {
@@ -24,6 +28,12 @@ static int	get_ants(t_list_path *paths, int turns)
 	}
 	return (ants);
 }
+
+/*
+**			Set capacity of each path
+**			If necessary, delete all paths that have invalid capacities,
+**			then retry everything
+*/
 
 static int	set_capacity(t_list_path *paths, int turns, int *ants)
 {
@@ -49,6 +59,10 @@ static int	set_capacity(t_list_path *paths, int turns, int *ants)
 	return (ret);
 }
 
+/*
+**			Fix rounding problems
+*/
+
 static int	leftovers(t_list_path *paths, int ants)
 {
 	paths->current = paths->first;
@@ -59,6 +73,10 @@ static int	leftovers(t_list_path *paths, int ants)
 	}
 	return (SUCCESS);
 }
+
+/*
+**			Determine how many ants should be sent for each path
+*/
 
 int			repartition(t_li *li, t_list_path *paths)
 {
