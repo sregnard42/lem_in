@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:36:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:40:22 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ void	ants_set_stage(t_li *li)
 	int			j;
 	t_list_path	*paths;
 
-	i = 1;
-	while (li->paths_opti[i + 1])
-		++i;
-	paths = li->paths_opti[i];
+	paths = li->paths_opti[0];
 	// La je prend le dernier element de paths_opti mais il faut pas
 	path_print_all(paths);
 	paths->current = paths->first;
@@ -79,8 +76,6 @@ void	ants_set_stage(t_li *li)
 
 int	ant_move(t_li *li, t_ant **ant)
 {
-	//ft_printf("[ant:%d] -> %s -> %s\n", (*ant)->id, (*ant)->stage->room->name, (*ant)->stage->next->room->name);
-
 	if (!((*ant)->flags & FLAG_DEPARTED) && (*ant)->stage->room != li->rooms->end)
 	{
 		(*ant)->flags |= FLAG_DEPARTED;
@@ -131,10 +126,7 @@ void	ants_move(t_li *li)
 	int			nb_ant_arrived;
 	int			i;
 
-	i = 1;
-	while (li->paths_opti[i + 1])
-		++i;
-	paths = li->paths_opti[i];
+	paths = li->paths_opti[0];
 	// La je prend le dernier element de paths_opti mais il faut pas
 	nb_ant_arrived = 0;
 	while (nb_ant_arrived < li->nb_ants)

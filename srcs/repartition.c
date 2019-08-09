@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:13:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:41:21 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	set_capacity(t_list_path *paths, int *ants)
 	while (paths->current)
 	{
 		paths->current->capacity = paths->turns - (paths->current->size - 1);
-		if (paths->current->capacity < 0)
+		if (paths->current->capacity <= 0)
 		{
 			ret = FAIL;
 			path = paths->current->next;
