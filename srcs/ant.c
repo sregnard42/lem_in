@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:00:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:24:40 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			ants_init(t_li *li)
 	return (SUCCESS);
 }
 
-void	jesaispasquoimettre(t_li *li)
+void	ants_set_stage(t_li *li)
 {
 	int			i;
 	int			j;
@@ -77,7 +77,7 @@ void	jesaispasquoimettre(t_li *li)
 	}
 }
 
-int	move_ant(t_li *li, t_ant **ant)
+int	ant_move(t_li *li, t_ant **ant)
 {
 	//ft_printf("[ant:%d] -> %s -> %s\n", (*ant)->id, (*ant)->stage->room->name, (*ant)->stage->next->room->name);
 
@@ -102,7 +102,30 @@ int	move_ant(t_li *li, t_ant **ant)
 	return ((*ant)->flags & FLAG_ARRIVED ? SUCCESS : FAIL);
 }
 
-void	jesaispasquoimettre_bis(t_li *li)
+void	ants_move_path(t_li *li, int *i, t_list_path *paths, int *nb_arrived)
+{
+	*i = 0;
+	while (*i + paths->current->ant <= li->nb_ants &&
+	li->ants[paths->current->ant + *i]->flags & FLAG_MOVING)
+    {
+    	if (*i > 0 && li->ants[paths->current->ant + *i]->flags & FLAG_LEAD)
+			break ;
+		if (!(li->ants[paths->current->ant + *i]->flags & FLAG_ARRIVED))
+		{
+			li->flags & FLAG_SP ? ft_printf(" ") : (li->flags |= FLAG_SP);
+			if (ant_move(li, &li->ants[paths->current->ant + *i]) == SUCCESS)
+			{
+				++(*nb_arrived);
+	    		if (li->ants[paths->current->ant + 1])
+					if (li->ants[paths->current->ant + 1]->flags & FLAG_LEAD)
+		  				++paths->current->ant;
+	    		}
+			}
+		++(*i);
+	}
+}
+
+void	ants_move(t_li *li)
 {
 	t_list_path	*paths;
 	int			nb_ant_arrived;
@@ -120,25 +143,7 @@ void	jesaispasquoimettre_bis(t_li *li)
 		paths->current = paths->first;
 		while (paths->current)
 		{
-			i = 0;
-			while (i + paths->current->ant <= li->nb_ants &&
-				li->ants[paths->current->ant + i]->flags & FLAG_MOVING)
-			{
-				if (i > 0 && li->ants[paths->current->ant + i]->flags & FLAG_LEAD)
-					break ;
-				if (!(li->ants[paths->current->ant + i]->flags & FLAG_ARRIVED))
-				{
-					li->flags & FLAG_SP ? ft_printf(" ") : (li->flags |= FLAG_SP);
-					if (move_ant(li, &li->ants[paths->current->ant + i]) == SUCCESS)
-					{
-						++nb_ant_arrived;
-						if (li->ants[paths->current->ant + 1])
-							if (li->ants[paths->current->ant + 1]->flags & FLAG_LEAD)
-								++paths->current->ant;
-					}
-				}
-				++i;
-			}
+			ants_move_path(li, &i, paths, &nb_ant_arrived);
 			if (li->ants[paths->current->ant + i])
 				li->ants[paths->current->ant + i]->flags |= FLAG_MOVING;
 			paths->current = paths->current->next;

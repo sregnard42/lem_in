@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:24:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:29:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int			main(void)
 	li.first_path ? path_print(li.first_path) : 0;
 	print_paths_opti(&li);
 	ft_printf("\033[1;33m----------\nJe sais pas quoi mettre\n----------\033[0m\n");
-	jesaispasquoimettre(&li); // Ooopppsssss
-	jesaispasquoimettre_bis(&li);
+	ants_set_stage(&li); // Ooopppsssss
+	ants_move(&li);
 	/*************
 	  ALGO END
 	*************/

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 14:59:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:03:47 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ t_list_path				*path_list_dup(t_list_path *paths);
 */
 
 int						ants_init(t_li *li);
-int						ant_move(t_ant *ant, t_room *dst);
+int						ant_move(t_li *li, t_ant **ant);
 void					ant_print(t_ant *ant, t_room *end);
 void					ant_print_all(t_li *li);
 
@@ -210,7 +210,7 @@ void					print_paths_opti(t_li *li);
 
 int						repartition(t_li *li, t_list_path *paths);
 
-void					jesaispasquoimettre(t_li *li);
-void					jesaispasquoimettre_bis(t_li *li);
+void					ants_set_stage(t_li *li);
+void					ants_move(t_li *li);
 
 #endif
