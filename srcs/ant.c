@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 15:49:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:00:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	move_ant(t_li *li, t_ant **ant)
 	//ft_printf("[ant:%d] -> %s -> %s\n", (*ant)->id, (*ant)->stage->room->name, (*ant)->stage->next->room->name);
 
 	(*ant)->stage = (*ant)->stage->next;
-	if (!((*ant)->flags & FLAG_DEPARTED))
+	if (!((*ant)->flags & FLAG_DEPARTED) && (*ant)->stage->room != li->rooms->end)
 	{
 		(*ant)->flags |= FLAG_DEPARTED;
 		ft_printf("\033[1;32m");
@@ -133,8 +133,8 @@ void	jesaispasquoimettre_bis(t_li *li)
 					{
 						++nb_ant_arrived;
 						if (li->ants[paths->current->ant + 1])
-						if (li->ants[paths->current->ant + 1]->flags & FLAG_LEAD)
-							++paths->current->ant;
+							if (li->ants[paths->current->ant + 1]->flags & FLAG_LEAD)
+								++paths->current->ant;
 					}
 				}
 				++i;
