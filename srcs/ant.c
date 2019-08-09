@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:24:40 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 16:36:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	ant_move(t_li *li, t_ant **ant)
 {
 	//ft_printf("[ant:%d] -> %s -> %s\n", (*ant)->id, (*ant)->stage->room->name, (*ant)->stage->next->room->name);
 
-	(*ant)->stage = (*ant)->stage->next;
 	if (!((*ant)->flags & FLAG_DEPARTED) && (*ant)->stage->room != li->rooms->end)
 	{
 		(*ant)->flags |= FLAG_DEPARTED;
@@ -99,6 +98,7 @@ int	ant_move(t_li *li, t_ant **ant)
 		(*ant)->flags |= FLAG_ARRIVED;
 		//ft_printf("Je suis la fourmi %d et je suis à la fin\n", (*ant)->id);
 	}
+	(*ant)->stage = (*ant)->stage->next;
 	return ((*ant)->flags & FLAG_ARRIVED ? SUCCESS : FAIL);
 }
 
