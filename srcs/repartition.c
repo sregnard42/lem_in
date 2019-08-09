@@ -6,75 +6,70 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/08 15:14:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/09 13:06:43 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*
-**	Set	the capacity of each path
-*/
-
-static int		set_capacity(t_list_path *paths, double x)
+static int	get_ants(t_list_path *paths, int turns)
 {
-	t_path	*path;
-	double	nb;
+	int		ants = 0;
 
-	path = paths->first;
-	while (path)
+	paths->current = paths->first;
+	while (paths->current)
 	{
-		nb = path->weight * x;
-//		path->capacity = ((int)(nb * 10) % 10) >= 5 ? nb + 1 : nb;
-		path->capacity = nb;
-		path->nb_turn = nb + path->size -1;
-		path = path->next;
+		ants += turns - (paths->current->size - 1);
+		paths->current = paths->current->next;
+	}
+	return (ants);
+}
+
+static int	set_capacity(t_list_path *paths, int turns, int *ants)
+{
+	paths->current = paths->first;
+	while (paths->current)
+	{
+		paths->current->capacity = turns - (paths->current->size - 1);
+		*ants -= paths->current->capacity;
+		paths->current = paths->current->next;
 	}
 	return (SUCCESS);
 }
 
-/*
-**	Set the weight of each path and return the sum
-*/
-
-static double	sum(t_list_path *paths)
+static int	leftovers(t_list_path *paths, int ants)
 {
-	double	sum;
-	t_path	*path;
-
-	sum = 0;
-	path = paths->first;
-	while (path)
+	paths->current = paths->first;
+	while (paths->current && ants--)
 	{
-		path->weight = (double)paths->longest_path->size / (double)path->size;
-		sum += path->weight;
-		path = path->next;
+		++paths->current->capacity;
+		paths->current = paths->current->next;
 	}
-	return (sum);
+	return (SUCCESS);
 }
 
-/*
-**	Calculate ant capacity for each path
-**	if A is the longest path
-**	weightA = 1 ; weightB = lenA / lenB ; ... ; weightZ = lenA / lenZ
-**	x = nb_ants / (weightA + weightB + ... + weightZ)
-**	capA = weightA * x ; capB = weightB * x ; ... ; capZ = weightZ * x
-*/
-
-int				repartition(t_li *li, t_list_path *paths)
+int			repartition(t_li *li, t_list_path *paths)
 {
-	double	x;
+	static int	color = 32;
+	int		ants;
+	int		diff;
+	int		turns;
 
-	if (!paths || !paths->size)
-		return (FAILURE);
-	if (paths->size == 1)
-	{
-		paths->first->weight = 1;
-		paths->first->capacity = li->nb_ants;
-		return (SUCCESS);
-	}
-	x = li->nb_ants / sum(paths);
-	set_capacity(paths, x);
+	if (!paths)
+		return (FAIL);
+	ants = li->nb_ants;
+	ft_printf("\033[1;%dm", color++);
+	ft_printf("\nrepartiton : BEGIN\n");
+	ft_printf("nb_ants = %d\tnb_paths = %d\n", ants, paths->size);
+	diff = get_ants(paths, 0) - ants;
+	diff < 0 ? diff = -diff : 0;
+	turns = diff / paths->size;
+	ft_printf("turns = %d\n", turns);
+	set_capacity(paths, turns, &ants);
+	leftovers(paths, ants);
+	path_print_all(paths);
+	ft_printf("repartiton : END\n");
+	ft_printf("\033[0m");
 	return (SUCCESS);
 }
 
