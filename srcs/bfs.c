@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/10 14:11:47 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/10 16:44:13 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,36 +44,28 @@ static int	check_room(t_li *li, t_room *room)
 
 int			bfs_maxflow(t_li *li)
 {
-	int			cpt = 1;
 	t_queue		*queue;
 
-	ft_printf("\033[1;36m");
-	ft_printf("BFS: START\n\n");
-	ft_printf("Existing paths :\n");
-	path_print_all(li->paths);
-	ft_putln();
+//	ft_printf("\033[1;33m");
+//	ft_printf("BFS: START\n");
 	if (check_room(li, li->rooms->start) == SUCCESS)
 		return (SUCCESS);
 	li->queue->current = li->queue->first;
 	while (li->queue->current || li->queue_res->current)
 	{
 		queue = li->queue->current ? li->queue : li->queue_res;
-		ft_printf("li->queue\t[%d] : ", cpt);
-		queue_print(li->queue);
-		ft_printf("li->queue_res\t[%d] : ", cpt++);
-		queue_print(li->queue_res);
-		ft_putln();
 		li->rooms->current = queue->current->room;
 		if (check_room(li, li->rooms->current) == SUCCESS)
 		{
 			clear_queue(li->queue);
 			clear_queue(li->queue_res);
-			ft_printf("BFS: END\n\n");
+//			ft_printf("BFS: END\n");
+//			ft_printf("\033[0m");
 			return (SUCCESS);
 		}
 		dequeue(queue);
 	}
-	ft_printf("BFS: END\n\n");
-	ft_printf("\033[0m");
+//	ft_printf("BFS: END\n");
+//	ft_printf("\033[0m");
 	return (FAILURE);
 }

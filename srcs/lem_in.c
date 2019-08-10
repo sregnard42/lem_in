@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/10 14:16:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:29:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,22 @@ int			main(void)
 	/*************
 	  ALGO START
 	*************/
-
+	// BFS BEGIN
+	ft_printf("\033[1m");
+	ft_printf("---Path init-----------------------------------------------\n");
+	ft_printf("\033[0m");
 	tree(&li);
 	paths_opti_init(&li);
 	path_init(&li);
-
+	ft_printf("\033[1m");
+	ft_printf("---Path init END-------------------------------------------\n");
+	ft_printf("\033[0m");
+	// BFS END
 	// REPARTITION BEGIN
-
-
+	ft_printf("\033[1;36m");
+	ft_printf("---Repartition---------------------------------------------\n");
+	li.first_path->capacity = li.nb_ants;
 	repartition(&li, li.paths);
-	ft_printf("nb paths : %d\n", li.max_path);
 	for (int i = 1; i <= li.max_path; i++)
 	{
 		if (!li.paths_opti[i])
@@ -78,24 +84,32 @@ int			main(void)
 			li.paths_opti[0]->turns > li.paths_opti[i]->turns)
 			li.paths_opti[0] = li.paths_opti[i];
 	}
-	ft_printf("Best paths_opti ?\n");
-	path_print_all(li.paths_opti[0]);
-
+	ft_printf("---Repartition END-----------------------------------------\n");
+	ft_printf("\033[0m");
 	// REPARTITION END
-
-	ft_printf("\033[1;36m\nNb ants : %d\n\033[0m", li.nb_ants);
-	ft_printf("\033[1;36m\nAll paths :\n\033[0m");
-	path_print_all(li.paths);
-	li.first_path ? ft_printf("\033[1;36m\nShortest path :\n\033[0m") : 0;
-	li.first_path ? path_print(li.first_path) : 0;
-	print_paths_opti(&li);
-	ft_printf("\033[1;33m----------\nJe sais pas quoi mettre\n----------\033[0m\n");
-	ants_set_stage(&li); // Ooopppsssss
-	ants_move(&li);
 	/*************
 	  ALGO END
 	*************/
-
+	ft_printf("\033[1m");
+	ft_printf("---Summary-------------------------------------------------\n");
+	ft_printf("Nb ants : %d\n", li.nb_ants);
+	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("First path : ");
+	path_print(li.first_path);
+	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("All paths :\n");
+	print_paths_opti(&li);
+	ft_printf("\033[1m");
+	ft_printf("---Summary END---------------------------------------------\n");
+	ft_printf("---Moving ants---------------------------------------------\n");
+	ft_printf("\033[0m");
+	ants_set_stage(&li);
+	ants_move(&li);
+	ft_printf("\033[1m");
+	ft_printf("---Moving ants END-----------------------------------------\n");
+	ft_printf("Path(s) used :\n");
+	path_print_all(li.paths_opti[0]);
+	ft_printf("\033[0m");
 //	free_all(&li);
 	return (SUCCESS);
 }

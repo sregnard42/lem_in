@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/09 16:14:36 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 16:28:32 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ int			path_clear(t_path *path)
 	t_stage	*stage;
 
 	path->current = path->start;
-	ft_printf("Path clearing...\n");
+	ft_printf("Path clearing: ");
+	path_print(path);
 	while (path->current)
 	{
 		stage = path->current;
-		ft_printf("Clearing stage : %s\n", stage->room->name);
 		stage->room->flags &= ~FLAG_RESERVED;
 		stage->room->weight++;
 		stage->room->path = NULL;
 		path->current = path->current->next;
 		ft_memdel((void **)&stage);
 	}
-	ft_printf("Path cleared\n");
+	ft_printf("Path cleared.\n");
 	return (SUCCESS);
 }
 
@@ -143,7 +143,8 @@ t_path		*path_new(t_li *li)
 		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
-	ft_printf("Path created\n");
+	ft_printf("Path created : ");
+	path_print(path);
 	return (path);
 }
 
@@ -156,16 +157,15 @@ void		path_print(t_path *path)
 	t_stage *stage;
 
 	ft_printf("[ %s = %3d ]", "len", path->size);
-	ft_printf("[ %s = %4d ]\t", "capacity", path->capacity);
+	ft_printf("[ %s = %4d ]", "capacity", path->capacity);
 	stage = path->start;
 	stage ? ft_putstr("[ ") : ft_putstr("[ No path ]\n");
 	while (stage)
 	{
 		ft_printf("%s", stage->room->name);
 		stage = stage->next;
-		stage ?ft_putstr(" -> ") : ft_putstr(" ]\t");
+		stage ?ft_putstr(" -> ") : ft_putstr(" ]\n");
 	}
-	path->capacity < 0 ? ft_printf("[ X ]\n") : ft_putln();
 }
 
 void		path_print_all(t_list_path *paths)
@@ -173,9 +173,14 @@ void		path_print_all(t_list_path *paths)
 	int		sum_capacity;
 
 	sum_capacity = 0;
-	paths->longest_path ? ft_printf("Max length : %d\n",
-	paths->longest_path->size) : 0;
 	paths->current = paths->first;
+	if (!paths->current)
+	{
+		ft_printf("<<<<<<<<<<<<<<<<<<<<<<< No path >>>>>>>>>>>>>>>>>>>>>>>\n");
+		return ;
+	}
+	ft_printf("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+	ft_printf("Nb of paths : %d\n", paths->size);
 	ft_printf("Nb of turns : %d\n", paths->turns);
 	while (paths->current)
 	{
@@ -183,5 +188,7 @@ void		path_print_all(t_list_path *paths)
 		path_print(paths->current);
 		paths->current = paths->current->next;
 	}
-	ft_printf("Sum capacity : %d\n", sum_capacity);
+	ft_printf("Longest path length : %d\n", paths->longest_path->size);
+	ft_printf("Total capacity : %d\n", sum_capacity);
+	ft_printf("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
 }

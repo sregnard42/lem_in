@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/09 14:09:53 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 16:09:29 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ int		longest_path(t_list_path *paths)
 		paths->longest_path = NULL;
 		return (SUCCESS);
 	}
-	(!paths->first) ? ft_printf("List size : %d\tFirst ? Bitch\n", paths->size) : 0;
-	(!paths->current) ? ft_printf("List size : %d\tCurrent ? Bitch\n", paths->size) : 0;
-	(!paths->last) ? ft_printf("List size : %d\tLast ? Bitch\n", paths->size) : 0;
 	max = paths->first->size;;
 	paths->longest_path = paths->first;
 	path = paths->first->next;
@@ -116,17 +113,15 @@ int	paths_opti(t_li *li)
 
 void	print_paths_opti(t_li *li)
 {
+	static int	color = 31;
 	int	i;
 
 	i = 0;
-	ft_printf("\033[1;31m");
-	while (++i <= li->max_path)
+	while (i <= li->max_path && li->paths_opti[i])
 	{
-		if (!li->paths_opti[i])
-			break ;
-		ft_printf("Size : %d\n", li->paths_opti[i]->size);
-		path_print_all(li->paths_opti[i]);
-		ft_printf("----------\n");
+		ft_printf("\033[1;%dm", color);
+		color == 36 ? color = 31 : ++color;
+		path_print_all(li->paths_opti[i++]);
 	}
 	ft_printf("\033[1;0m");
 }

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/09 16:27:51 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:25:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	path_collision(t_li *li, t_path *path)
 		if (stage->room->path)
 		{
 			ft_printf("\033[1;31m");
-			ft_printf("%s already in a path, deleting path...\n", stage->room->name);
+			ft_printf("%s already in a path, deleting older path...\n", stage->room->name);
 			path_delete(li->paths, &stage->room->path);
 			ft_printf("\033[0m");
 		}
@@ -115,9 +115,6 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	path = *path_ptr;
 	path_prev = path->prev;
 	path_next = path->next;
-	ft_printf("List size :%d\n", paths->size);
-	ft_printf("Pointeur prev : %p\n", path_prev);
-	ft_printf("Pointeur next : %p\n", path_next);
 	path_clear(path);
 	ft_memdel((void **)path_ptr);
 	if (!(--paths->size))
@@ -144,45 +141,30 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 
 int			path_init(t_li *li)
 {
+	static int	color = 32;
 	t_path	*path;
 
-	ft_printf("path_init : BEGIN\n\n");
 	while (li->max_path > li->paths->size)
 	{
 		if (bfs_maxflow(li) == FAIL)
-		{
-			ft_printf("\033[1;31mBFS: NO PATH\n");
-			room_clean(li);
-			li->paths->last ? ft_printf("Delete last path : ")
-			: ft_printf("No path to delete...\n");
-			li->paths->last ? path_print(li->paths->last) : 0;
-			ft_printf("\033[0m\n");
-			path_delete(li->paths, &li->paths->last);
-			continue ;
-		}
-		ft_printf("\033[1;32mBFS: PATH FOUND\n");
+			return (FAIL);
+		ft_printf("\033[1;%dm", color);
+		ft_printf("BFS: Path found\n");
 		room_clean(li);
 		path = path_new(li);
-		ft_printf("Path created : ");
-		path_print(path);
-		ft_printf("\033[0m\n");
-		if (li->first_path)
-		{
-			if (path_cmp(path, li->first_path) == SUCCESS)
-			{
-				ft_printf("\npath_init : END\n");
-				return (SUCCESS);
-			}
-		}
-		else
+		ft_printf("\033[0m");
+		if (li->first_path == NULL)
 			li->first_path = path_dup(path);
+		else if (path_cmp(path, li->first_path) == SUCCESS)
+			return (SUCCESS);
 		path_collision(li, path);
 		path_add(li, path);
-		ft_printf("\033[1;34mNow we have:\n");
+		ft_printf("\033[1;%dm", color);
+		ft_printf(":: Paths updated ::\n", color);
 		path_print_all(li->paths);
-		paths_opti(li); // Je test ça
+		paths_opti(li);
 		ft_printf("\033[0m");
+		color == 36 ? color = 32 : ++color;
 	}
-	ft_printf("\npath_init : END\n");
 	return (SUCCESS);
 }
