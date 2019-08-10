@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 18:46:42 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:50:00 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 14:11:21 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ int	queue_print(t_queue *queue)
 **			Add room to the end of the queue
 */
 
-int	enqueue(t_li *li, t_queue *queue, t_room *room, int turn)
+int	enqueue(t_li *li, t_queue *queue, t_room *room)
 {
 	t_queue_e	*elem;
 
 	if (!(elem = (t_queue_e *)malloc(sizeof(t_queue_e))))
 		trigger_error(li, "enqueue : error malloc\n");
 	elem->room = room;
-	elem->turn = turn;
 	elem->next = NULL;
 	if (queue->last)
 	{

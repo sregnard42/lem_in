@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/08 13:41:46 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/08/10 14:14:13 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ INCLUDES				+=	-I $(LIBDIR)$(HEADDIR)
 
 HEADERS					=	lem_in.h	\
 							ant.h		\
-							booking.h	\
 							link.h		\
 							parent.h	\
 							path.h		\

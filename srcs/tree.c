@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/06 16:05:57 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 14:11:57 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_room(t_li *li, t_room *room)
 		}
 		if (!(child->flags & FLAG_QUEUED))
 		{
-			enqueue(li, li->queue, child, 0);
+			enqueue(li, li->queue, child);
 			child->flags |= FLAG_QUEUED;
 		}
 		parent_add(child, room);

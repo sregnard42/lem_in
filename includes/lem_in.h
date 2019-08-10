@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:03:47 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/10 14:14:02 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "ant.h"
 # include "path.h"
 # include "link.h"
-# include "booking.h"
 # include "queue.h"
 # include "parent.h"
 
@@ -47,16 +46,12 @@ typedef struct			s_li
 	int					nb_ants;
 	t_list_room			*rooms;
 	t_ant				**ants;
-	t_list_booking		**bookings;
 	t_list_path			*paths;
 	t_path				*first_path;
 	t_list_path			**paths_opti;
 	t_queue				*queue;
 	t_queue				*queue_res;
 	int					max_path;
-	int					max_turn;
-	int					moves;
-	char				**path_mat;
 	unsigned int		flags;
 	bool				**matrice;
 }						t_li;
@@ -69,8 +64,7 @@ enum					e_flags_li
 	FLAG_ROOM		= (1 << 3),
 	FLAG_LINK		= (1 << 4),
 	FLAG_DIRECT		= (1 << 5),
-	FLAG_SECOND_TRY	= (1 << 6),
-	FLAG_SP			= (1 << 7),
+	FLAG_SP			= (1 << 6),
 };
 
 /*
@@ -144,15 +138,6 @@ void					ant_print(t_ant *ant, t_room *end);
 void					ant_print_all(t_li *li);
 
 /*
-**						booking.c
-*/
-
-int						booking_init(t_li *li);
-int						add_booking(t_li *li, t_room *room, int turn);
-int						booking_turn(t_li *li, int turn);
-void					print_booking(t_li *li);
-
-/*
 **						bfs.c
 */
 
@@ -164,7 +149,7 @@ int						bfs_maxflow(t_li *li);
 */
 
 int						queue_print(t_queue *queue);
-int						enqueue(t_li *li, t_queue *queue, t_room *room, int turn);
+int						enqueue(t_li *li, t_queue *queue, t_room *room);
 int						dequeue(t_queue *queue);
 int						clear_queue(t_queue *queue);
 

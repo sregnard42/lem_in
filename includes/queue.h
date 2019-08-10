@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sregnard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/26 13:27:48 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/05 22:03:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 14:10:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct			s_queue_e
 {
 	t_room				*room;
-	int					turn;
 	struct s_queue_e	*next;
 }						t_queue_e;
 
