@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/10 16:09:29 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/10 17:49:45 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,14 @@ int	paths_opti(t_li *li)
 
 void	print_paths_opti(t_li *li)
 {
-	static int	color = 31;
+	static int	color = 32;
 	int	i;
 
 	i = 0;
 	while (i <= li->max_path && li->paths_opti[i])
 	{
 		ft_printf("\033[1;%dm", color);
-		color == 36 ? color = 31 : ++color;
+		color == 36 ? color = 32 : ++color;
 		path_print_all(li->paths_opti[i++]);
 	}
 	ft_printf("\033[1;0m");
