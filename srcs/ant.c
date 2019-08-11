@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 14:24:06 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 16:01:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			ants_init(t_li *li)
 	return (SUCCESS);
 }
 
-void	ants_set_stage(t_li *li)
+void		ants_set_stage(t_li *li)
 {
 	int			i;
 	int			j;
@@ -52,7 +52,7 @@ void	ants_set_stage(t_li *li)
 	}
 }
 
-int	ant_move(t_li *li, t_ant *ant)
+static int	ant_move(t_li *li, t_ant *ant)
 {
 	if (!(ant->flags & FLAG_DEPARTED) && ant->stage->room != li->rooms->end)
 	{
@@ -61,38 +61,48 @@ int	ant_move(t_li *li, t_ant *ant)
 	}
 	else
 	{
-		ant->stage->room == li->rooms->end ? ft_printf("\033[1;31m"):
+		ant->stage->room == li->rooms->end ? ft_printf("\033[1;31m") :
 		ft_printf("\033[1;33m");
 	}
 	ft_printf("L%d-%s", ant->id, ant->stage->room->name);
-		ft_printf("\033[0m");
+	ft_printf("\033[0m");
 	if (ant->stage->room == li->rooms->end)
 		ant->flags |= FLAG_ARRIVED;
 	ant->stage = ant->stage->next;
 	return (ant->flags & FLAG_ARRIVED ? 1 : 0);
 }
 
-static int	ants_move_path(t_li *li, t_list_path *paths)
-{
-	int	i;
-	int	id;
-	int	nb_arrived;
+/*
+**	path->ant = id of the first ant that is still moving in this path
+**	++path->ant when an ant arrives, so the next one becomes the "first ant"
+*/
 
-	i = 0;
-	id = paths->current->ant;
-	nb_arrived = 0;
-	while (id + i <= li->nb_ants && li->ants[id + i].flags & FLAG_MOVING
-		&& !(i > 0 && li->ants[id + i].flags & FLAG_LEAD))
+static int	ants_move_path(t_li *li, t_path *path)
+{
+	int	id;
+	int	arrived;
+
+	id = path->ant;
+	arrived = 0;
+	while (id <= li->nb_ants && li->ants[id].flags & FLAG_MOVING
+		&& !(id - path->ant > 0 && li->ants[id].flags & FLAG_LEAD))
 	 {
-		if (!(li->ants[id + i].flags & FLAG_ARRIVED))
+		if (!(li->ants[id].flags & FLAG_ARRIVED))
 		{
 			li->flags & FLAG_SP ? ft_printf(" ") : (li->flags |= FLAG_SP);
-			nb_arrived += ant_move(li, &li->ants[id + i]);
+			if (ant_move(li, &li->ants[id]))
+			{
+				++arrived;
+				if (path->ant < li->nb_ants &&
+					!(li->ants[path->ant + 1].flags & FLAG_LEAD))
+					++path->ant;
+			}
 		}
-		++i;
+		++id;
 	}
-	id + i <= li->nb_ants ? li->ants[id + i].flags |= FLAG_MOVING : 0;
-	return (nb_arrived);
+	id <= li->nb_ants && !(li->ants[id].flags & FLAG_LEAD) ?
+	li->ants[id].flags |= FLAG_MOVING : 0;
+	return (arrived);
 }
 
 void		ants_move(t_li *li)
@@ -108,7 +118,7 @@ void		ants_move(t_li *li)
 		paths->current = paths->first;
 		while (paths->current)
 		{
-			nb_arrived += ants_move_path(li, paths);
+			nb_arrived += ants_move_path(li, paths->current);
 			paths->current = paths->current->next;
 		}
 		ft_printf("\n");
