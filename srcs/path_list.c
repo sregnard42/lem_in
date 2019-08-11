@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/11 13:03:00 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 13:15:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,14 @@ int			path_init(t_li *li)
 		if (!li->paths_all->size)
 			path_add(li->paths_all, path_dup(path));
 		else if (path_already_found(li->paths_all, path) == SUCCESS)
+		{
+			ft_printf("\033[1;31m");
+			ft_printf("Already found ! All paths found !\n");
+			path_clear(path);
+			ft_printf("\033[0m");
+			ft_memdel((void **)&path);
 			return (SUCCESS);
+		}
 		else
 			path_add(li->paths_all, path_dup(path));
 		path_collision(li, path);
