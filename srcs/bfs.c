@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/10 16:44:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 12:50:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_room(t_li *li, t_room *room)
 	return (FAIL);
 }
 
-int			bfs_maxflow(t_li *li)
+int			bfs(t_li *li)
 {
 	t_queue		*queue;
 

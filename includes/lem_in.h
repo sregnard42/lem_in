@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/10 14:14:02 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/11 12:50:23 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct			s_li
 	t_list_room			*rooms;
 	t_ant				**ants;
 	t_list_path			*paths;
-	t_path				*first_path;
+	t_list_path			*paths_all;
 	t_list_path			**paths_opti;
 	t_queue				*queue;
 	t_queue				*queue_res;
@@ -141,8 +141,7 @@ void					ant_print_all(t_li *li);
 **						bfs.c
 */
 
-int						bfs(t_li *li, int turn);
-int						bfs_maxflow(t_li *li);
+int						bfs(t_li *li);
 
 /*
 **						queue.c

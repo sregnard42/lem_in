@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/10 17:25:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 13:03:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,24 @@ int	path_collision(t_li *li, t_path *path)
 **	Add path to list of paths
 */
 
-int	path_add(t_li *li, t_path *path)
+int	path_add(t_list_path *paths, t_path *path)
 {
-	if (!li->paths || !path)
+	if (!paths || !path)
 		return (ERROR);
-	++li->paths->size;
-	if (!li->paths->first)
+	++paths->size;
+	if (!paths->first)
 	{
-		li->paths->first = path;
-		li->paths->current = path;
-		li->paths->last = path;
-		li->paths->longest_path = path;
+		paths->first = path;
+		paths->current = path;
+		paths->last = path;
+		paths->longest_path = path;
 		return (SUCCESS);
 	}
-	path->prev = li->paths->last;
-	li->paths->last->next = path;
-	li->paths->last = path;
-	if (li->paths->longest_path->size < path->size)
-		li->paths->longest_path = path;
+	path->prev = paths->last;
+	paths->last->next = path;
+	paths->last = path;
+	if (paths->longest_path->size < path->size)
+		paths->longest_path = path;
 	return (SUCCESS);
 }
 
@@ -135,6 +135,18 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	path == paths->longest_path ? longest_path(paths) : 0;
 }
 
+static int	path_already_found(t_list_path *paths, t_path *path)
+{
+	paths->current = paths->first;
+	while (paths->current)
+	{
+		if (path_cmp(paths->current, path) == SUCCESS)
+			return (SUCCESS);
+		paths->current = paths->current->next;
+	}
+	return (FAILURE);
+}
+
 /*
 **	Init the list of paths
 */
@@ -146,19 +158,21 @@ int			path_init(t_li *li)
 
 	while (li->max_path > li->paths->size)
 	{
-		if (bfs_maxflow(li) == FAIL)
+		if (bfs(li) == FAIL)
 			return (FAIL);
 		ft_printf("\033[1;%dm", color);
 		ft_printf("BFS: Path found\n");
 		room_clean(li);
 		path = path_new(li);
 		ft_printf("\033[0m");
-		if (li->first_path == NULL)
-			li->first_path = path_dup(path);
-		else if (path_cmp(path, li->first_path) == SUCCESS)
+		if (!li->paths_all->size)
+			path_add(li->paths_all, path_dup(path));
+		else if (path_already_found(li->paths_all, path) == SUCCESS)
 			return (SUCCESS);
+		else
+			path_add(li->paths_all, path_dup(path));
 		path_collision(li, path);
-		path_add(li, path);
+		path_add(li->paths, path);
 		ft_printf("\033[1;%dm", color);
 		ft_printf(":: Paths updated ::\n", color);
 		path_print_all(li->paths);
