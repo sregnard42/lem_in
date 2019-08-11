@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 13:05:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 13:11:45 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,13 @@ int			main(void)
 	ft_printf("---Summary-------------------------------------------------\n");
 	ft_printf("Nb ants : %d\n", li.nb_ants);
 	ft_printf("-----------------------------------------------------------\n");
-	ft_printf("All paths found :\n");
+	ft_printf("All individual paths found :\n");
 	path_print_all(li.paths_all);
 	ft_printf("-----------------------------------------------------------\n");
+	ft_printf("Last set of compatible paths found :\n");
 	path_print_all(li.paths);
 	ft_printf("-----------------------------------------------------------\n");
-	ft_printf("All paths kept :\n");
+	ft_printf("All sets of compatible paths kept :\n");
 	print_paths_opti(&li);
 	ft_printf("\033[1m");
 	ft_printf("---Summary END---------------------------------------------\n");
@@ -109,7 +110,7 @@ int			main(void)
 	ants_move(&li);
 	ft_printf("\033[1m");
 	ft_printf("---Moving ants END-----------------------------------------\n");
-	ft_printf("Path(s) used :\n");
+	ft_printf("Set of paths used :\n");
 	path_print_all(li.paths_opti[0]);
 	ft_printf("\033[0m");
 //	free_all(&li);
