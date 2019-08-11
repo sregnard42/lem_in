@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 13:11:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 13:24:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,20 @@ static int	init_li(t_li *li)
 	return (SUCCESS);
 }
 
+static int	repartition_lists(t_li *li, t_list_path** lists)
+{
+	int			i;
+
+	i = 0;
+	while (lists[++i])
+		if (repartition(li, lists[i]) == FAILURE)
+			trigger_error(li, "Repartition : FAILURE\n");
+		else
+			if (!lists[0] || lists[0]->turns > lists[i]->turns)
+				lists[0] = lists[i];
+	return (SUCCESS);
+}
+
 int			main(void)
 {
 	t_li	li;
@@ -75,15 +89,7 @@ int			main(void)
 	ft_printf("\033[1;36m");
 	ft_printf("---Repartition---------------------------------------------\n");
 	repartition(&li, li.paths);
-	for (int i = 1; i <= li.max_path; i++)
-	{
-		if (!li.paths_opti[i])
-			break ;
-		repartition(&li, li.paths_opti[i]);
-		if (!li.paths_opti[0] ||
-			li.paths_opti[0]->turns > li.paths_opti[i]->turns)
-			li.paths_opti[0] = li.paths_opti[i];
-	}
+	repartition_lists(&li, li.paths_opti);
 	ft_printf("---Repartition END-----------------------------------------\n");
 	ft_printf("\033[0m");
 	// REPARTITION END
