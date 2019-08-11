@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/10 16:28:32 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 17:00:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int			path_clear(t_path *path)
 		path->current = path->current->next;
 		ft_memdel((void **)&stage);
 	}
-	ft_printf("Path cleared.\n");
 	return (SUCCESS);
 }
 

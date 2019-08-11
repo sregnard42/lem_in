@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 15:04:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/11 16:13:56 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct			s_li
 	char				buf[LI_BUFF_SIZE];
 	unsigned int		index;
 	int					nb_ants;
-	t_list_room			*rooms;
 	t_ant				*ants;
+	t_list_room			*rooms;
 	t_list_path			*paths;
 	t_list_path			*paths_all;
 	t_list_path			**paths_opti;
