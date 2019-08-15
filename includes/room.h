@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:55:45 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/15 13:50:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:37:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct				s_room
 {
 	char					*name;
 	int						id;
-	int						nb_child;
 	int						weight;
 	int						distance;
 	t_point					pos;

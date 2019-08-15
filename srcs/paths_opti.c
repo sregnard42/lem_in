@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/10 17:49:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:39:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 int	paths_opti_init(t_li *li)
 {
-	li->max_path = (li->rooms->start->nb_child > li->rooms->end->parents->size ?
-	li->rooms->end->parents->size : li->rooms->start->nb_child);
+	li->max_path = (li->rooms->start->childs->size > li->rooms->end->parents->size ?
+	li->rooms->end->parents->size : li->rooms->start->childs->size);
 	if (!(li->paths_opti =
 		malloc(sizeof(t_list_path *) * (li->max_path + 2))))
 		trigger_error(li, "paths_opti_init : Malloc fail\n");
