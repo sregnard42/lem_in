@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 16:12:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:15:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int			main(void)
 	ft_printf("Set of paths used :\n");
 	path_print_all(li.paths_opti[0]);
 	ft_printf("\033[0m");
-	free_all(&li);
+//	room_print_all(&li);
+//	free_all(&li);
 	return (SUCCESS);
 }

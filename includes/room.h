@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:55:45 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/05 21:33:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 13:50:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct				s_room
 	t_point					pos;
 	bool					*reserv;
 	struct s_list_link		*links;
-	struct s_list_parent	*parents;
+	struct s_list_relative	*parents;
+	struct s_list_relative	*childs;
 	struct s_room			*parent;
 	struct s_path			*path;
 	struct s_room			*next;

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 16:13:56 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 13:58:16 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "path.h"
 # include "link.h"
 # include "queue.h"
-# include "parent.h"
+# include "relative.h"
 
 # define DEBUG			1
 # define ERR_DEFAULT	"ERROR\n"
@@ -99,7 +99,7 @@ t_room					*room_new(t_li *li, char *name, t_point *pos);
 void					room_add(t_room **rooms, t_room *new_room);
 void					room_clean(t_li *li);
 void					room_print(t_room *room);
-void					room_print_all(t_room *room);
+void					room_print_all(t_li *li);
 
 /*
 **						links.c
@@ -150,10 +150,10 @@ int						clear_queue(t_queue *queue);
 void					print_lem_in(t_li *li);
 
 /*
-**						parent.c
+**						relative.c
 */
 
-int						parent_add(t_room *child, t_room *room);
+int						relative_add(t_list_relative **list, t_room *room);
 int						parent_of(t_room *room, t_room *child);
 int						parent_print_all(t_room *room);
 

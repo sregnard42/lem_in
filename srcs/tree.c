@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/10 14:11:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/15 13:54:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static int	check_room(t_li *li, t_room *room)
 			enqueue(li, li->queue, child);
 			child->flags |= FLAG_QUEUED;
 		}
-		parent_add(child, room);
+		relative_add(&child->parents, room);
+		relative_add(&room->childs, child);
+		++room->nb_child;
+		++room->weight;
 		room->links->current = room->links->current->next;
 	}
 	return (SUCCESS);

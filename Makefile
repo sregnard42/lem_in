@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/10 14:14:13 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/08/15 13:51:16 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ INCLUDES				+=	-I $(LIBDIR)$(HEADDIR)
 HEADERS					=	lem_in.h	\
 							ant.h		\
 							link.h		\
-							parent.h	\
+							relative.h	\
 							path.h		\
 							queue.h		\
 							room.h
@@ -47,7 +47,7 @@ SRCNAME					=	lem_in.c		\
 							print_lem_in.c	\
 							free.c			\
 							tree.c			\
-							parent.c		\
+							relative.c		\
 							paths_opti.c 	\
 							repartition.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/06 13:04:03 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:05:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,37 @@ void	room_print(t_room *room)
 		link_print(room->links->current);
 		room->links->current = room->links->current->next;
 	}
-	if (!(room->parents))
+	if (room->parents)
 	{
-		ft_printf("\033[1;34m/ROOM_PRINT\033[0m\n\n");
-		return ;
+		ft_printf("\033[1;33mParents [%d] : ", room->parents->size);
+		room->parents->current = room->parents->first;
+		while (room->parents->current)
+		{
+			ft_printf("%s", room->parents->current->room->name);
+			room->parents->current = room->parents->current->next;
+			room->parents->current ? ft_printf(", ") : ft_printf("\033[0m\n");
+		}
 	}
-	ft_printf("\033[1;33mParents [%d] : ", room->parents->size);
-	room->parents->current = room->parents->first;
-	while (room->parents->current)
+	if (room->childs)
 	{
-		ft_printf("%s", room->parents->current->room->name);
-		room->parents->current = room->parents->current->next;
-		room->parents->current ? ft_printf(", ") : ft_printf("\033[0m\n");
+		ft_printf("\033[1;35mChilds [%d] : ", room->childs->size);
+		room->childs->current = room->childs->first;
+		while (room->childs->current)
+		{
+			ft_printf("%s", room->childs->current->room->name);
+			room->childs->current = room->childs->current->next;
+			room->childs->current ? ft_printf(", ") : ft_printf("\033[0m\n");
+		}
 	}
 	ft_printf("\033[1;34m/ROOM_PRINT\033[0m\n\n");
 }
 
-void	room_print_all(t_room *room)
+void	room_print_all(t_li *li)
 {
-	while (room)
+	li->rooms->current = li->rooms->start;
+	while (li->rooms->current)
 	{
-		room_print(room);
-		room = room->next;
+		room_print(li->rooms->current);
+		li->rooms->current = li->rooms->current->next;
 	}
 }

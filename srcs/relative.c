@@ -1,46 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parent.c                                           :+:      :+:    :+:   */
+/*   relative.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:40:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/31 16:19:51 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/15 13:55:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-**		Add a parent to a room
+**		Add a relative to a room's list of parents/childs
 */
 
-int		parent_add(t_room *child, t_room *room)
+int		relative_add(t_list_relative **list, t_room *room)
 {
-	t_parent	*parent;
+	t_relative	*relative;
 
-	if (!(parent = (t_parent *)malloc(sizeof(t_parent))))
+	if (!(relative = (t_relative *)malloc(sizeof(t_relative))))
 		return (ERROR);
-	parent->room = room;
-	parent->next = NULL;
-	if (!child->parents)
+	relative->room = room;
+	relative->next = NULL;
+	if (!(*list))
 	{
-		if (!(child->parents = (t_list_parent *)malloc(sizeof(t_list_parent))))
+		if (!((*list) = (t_list_relative *)malloc(sizeof(t_list_relative))))
 			return (ERROR);
-		ft_bzero(child->parents, sizeof(t_list_parent));
-		child->parents->first = parent;
-		child->parents->current = parent;
-		child->parents->last = parent;
+		ft_bzero((*list), sizeof(t_list_relative));
+		(*list)->first = relative;
+		(*list)->current = relative;
+		(*list)->last = relative;
 	}
 	else
 	{
-		child->parents->last->next = parent;
-		child->parents->last = parent;
+		(*list)->last->next = relative;
+		(*list)->last = relative;
 	}
-	++room->nb_child;
-	++room->weight;
-	++child->parents->size;
+	++(*list)->size;
 	return (SUCCESS);
 }
 
@@ -62,9 +60,9 @@ int		parent_of(t_room *room, t_room *child)
 	return (FAILURE);
 }
 
-int		parent_print(t_room *room, t_parent *parent)
+int		parent_print(t_room *room, t_relative *relative)
 {
-	ft_printf("%s is a child of %s\n", room->name, parent->room->name);
+	ft_printf("%s is a child of %s\n", room->name, relative->room->name);
 	return (SUCCESS);
 }
 
