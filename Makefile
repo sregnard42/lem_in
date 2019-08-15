@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/15 13:51:16 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/15 14:55:22 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRCNAME					=	lem_in.c		\
 							tree.c			\
 							relative.c		\
 							paths_opti.c 	\
-							repartition.c
+							repartition.c	\
+							pathfinding.c
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 

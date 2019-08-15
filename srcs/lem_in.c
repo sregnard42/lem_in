@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/15 14:41:22 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:05:54 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ static int	init_li(t_li *li)
 	li->queue_res = (t_queue *)malloc(sizeof(t_queue));
 	li->paths = (t_list_path *)malloc(sizeof(t_list_path));
 	li->paths_all = (t_list_path *)malloc(sizeof(t_list_path));
+	li->pathfinding = (t_list_path *)malloc(sizeof(t_list_path));
 	ft_bzero(li->rooms, sizeof(t_list_room));
 	ft_bzero(li->queue, sizeof(t_queue));
 	ft_bzero(li->queue_res, sizeof(t_queue));
 	ft_bzero(li->paths, sizeof(t_list_path));
 	ft_bzero(li->paths_all, sizeof(t_list_path));
+	ft_bzero(li->pathfinding, sizeof(t_list_path));
 	if (!li->rooms || !li->queue || !li->queue_res ||
-		!li->paths || !li->paths_all)
+		!li->paths || !li->paths_all || !li->pathfinding)
 		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
@@ -119,7 +121,13 @@ int			main(void)
 	ft_printf("Set of paths used :\n");
 	path_print_all(li.paths_opti[0]);
 	ft_printf("\033[0m");
-	room_print_all(&li);
+	ft_printf("\033[1;36m");
+	ft_printf("Pathfinding :\n");
+	pathfinding(&li);
+	ft_printf("All possible paths :\n");
+	path_print_all(li.pathfinding);
+	ft_printf("\033[0m");
+//	room_print_all(&li);
 //	free_all(&li);
 	return (SUCCESS);
 }

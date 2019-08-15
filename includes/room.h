@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:55:45 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/15 14:37:50 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 14:59:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct				s_room
 	struct s_list_relative	*parents;
 	struct s_list_relative	*childs;
 	struct s_room			*parent;
+	struct s_room			*child;
 	struct s_path			*path;
 	struct s_room			*next;
 	struct s_room			*prev;

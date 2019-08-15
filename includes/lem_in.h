@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/15 13:58:16 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/15 16:02:10 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct			s_li
 	int					nb_ants;
 	t_ant				*ants;
 	t_list_room			*rooms;
+	t_list_path			*pathfinding;
 	t_list_path			*paths;
 	t_list_path			*paths_all;
 	t_list_path			**paths_opti;
@@ -125,6 +126,7 @@ void					path_print_all(t_list_path *pas);
 **						path_list.c
 */
 
+int						path_add(t_list_path *paths, t_path *path);
 void					path_delete(t_list_path *paths, t_path **path_ptr);
 t_list_path				*path_list_dup(t_list_path *paths);
 
@@ -192,5 +194,11 @@ int						repartition(t_li *li, t_list_path *paths);
 int						ants_init(t_li *li);
 void					ants_set_stage(t_li *li);
 void					ants_move(t_li *li);
+
+/*
+**						pathfinding.c
+*/
+
+int						pathfinding(t_li *li);
 
 #endif
