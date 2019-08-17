@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/11 13:15:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/17 23:05:41 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,8 @@ int			path_init(t_li *li)
 	static int	color = 32;
 	t_path	*path;
 
-	while (li->max_path > li->paths->size)
+//	while (li->max_path > li->paths->size)
+	while (1)
 	{
 		if (bfs(li) == FAIL)
 			return (FAIL);

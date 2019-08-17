@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/15 17:01:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/17 23:15:50 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			main(void)
 	ft_printf("---Moving ants---------------------------------------------\n");
 	ft_printf("\033[0m");
 	ants_set_stage(&li);
-	//ants_move(&li);
+	ants_move(&li);
 	ft_printf("\033[1m");
 	ft_printf("---Moving ants END-----------------------------------------\n");
 	ft_printf("Set of paths used :\n");
