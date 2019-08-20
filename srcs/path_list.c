@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/17 23:05:41 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:49:43 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,8 @@ int			path_init(t_li *li)
 	static int	color = 32;
 	t_path	*path;
 
-//	while (li->max_path > li->paths->size)
-	while (1)
+	while (bfs(li) == SUCCESS)
 	{
-		if (bfs(li) == FAIL)
-			return (FAIL);
 		ft_printf("\033[1;%dm", color);
 		ft_printf("BFS: Path found\n");
 		room_clean(li);
@@ -188,5 +185,6 @@ int			path_init(t_li *li)
 		ft_printf("\033[0m");
 		color == 36 ? color = 32 : ++color;
 	}
-	return (SUCCESS);
+	ft_printf("BFS FAILED\n");
+	return (FAILURE);
 }
