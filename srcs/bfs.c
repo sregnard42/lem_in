@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 12:50:12 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/20 11:51:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static int	check_room(t_li *li, t_room *room)
 			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
 			return (SUCCESS);
 		}
-		if (child->flags & FLAG_VISITED || child->weight < 1)
+//		if (child->flags & FLAG_VISITED || child->weight < 1)
+		if (child->flags & FLAG_VISITED)
 		{
 			room->links->current = room->links->current->next;
 			continue ;
