@@ -2,5 +2,6 @@
 *.dSYM
 *.a
 *.o
+tmp.map
 lem-in
 .vscode*
