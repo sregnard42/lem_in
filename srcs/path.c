@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/15 16:08:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/20 14:01:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_path		*path_dup(t_path *path)
 			new->current->next = stage;
 			new->current = new->current->next;
 		}
+		path->current->room->flags |= FLAG_RESERVED;  //tmp
 		path->current = path->current->next;
 	}
 	new->end = new->current;
@@ -130,7 +131,7 @@ t_path		*path_new(t_li *li)
 {
 	t_path	*path;
 
-	ft_printf("Path creation...\n");
+//	ft_printf("Path creation...\n");
 	if (!(path = (t_path *)malloc(sizeof(t_path))))
 		trigger_error(li, "Error malloc path\n");
 	ft_bzero(path, sizeof(t_path));
@@ -142,8 +143,8 @@ t_path		*path_new(t_li *li)
 		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
-	ft_printf("Path created : ");
-	path_print(path);
+//	ft_printf("Path created : ");
+//	path_print(path);
 	return (path);
 }
 
@@ -185,9 +186,9 @@ void		path_print_all(t_list_path *paths)
 		path_print(paths->current);
 		paths->current = paths->current->next;
 	}
-	ft_printf("Nb of paths : %d\n", paths->size);
-	ft_printf("Nb of turns : %d\n", paths->turns);
 	ft_printf("Longest path length : %d\n", paths->longest_path->size);
 	ft_printf("Total capacity : %d\n", sum_capacity);
+	ft_printf("Nb of paths : %d\n", paths->size);
+	ft_printf("Nb of turns : %d\n", paths->turns);
 	ft_printf("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n");
 }

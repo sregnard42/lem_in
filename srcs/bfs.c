@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/20 11:51:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/20 16:26:20 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int			bfs(t_li *li)
 		{
 			clear_queue(li->queue);
 			clear_queue(li->queue_res);
-//			ft_printf("BFS: END\n");
-//			ft_printf("\033[0m");
+		//	ft_printf("BFS: END\n");
+		//	ft_printf("\033[0m");
 			return (SUCCESS);
 		}
 		dequeue(queue);

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/20 11:49:43 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/20 16:22:04 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,19 +158,19 @@ int			path_init(t_li *li)
 
 	while (bfs(li) == SUCCESS)
 	{
-		ft_printf("\033[1;%dm", color);
-		ft_printf("BFS: Path found\n");
+		//ft_printf("\033[1;%dm", color);
+		//ft_printf("BFS: Path found\n");
 		room_clean(li);
 		path = path_new(li);
-		ft_printf("\033[0m");
+		//ft_printf("\033[0m");
 		if (!li->paths_all->size)
 			path_add(li->paths_all, path_dup(path));
 		else if (path_already_found(li->paths_all, path) == SUCCESS)
 		{
-			ft_printf("\033[1;31m");
-			ft_printf("Already found ! All paths found !\n");
+		//	ft_printf("\033[1;31m");
+		//	ft_printf("Already found ! All paths found !\n");
 			path_clear(path);
-			ft_printf("\033[0m");
+		//	ft_printf("\033[0m");
 			ft_memdel((void **)&path);
 			return (SUCCESS);
 		}
@@ -178,11 +178,11 @@ int			path_init(t_li *li)
 			path_add(li->paths_all, path_dup(path));
 		path_collision(li, path);
 		path_add(li->paths, path);
-		ft_printf("\033[1;%dm", color);
-		ft_printf(":: Paths updated ::\n", color);
-		path_print_all(li->paths);
+//		ft_printf("\033[1;%dm", color);
+//		ft_printf(":: Paths updated ::\n", color);
+//		path_print_all(li->paths);
 		paths_opti(li);
-		ft_printf("\033[0m");
+//		ft_printf("\033[0m");
 		color == 36 ? color = 32 : ++color;
 	}
 	ft_printf("BFS FAILED\n");
