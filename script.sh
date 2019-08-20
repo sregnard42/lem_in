@@ -63,8 +63,8 @@ do
 	then
 		min=$res
 		max=$res
-		min_t=$res
-		max_t=$res
+		min_t=$res_t
+		max_t=$res_t
 	else
 		if [ $res -le $min ]
 		then
