@@ -29,6 +29,7 @@ single_test()
 {
 #	LI=`./lem-in < tmp.map | tail -3 | grep "turn" | cut -d ' ' -f5`
 	LI=`./lem-in < tmp.map > tmp ; diff tmp tmp.map | wc -l`
+	rm tmp
 	LI=`echo "($LI) - 1" | bc`
 	MAP=`tail -1 tmp.map | grep "line" | cut -d ' ' -f8`
 	echo "$(($LI - $MAP))"
