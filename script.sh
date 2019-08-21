@@ -35,10 +35,10 @@ single_test()
 clear
 
 echo "//================================\\\\"
-printf "|| Script by \033[36mSregnard\033[0m \033[31m&&\033[0m \033[36mChrhuang\033[0m ||\n"
+printf "|| Script by \033[36msregnard\033[0m \033[31m&&\033[0m \033[36mchrhuang\033[0m ||\n"
 echo "\\\\================================//"
 
-read -p "Press ENTER :"
+read -n 1 -s -r -p "Press any key to continue"
 
 clear
 echo "//============================\\\\"
@@ -54,7 +54,13 @@ then
 	echo "Invalid generator"
 	exit 1
 fi
-read -p "Number of tests : " nb_test
+read -p "Number of tests       : " nb_test
+read -p "Test time ? [y][n]    : " FLAG_TIME
+if [ "$FLAG_TIME" != "y" ] && [ "$FLAG_TIME" != "n" ]
+then
+	echo "Invalid"
+	exit 1
+fi
 sum=0
 sum_t=0
 i=0
@@ -105,11 +111,14 @@ do
 	printf "||         Moy : \033[33m%-7.1f\033[0m     ||\n" $moy
 	printf "||         Max : \033[31m%-7d\033[0m     ||\n" $max
 	echo "\\\\===========================//"
-	printf "\nTime :\n" $i $nb_test
-	echo "//===========================\\\\"
-	printf "||         Time: \033[31m%-7d\033[0m     ||\n" $res_t
-	printf "||         Min : \033[32m%-7d\033[0m     ||\n" $min_t
-	printf "||         Moy : \033[33m%-7.1f\033[0m     ||\n" $moy_t
-	printf "||         Max : \033[31m%-7d\033[0m     ||\n" $max_t
-	echo "\\\\===========================//"
+	if [ "$FLAG_TIME" == "y" ]
+	then
+		printf "\nTime :\n" $i $nb_test
+		echo "//===========================\\\\"
+		printf "||         Time: \033[31m%-7d\033[0m     ||\n" $res_t
+		printf "||         Min : \033[32m%-7d\033[0m     ||\n" $min_t
+		printf "||         Moy : \033[33m%-7.1f\033[0m     ||\n" $moy_t
+		printf "||         Max : \033[31m%-7d\033[0m     ||\n" $max_t
+		echo "\\\\===========================//"
+	fi
 done
