@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/20 14:01:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:18:54 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int			path_clear(t_path *path)
 	t_stage	*stage;
 
 	path->current = path->start;
-	ft_printf("Path clearing: ");
-	path_print(path);
+	//ft_printf("\033[1;32mPath clearing (%p) : \033[0m\n", path);
+	//path_print(path);
 	while (path->current)
 	{
 		stage = path->current;
@@ -134,6 +134,7 @@ t_path		*path_new(t_li *li)
 //	ft_printf("Path creation...\n");
 	if (!(path = (t_path *)malloc(sizeof(t_path))))
 		trigger_error(li, "Error malloc path\n");
+	//ft_printf("\033[1;36mPath %p : \033[0m\nsize = %d\n", path, sizeof(path));
 	ft_bzero(path, sizeof(t_path));
 	insert_stage(li, path, li->rooms->end);
 	while (li->rooms->current && li->rooms->current != li->rooms->start)

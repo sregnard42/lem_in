@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/20 16:21:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:23:04 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ static int	init_li(t_li *li)
 	li->queue_res = (t_queue *)malloc(sizeof(t_queue));
 	li->paths = (t_list_path *)malloc(sizeof(t_list_path));
 	li->paths_all = (t_list_path *)malloc(sizeof(t_list_path));
-	li->pathfinding = (t_list_path *)malloc(sizeof(t_list_path));
 	ft_bzero(li->rooms, sizeof(t_list_room));
 	ft_bzero(li->queue, sizeof(t_queue));
 	ft_bzero(li->queue_res, sizeof(t_queue));
 	ft_bzero(li->paths, sizeof(t_list_path));
 	ft_bzero(li->paths_all, sizeof(t_list_path));
-	ft_bzero(li->pathfinding, sizeof(t_list_path));
 	if (!li->rooms || !li->queue || !li->queue_res ||
-		!li->paths || !li->paths_all || !li->pathfinding)
+		!li->paths || !li->paths_all)
 		trigger_error(li, "init_li malloc fail\n");
 	return (SUCCESS);
 }
@@ -103,13 +101,13 @@ int			main(void)
 	ft_printf("Nb ants : %d\n", li.nb_ants);
 	ft_printf("-----------------------------------------------------------\n");
 	ft_printf("All individual paths found :\n");
-	path_print_all(li.paths_all);
+	//path_print_all(li.paths_all);
 	ft_printf("-----------------------------------------------------------\n");
 	ft_printf("Last set of compatible paths found :\n");
-//	path_print_all(li.paths);
+	//path_print_all(li.paths);
 	ft_printf("-----------------------------------------------------------\n");
 	ft_printf("All sets of compatible paths kept :\n");
-//	print_paths_opti(&li);
+	//print_paths_opti(&li);
 	ft_printf("\033[1m");
 	ft_printf("---Summary END---------------------------------------------\n");
 	ft_printf("---Moving ants---------------------------------------------\n");
@@ -121,7 +119,7 @@ int			main(void)
 	ft_printf("Set of paths used :\n");
 	path_print_all(li.paths_opti[0]);
 	ft_printf("\033[0m");
-//	room_print_all(&li);
-//	free_all(&li);
+	//room_print_all(&li);
+	free_all(&li);
 	return (SUCCESS);
 }

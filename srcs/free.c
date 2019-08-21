@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/11 16:57:49 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:19:26 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	free_paths(t_list_path **paths_ptr)
+/*static */void	free_paths(t_list_path **paths_ptr)
 {
 	t_list_path	*paths;
 
@@ -26,7 +26,7 @@ static void	free_paths(t_list_path **paths_ptr)
 	ft_memdel((void **)paths_ptr);
 }
 
-static void	free_paths_list(t_list_path **lists)
+/*static */void	free_paths_list(t_list_path **lists)
 {
 	while (lists && *lists)
 		free_paths(lists++);
@@ -43,6 +43,21 @@ static void	free_parents(t_li *li)
 		room->parents->first = room->parents->current->next;
 		ft_memdel((void **)&room->parents->current);
 	}
+	ft_memdel((void **)&room->parents);
+}
+
+static void	free_childs(t_li *li)
+{
+	t_room	*room;
+
+	room = li->rooms->current;
+	while (room->childs && room->childs->first)
+	{
+		room->childs->current = room->childs->first;
+		room->childs->first = room->childs->current->next;
+		ft_memdel((void **)&room->childs->current);
+	}
+	ft_memdel((void **)&room->childs);
 }
 
 static void	free_links(t_li *li)
@@ -68,6 +83,7 @@ static void	free_rooms(t_li *li)
 		ft_memdel((void **)&li->rooms->current->name);
 		free_links(li);
 		free_parents(li);
+		free_childs(li);
 		ft_memdel((void **)&li->rooms->current);
 	}
 	ft_memdel((void **)&li->rooms);
@@ -87,7 +103,6 @@ int			free_all(t_li *li)
 {
 	if (!li)
 		return (SUCCESS);
-	ft_printf("FREE ALL THE THINGS\n");
 	ft_memdel((void **)&li->ants);
 	ft_memdel((void **)&li->queue);
 	ft_memdel((void **)&li->queue_res);
@@ -97,6 +112,5 @@ int			free_all(t_li *li)
 	ft_memdel((void **)&li->paths_opti);
 	free_matrice(li);
 	free_rooms(li);
-	ft_printf("FREED ALL THE THINGS ?\n");
 	return (SUCCESS);
 }

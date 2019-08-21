@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/15 16:02:10 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 13:14:55 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct			s_li
 	int					nb_ants;
 	t_ant				*ants;
 	t_list_room			*rooms;
-	t_list_path			*pathfinding;
 	t_list_path			*paths;
 	t_list_path			*paths_all;
 	t_list_path			**paths_opti;

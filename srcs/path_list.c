@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/20 16:22:04 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:06:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	path_prev = path->prev;
 	path_next = path->next;
 	path_clear(path);
-	ft_memdel((void **)path_ptr);
 	if (!(--paths->size))
 	{
+		ft_memdel((void **)&path);
 		ft_bzero(paths, sizeof(t_list_path));
 		return ;
 	}
@@ -133,6 +133,7 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		paths->last = path_prev ? path_prev : path_next;
 	}
 	path == paths->longest_path ? longest_path(paths) : 0;
+	ft_memdel((void **)&path);
 }
 
 static int	path_already_found(t_list_path *paths, t_path *path)
@@ -167,10 +168,10 @@ int			path_init(t_li *li)
 			path_add(li->paths_all, path_dup(path));
 		else if (path_already_found(li->paths_all, path) == SUCCESS)
 		{
-		//	ft_printf("\033[1;31m");
-		//	ft_printf("Already found ! All paths found !\n");
+			//ft_printf("\033[1;31m");
+			//ft_printf("Already found ! All paths found !\n");
 			path_clear(path);
-		//	ft_printf("\033[0m");
+			//ft_printf("\033[0m");
 			ft_memdel((void **)&path);
 			return (SUCCESS);
 		}
