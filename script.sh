@@ -33,6 +33,14 @@ single_test()
 }
 
 clear
+
+echo "//================================\\\\"
+printf "|| Script by \033[36mSregnard\033[0m \033[31m&&\033[0m \033[36mChrhuang\033[0m ||\n"
+echo "\\\\================================//"
+
+read -p "Press ENTER :"
+
+clear
 echo "//============================\\\\"
 printf "|| [1] : \033[36m%-20s\033[0m ||\n" "flow-one"
 printf "|| [2] : \033[32m%-20s\033[0m ||\n" "flow-ten"
