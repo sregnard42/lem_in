@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/09 16:41:21 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/21 12:10:45 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static int	set_capacity(t_list_path *paths, int *ants)
 static int	leftovers(t_list_path *paths, int ants)
 {
 	paths->current = paths->first;
+	if (ants)
+		++paths->turns;
 	while (paths->current && ants--)
 	{
 		++paths->current->capacity;
