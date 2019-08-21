@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/21 15:06:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/21 15:33:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	path_collision(t_li *li, t_path *path)
 	{
 		if (stage->room->path)
 		{
-			ft_printf("\033[1;31m");
-			ft_printf("%s already in a path, deleting older path...\n", stage->room->name);
+			//ft_printf("\033[1;31m");
+			//ft_printf("%s already in a path, deleting older path...\n", stage->room->name);
 			path_delete(li->paths, &stage->room->path);
-			ft_printf("\033[0m");
+			//ft_printf("\033[0m");
 		}
 		stage->room->path = path;
 		stage->room->flags |= FLAG_RESERVED;

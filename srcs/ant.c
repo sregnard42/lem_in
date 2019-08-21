@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/11 16:01:27 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:23:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static int	ant_move(t_li *li, t_ant *ant)
 
 static int	ants_move_path(t_li *li, t_path *path)
 {
+	static int	turn = 0;
 	int	id;
 	int	arrived;
 
@@ -89,6 +90,7 @@ static int	ants_move_path(t_li *li, t_path *path)
 	 {
 		if (!(li->ants[id].flags & FLAG_ARRIVED))
 		{
+			li->flags & FLAG_SP ? 0 : ft_printf("[ %d ]", ++turn);
 			li->flags & FLAG_SP ? ft_printf(" ") : (li->flags |= FLAG_SP);
 			if (ant_move(li, &li->ants[id]))
 			{

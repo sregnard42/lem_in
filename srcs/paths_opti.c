@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/15 14:39:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:18:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	paths_opti(t_li *li)
 	path_list_delete(&li->paths_opti[li->paths->size]);
 	if (!(li->paths_opti[li->paths->size] = path_list_dup(li->paths)))
 		trigger_error(li, "paths_opti : path_list_dup fail\n");
-	ft_printf("------------------\n");
-	path_print_all(li->paths_opti[li->paths->size]);
+	//ft_printf("------------------\n");
+	//path_print_all(li->paths_opti[li->paths->size]);
 	return (SUCCESS);
 }
 

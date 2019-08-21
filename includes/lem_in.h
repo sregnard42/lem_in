@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/21 13:14:55 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/21 16:06:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define START			"##start"
 # define END			"##end"
 
-# define LI_BUFF_SIZE	10000
+# define LI_BUFF_SIZE	100000
 
 /*
 **		LEM-IN
