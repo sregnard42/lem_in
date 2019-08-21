@@ -46,7 +46,7 @@ printf "|| [1] : \033[36m%-20s\033[0m ||\n" "flow-one"
 printf "|| [2] : \033[32m%-20s\033[0m ||\n" "flow-ten"
 printf "|| [3] : \033[33m%-20s\033[0m ||\n" "flow-thousand"
 printf "|| [4] : \033[31m%-20s\033[0m ||\n" "big"
-printf "|| [5] : \033[31m%-20s\033[0m ||\n" "big-superposition"
+printf "|| [5] : \033[35m%-20s\033[0m ||\n" "big-superposition"
 echo "\\\\============================//"
 read -p "Choose your generator : " gen
 if [ $gen -gt 5 ]
