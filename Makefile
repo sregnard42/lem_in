@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/25 13:53:41 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/25 14:39:17 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,14 @@ CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
 XFLAGS					=	-g3
 
+_RED			=	\033[1;31m
+_GREEN			=	\033[1;32m
+_YELLOW			=	\033[1;33m
+_BLUE			=	\033[1;34m
+_MAGENTA		=	\033[1;35m
+_CYAN			=	\033[1;36m
+_RESET			=	\033[0m
+
 all						:	$(LIBFT) $(LEM_IN)
 
 $(LIBFT)				:
@@ -64,27 +72,31 @@ $(LIBFT)				:
 
 $(LEM_IN)				:	$(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
-	@printf "\033[1;32m\rBuilding lem-in...\tDone.\n\033[0m"
+	@printf "\r" ; tput el
+	@printf "$(_GREEN)Building lem-in...\tDone.\n$(_RESET)"
 
 $(OBJDIR)%.o			:	$(SRCDIR)%.c $(DEPENDENCIES)
 	@mkdir -p $(OBJDIR);
-	@printf "\033[1;36m\rBuilding lem-in...\t\033[0m"
+	@printf "\r" ; tput el
+	@printf "$(_YELLOW)Building lem-in...\t$<$(_RESET)"
 	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean					:
-	@printf "\033[1;33m%-10s : Objects\tcleaned.\n\033[0m" "lem-in"
+	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" "lem-in"
 	@rm -rf $(OBJDIR)
 	@make clean -C $(LIBDIR)
 
 fclean					:	clean
-	@printf "\033[1;31m%-10s : Executable\tcleaned.\n\033[0m" "lem-in"
+	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" "lem-in"
 	@rm -rf $(LEM_IN)
-	@make fclean -C $(LIBDIR)
+	@printf "$(_MAGENTA)%-10s : Library\tcleaned.\n$(_RESET)" "libft"
+	@rm -rf $(LIBFT)
 
 re						:	fclean	all
 
 li						:
-	@printf "\033[1;33m%-10s : Objects\tcleaned.\n\033[0m" "lem-in"
-	@printf "\033[1;31m%-10s : Executable\tcleaned.\n\033[0m" "lem-in"
+	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" "lem-in"
+	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" "lem-in"
 	@rm -rf objs/
+	@rm -rf $(LEM_IN)
 	@make
