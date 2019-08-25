@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/21 16:18:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/25 14:27:14 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 int	paths_opti_init(t_li *li)
 {
+	if (!li->rooms->start->childs || !li->rooms->end->parents)
+		trigger_error(li, "No link to start or end\n");
 	li->max_path = (li->rooms->start->childs->size > li->rooms->end->parents->size ?
 	li->rooms->end->parents->size : li->rooms->start->childs->size);
 	if (!(li->paths_opti =

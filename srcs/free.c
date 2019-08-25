@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/21 15:19:26 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/25 14:18:30 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*static */void	free_paths(t_list_path **paths_ptr)
+static void	free_paths(t_list_path **paths_ptr)
 {
 	t_list_path	*paths;
 
@@ -26,7 +26,7 @@
 	ft_memdel((void **)paths_ptr);
 }
 
-/*static */void	free_paths_list(t_list_path **lists)
+static void	free_paths_list(t_list_path **lists)
 {
 	while (lists && *lists)
 		free_paths(lists++);
@@ -94,6 +94,8 @@ static void	free_matrice(t_li *li)
 	int	i;
 
 	i = 0;
+	if (!li->matrice)
+		return ;
 	while (i < li->rooms->size)
 		ft_memdel((void **)li->matrice + i++);
 	ft_memdel((void **)&li->matrice);
@@ -108,7 +110,8 @@ int			free_all(t_li *li)
 	ft_memdel((void **)&li->queue_res);
 	free_paths(&li->paths_all);
 	free_paths(&li->paths);
-	free_paths_list(li->paths_opti + 1);
+	if (li->paths_opti)
+		free_paths_list(li->paths_opti + 1);
 	ft_memdel((void **)&li->paths_opti);
 	free_matrice(li);
 	free_rooms(li);

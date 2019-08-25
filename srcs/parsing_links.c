@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/07/05 12:27:45 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/25 14:44:58 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		is_link(t_li *li, char **line)
 {
-	if (!line)
-		return (FAIL);
+	if (!line || !*line)
+		trigger_error(li, "Bad line\n");
 	if (*line[0] == '#')
 		return (FAIL);
 	if (ft_nb_str_tab(line) != 2)
