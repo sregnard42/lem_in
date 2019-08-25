@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/21 13:15:21 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/08/25 11:22:23 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ all						:	$(LIBFT) $(LEM_IN)
 
 $(LIBFT)				:
 	@make -C $(LIBDIR)
+	@printf "\033[1;36mBuilding lem-in...\n"
+	@printf "Done.\n\033[0m"
 
 $(LEM_IN)				:	$(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
@@ -70,12 +72,14 @@ $(OBJDIR)%.o			:	$(SRCDIR)%.c $(DEPENDENCIES)
 	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean					:
-	rm -rf $(OBJDIR)
-	make clean -C $(LIBDIR)
+	@printf "\033[1;33m%-10s : Objects cleaned.\n\033[0m" "lem-in"
+	@rm -rf $(OBJDIR)
+	@make clean -C $(LIBDIR)
 
 fclean					:	clean
-	rm -rf $(LEM_IN)
-	make fclean -C $(LIBDIR)
+	@printf "\033[1;31m%-10s : Executable cleaned.\n\033[0m" "lem-in"
+	@rm -rf $(LEM_IN)
+	@make fclean -C $(LIBDIR)
 
 re						:	fclean	all
 
