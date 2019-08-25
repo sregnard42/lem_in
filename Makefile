@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/25 11:22:23 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/25 13:53:41 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,28 +61,30 @@ all						:	$(LIBFT) $(LEM_IN)
 
 $(LIBFT)				:
 	@make -C $(LIBDIR)
-	@printf "\033[1;36mBuilding lem-in...\n"
-	@printf "Done.\n\033[0m"
 
 $(LEM_IN)				:	$(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
+	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
+	@printf "\033[1;32m\rBuilding lem-in...\tDone.\n\033[0m"
 
 $(OBJDIR)%.o			:	$(SRCDIR)%.c $(DEPENDENCIES)
 	@mkdir -p $(OBJDIR);
-	$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
+	@printf "\033[1;36m\rBuilding lem-in...\t\033[0m"
+	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean					:
-	@printf "\033[1;33m%-10s : Objects cleaned.\n\033[0m" "lem-in"
+	@printf "\033[1;33m%-10s : Objects\tcleaned.\n\033[0m" "lem-in"
 	@rm -rf $(OBJDIR)
 	@make clean -C $(LIBDIR)
 
 fclean					:	clean
-	@printf "\033[1;31m%-10s : Executable cleaned.\n\033[0m" "lem-in"
+	@printf "\033[1;31m%-10s : Executable\tcleaned.\n\033[0m" "lem-in"
 	@rm -rf $(LEM_IN)
 	@make fclean -C $(LIBDIR)
 
 re						:	fclean	all
 
 li						:
-	rm -rf objs/
-	make
+	@printf "\033[1;33m%-10s : Objects\tcleaned.\n\033[0m" "lem-in"
+	@printf "\033[1;31m%-10s : Executable\tcleaned.\n\033[0m" "lem-in"
+	@rm -rf objs/
+	@make

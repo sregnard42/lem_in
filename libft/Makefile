@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/25 11:16:41 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/25 13:54:04 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,20 +168,20 @@ CFLAGS			=	-Wall -Wextra -Werror
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJ)
-					@printf "\033[1;36mBuilding libft...\t"
 					@ar rcs $@ $?
-					@printf "Done.\n\033[0m"
+					@printf "\033[1;32m\rBuilding libft...\tDone.\n\033[0m"
 
 $(OBJDIR)%.o	:	$(SRCDIR)%.c $(DEPENDENCIES)
 					@mkdir -p $(dir $@);
+					@printf "\033[1;36m\rBuilding libft...\t"
 					@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean			:
-					@printf "\033[1;33m%-10s : Objects cleaned.\n\033[0m" "libft"
+					@printf "\033[1;33m%-10s : Objects\tcleaned.\n\033[0m" "libft"
 					@rm -rf $(OBJDIR)
 
 fclean			:	clean
-					@printf "\033[1;31m%-10s : Executable cleaned.\n\033[0m" "libft"
+					@printf "\033[1;31m%-10s : Library\tcleaned.\n\033[0m" "libft"
 					@rm -rf $(NAME)
 
 re				:	fclean	all
