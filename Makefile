@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/26 20:51:40 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/26 21:13:52 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,14 +79,14 @@ $(LIBFT)				:
 $(NAME)				:	$(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
 	@printf "\r" ; tput el
-	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n$(_RESET)" $(NAME)
+	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(NAME)
 
 $(OBJDIR)%.o			:	$(SRCDIR)%.c $(DEPENDENCIES)
 	@if [ ! -d $(dir $@) ]; \
 	then \
 		printf "\r"; \
 		tput el; \
-		printf "$(_YELLOW)%-10s : %s $(_RESET)" $(NAME) $(dir $<); \
+		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(NAME) $(dir $<); \
 	fi;
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
