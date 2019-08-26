@@ -6,7 +6,7 @@
 #    By: sregnard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/25 14:32:32 by sregnard         ###   ########.fr        #
+#    Updated: 2019/08/26 20:51:34 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -171,27 +171,38 @@ _YELLOW			=	\033[1;33m
 _BLUE			=	\033[1;34m
 _MAGENTA		=	\033[1;35m
 _CYAN			=	\033[1;36m
+_BG_RED			=	\033[1;41m
+_BG_GREEN		=	\033[1;42m
+_BG_YELLOW		=	\033[1;43m
+_BG_BLUE		=	\033[1;44m
+_BG_MAGENTA		=	\033[1;45m
+_BG_CYAN		=	\033[1;46m
 _RESET			=	\033[0m
 
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJ)
-					@ar rcs $@ $?
-					@printf "\r" ; tput el
-					@printf "$(_GREEN)Building libft...\tDone.\n$(_RESET)"
+	@ar rcs $@ $?
+	@printf "\r" ; tput el
+	@printf "$(_GREEN)%-10s : Library\tbuilt.\n$(_RESET)" $(NAME)
 
 $(OBJDIR)%.o	:	$(SRCDIR)%.c $(DEPENDENCIES)
-					@mkdir -p $(dir $@);
-					@printf "\r" ; tput el
-					@printf "$(_YELLOW)Building libft...\t$<$(_RESET)"
-					@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
+	@if [ ! -d $(dir $@) ]; \
+	then \
+		printf "\r"; \
+		tput el; \
+		printf "$(_YELLOW)%-10s : %s $(_RESET)" $(NAME) $(dir $@); \
+	fi;
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
+	@printf "$(_BG_GREEN) $(_RESET)"
 
 clean			:
-					@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" "libft"
-					@rm -rf $(OBJDIR)
+	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(NAME)
+	@rm -rf $(OBJDIR)
 
 fclean			:	clean
-					@printf "$(_MAGENTA)%-10s : Library\tcleaned.\n$(_RESET)" "libft"
-					@rm -rf $(NAME)
+	@printf "$(_MAGENTA)%-10s : Library\tcleaned.\n$(_RESET)" $(NAME)
+	@rm -rf $(NAME)
 
 re				:	fclean	all
