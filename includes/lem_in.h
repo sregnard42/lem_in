@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/27 12:52:43 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/27 14:27:28 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 # define END			"##end"
 
 # define LI_BUFF_SIZE	100000
+
+# define CYAN			"\033[1;36m"
+# define GREEN			"\033[1;32m"
+# define YELLOW			"\033[1;33m"
+# define RED			"\033[1;31m"
+# define RESET			"\033[0m"
+
 
 /*
 **		LEM-IN
@@ -65,7 +72,10 @@ enum					e_flags_li
 	FLAG_LINK		= (1 << 4),
 	FLAG_DIRECT		= (1 << 5),
 	FLAG_SP			= (1 << 6),
-	FLAG_TURN		= (1 << 7),
+	FLAG_HELP		= (1 << 7),
+	FLAG_TURN		= (1 << 8),
+	FLAG_COLOR		= (1 << 9),
+	FLAG_SOLUTION	= (1 << 10),
 };
 
 /*

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/27 12:55:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/27 14:25:14 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ static int	ant_move(t_li *li, t_ant *ant)
 	if (!(ant->flags & FLAG_DEPARTED) && ant->stage->room != li->rooms->end)
 	{
 		ant->flags |= FLAG_DEPARTED;
-		ft_printf("\033[1;32m");
+		ft_printf("%s", GREEN);
 	}
 	else
 	{
-		ant->stage->room == li->rooms->end ? ft_printf("\033[1;31m") :
-		ft_printf("\033[1;33m");
+		ant->stage->room == li->rooms->end ? ft_printf("%s", RED) :
+		ft_printf("%s", YELLOW);
 	}
+	li->flags & FLAG_COLOR ? 0 : ft_printf("%s", RESET);
 	ft_printf("L%d-%s", ant->id, ant->stage->room->name);
-	ft_printf("\033[0m");
+	ft_printf("%s", RESET);
 	if (ant->stage->room == li->rooms->end)
 		ant->flags |= FLAG_ARRIVED;
 	ant->stage = ant->stage->next;
@@ -76,8 +77,11 @@ static void	print_turn(t_li *li)
 {
 	static int	turn = 0;
 
-//	if (li->flags & FLAG_TURN)
-		li->flags & FLAG_SP ? 0 : ft_printf("[ %d ]", ++turn);
+	if (li->flags & FLAG_COLOR)
+		ft_printf("%s", CYAN);
+	if (li->flags & FLAG_TURN)
+		li->flags & FLAG_SP ? 0 : ft_printf("[ %d ] ", ++turn);
+	ft_printf("%s", RESET);
 }
 
 /*
