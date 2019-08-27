@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/25 15:10:07 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:59:12 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,18 @@ static int	repartition_lists(t_li *li, t_list_path** lists)
 	return (SUCCESS);
 }
 
-int			main(void)
+static void	options(t_li *li, int ac, char **av)
+{
+	if (ac == 1 || av == NULL)
+		return ;
+	li += 0;
+}
+
+int			main(int ac, char **av)
 {
 	t_li	li;
 
+	options(&li, ac, av);
 	init_li(&li);
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);

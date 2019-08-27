@@ -1,0 +1,5 @@
+Usage:
+		./lem_in < [map]
+Option:
+		-t -> show turn
+		-c -> color

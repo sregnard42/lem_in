@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/21 16:23:02 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:55:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ static int	ant_move(t_li *li, t_ant *ant)
 	return (ant->flags & FLAG_ARRIVED ? 1 : 0);
 }
 
+static void	print_turn(t_li *li)
+{
+	static int	turn = 0;
+
+//	if (li->flags & FLAG_TURN)
+		li->flags & FLAG_SP ? 0 : ft_printf("[ %d ]", ++turn);
+}
+
 /*
 **	path->ant = id of the first ant that is still moving in this path
 **	++path->ant when an ant arrives, so the next one becomes the "first ant"
@@ -79,18 +87,17 @@ static int	ant_move(t_li *li, t_ant *ant)
 
 static int	ants_move_path(t_li *li, t_path *path)
 {
-	static int	turn = 0;
-	int	id;
-	int	arrived;
+	int			id;
+	int			arrived;
 
 	id = path->ant;
 	arrived = 0;
 	while (id <= li->nb_ants && li->ants[id].flags & FLAG_MOVING
 		&& !(id - path->ant > 0 && li->ants[id].flags & FLAG_LEAD))
-	 {
+	{
 		if (!(li->ants[id].flags & FLAG_ARRIVED))
 		{
-			li->flags & FLAG_SP ? 0 : ft_printf("[ %d ]", ++turn);
+			print_turn(li);
 			li->flags & FLAG_SP ? ft_printf(" ") : (li->flags |= FLAG_SP);
 			if (ant_move(li, &li->ants[id]))
 			{

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/25 15:04:52 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:43:19 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int			get_room(t_li *li, char *line, t_room **last)
 		return (FAIL);
 	}
 	li->rooms->current = rooms;
-	//++li->rooms->size;
 	ft_free_tab(&tab);
 	return (SUCCESS);
 }
