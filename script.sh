@@ -2,11 +2,6 @@
 
 generate_map()
 {
-	#maps/generator --flow-one > tmp.map
-	#maps/generator --flow-ten > tmp.map
-	#maps/generator --flow-thousand > tmp.map
-	#maps/generator --big > tmp.map
-	#maps/generator --big-superposition > tmp.map
 	if [ $1 -eq 1 ]
 	then
 		maps/generator --flow-one > tmp.map
@@ -27,7 +22,6 @@ generate_map()
 
 single_test()
 {
-#	LI=`./lem-in < tmp.map | tail -3 | grep "turn" | cut -d ' ' -f5`
 	LI=`./lem-in < tmp.map > tmp ; diff tmp tmp.map | wc -l`
 	rm tmp
 	LI=`echo "($LI) - 1" | bc`
@@ -51,19 +45,21 @@ printf "|| [3] : \033[33m%-20s\033[0m ||\n" "flow-thousand"
 printf "|| [4] : \033[31m%-20s\033[0m ||\n" "big"
 printf "|| [5] : \033[35m%-20s\033[0m ||\n" "big-superposition"
 echo "\\\\============================//"
-read -p "Choose your generator : " gen
-if [ $gen -gt 5 ]
-then
-	echo "Invalid generator"
-	exit 1
-fi
-read -p "Number of tests       : " nb_test
-read -p "Test time ? [y][n]    : " FLAG_TIME
-if [ "$FLAG_TIME" != "y" ] && [ "$FLAG_TIME" != "n" ]
-then
-	echo "Invalid"
-	exit 1
-fi
+gen=""
+while [[ ! $gen =~ ^[1-5]+$ ]]; do
+	read -p "Choose your generator : " gen
+done
+nb_test=0
+while [ $nb_test -lt 1 ]; do
+	nb_test=""
+	while [[ ! $nb_test =~ ^[0-9]+$ ]]; do
+		read -p "Number of tests       : " nb_test
+	done
+done
+FLAG_TIME=""
+while [ "$FLAG_TIME" != "y" ] && [ "$FLAG_TIME" != "n" ]; do
+	read -p "Test time ? [y][n]    : " FLAG_TIME
+done
 sum=0
 sum_t=0
 i=0
@@ -122,7 +118,7 @@ do
 	then
 		printf "\nTime :\n" $i $nb_test
 		echo "//===========================\\\\"
-		printf "||         Time: \033[31m%-7d\033[0m     ||\n" $res_t
+		printf "||         Res : \033[31m%-7d\033[0m     ||\n" $res_t
 		printf "||         Min : \033[32m%-7d\033[0m     ||\n" $min_t
 		printf "||         Moy : \033[33m%-7.1f\033[0m     ||\n" $moy_t
 		printf "||         Max : \033[31m%-7d\033[0m     ||\n" $max_t
