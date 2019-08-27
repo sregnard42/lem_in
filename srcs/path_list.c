@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/27 14:43:59 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:00:18 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list_path	*path_list_dup(t_list_path *paths)
 		return (NULL);
 	ft_bzero(new, sizeof(t_list_path));
 	new->size = paths->size;
+	new->sum = paths->sum;
 	paths->current = paths->first;
 	while (paths->current)
 	{
@@ -43,7 +44,6 @@ t_list_path	*path_list_dup(t_list_path *paths)
 		}
 		paths->current = paths->current->next;
 	}
-	new->sum = paths->sum;
 	new->last = new->current;
 	paths->current = paths->first;
 	new->current = new->first;
@@ -118,6 +118,7 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	path_prev = path->prev;
 	path_next = path->next;
 	path_clear(path);
+	paths->sum -= path->size;
 	if (!(--paths->size))
 	{
 		ft_memdel((void **)&path);
@@ -135,7 +136,6 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		paths->last = path_prev ? path_prev : path_next;
 	}
 	path == paths->longest_path ? longest_path(paths) : 0;
-	paths->sum -= path->size;
 	ft_memdel((void **)&path);
 }
 
