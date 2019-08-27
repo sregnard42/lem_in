@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/25 14:25:01 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/25 15:10:07 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,56 +72,13 @@ int			main(void)
 		return (ERROR);
 	ft_putstr(li.buf);
 	ants_init(&li);
-	/*************
-	  ALGO START
-	*************/
-	// BFS BEGIN
-//	ft_printf("\033[1m");
-//	ft_printf("---Path init-----------------------------------------------\n");
-//	ft_printf("\033[0m");
 	tree(&li);
 	paths_opti_init(&li);
 	path_init(&li);
-//	ft_printf("\033[1m");
-//	ft_printf("---Path init END-------------------------------------------\n");
-//	ft_printf("\033[0m");
-	// BFS END
-	// REPARTITION BEGIN
-//	ft_printf("\033[1;36m");
-//	ft_printf("---Repartition---------------------------------------------\n");
 	repartition(&li, li.paths);
 	repartition_lists(&li, li.paths_opti);
-//	ft_printf("---Repartition END-----------------------------------------\n");
-//	ft_printf("\033[0m");
-	// REPARTITION END
-	/*************
-	  ALGO END
-	*************/
-//	ft_printf("\033[1m");
-//	ft_printf("---Summary-------------------------------------------------\n");
-//	ft_printf("Nb ants : %d\n", li.nb_ants);
-//	ft_printf("-----------------------------------------------------------\n");
-//	ft_printf("All individual paths found :\n");
-//	path_print_all(li.paths_all);
-//	ft_printf("-----------------------------------------------------------\n");
-//	ft_printf("Last set of compatible paths found :\n");
-//	path_print_all(li.paths);
-//	ft_printf("-----------------------------------------------------------\n");
-//	ft_printf("All sets of compatible paths kept :\n");
-//	print_paths_opti(&li);
-//	ft_printf("\033[1m");
-//	ft_printf("---Summary END---------------------------------------------\n");
-//	ft_printf("---Moving ants---------------------------------------------\n");
-//	ft_printf("\033[0m");
 	ants_set_stage(&li);
 	ants_move(&li);
-//	ft_printf("Nb turns : %d\n", li.paths_opti[0]->turns);
-//	ft_printf("\033[1m");
-//	ft_printf("---Moving ants END-----------------------------------------\n");
-//	ft_printf("Set of paths used :\n");
-//	path_print_all(li.paths_opti[0]);
-//	ft_printf("\033[0m");
-//	room_print_all(&li);
 	free_all(&li);
 	return (SUCCESS);
 }

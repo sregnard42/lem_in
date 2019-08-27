@@ -76,6 +76,10 @@ do
 	res=`single_test`
 	after=`date +%s`
 	res_t=`echo "($after) - ($before)" | bc -l`
+#	if [ $res -ge 8 ]
+#	then
+#		exit 1
+#	fi
 	if [ $i -eq 0 ]
 	then
 		min=$res

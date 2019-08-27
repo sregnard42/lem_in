@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/25 14:52:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/25 15:04:52 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 		if (li->flags & FLAG_START)
 		{
 			if (li->rooms->start)
-				trigger_error(li, "Muti start\n");
+				trigger_error(li, "Multi start\n");
 			li->rooms->start = new;
 		}
 		else
 		{
 			if (li->rooms->end)
-				trigger_error(li, "Muti end\n");
+				trigger_error(li, "Multi end\n");
 			li->rooms->end = new;
 		}
 		li->flags & FLAG_START ?

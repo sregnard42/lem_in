@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/21 15:18:54 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/25 15:10:58 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int			path_clear(t_path *path)
 	t_stage	*stage;
 
 	path->current = path->start;
-	//ft_printf("\033[1;32mPath clearing (%p) : \033[0m\n", path);
-	//path_print(path);
 	while (path->current)
 	{
 		stage = path->current;
@@ -70,8 +68,6 @@ int			path_cmp(t_path *path_a, t_path *path_b)
 	t_stage	*stage_a;
 	t_stage	*stage_b;
 
-//	path_print(path_a);
-//	path_print(path_b);
 	if (path_a->size != path_b->size)
 		return (FAILURE);
 	stage_a = path_a->start;
@@ -131,10 +127,8 @@ t_path		*path_new(t_li *li)
 {
 	t_path	*path;
 
-//	ft_printf("Path creation...\n");
 	if (!(path = (t_path *)malloc(sizeof(t_path))))
 		trigger_error(li, "Error malloc path\n");
-	//ft_printf("\033[1;36mPath %p : \033[0m\nsize = %d\n", path, sizeof(path));
 	ft_bzero(path, sizeof(t_path));
 	insert_stage(li, path, li->rooms->end);
 	while (li->rooms->current && li->rooms->current != li->rooms->start)
@@ -144,8 +138,6 @@ t_path		*path_new(t_li *li)
 		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
-//	ft_printf("Path created : ");
-//	path_print(path);
 	return (path);
 }
 
