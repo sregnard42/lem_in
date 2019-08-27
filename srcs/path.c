@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/25 15:10:58 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:45:34 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void		path_print_all(t_list_path *paths)
 		paths->current = paths->current->next;
 	}
 	ft_printf("Longest path length : %d\n", paths->longest_path->size);
+	ft_printf("Sum length : %d\n", paths->sum);
 	ft_printf("Total capacity : %d\n", sum_capacity);
 	ft_printf("Nb of paths : %d\n", paths->size);
 	ft_printf("Nb of turns : %d\n", paths->turns);

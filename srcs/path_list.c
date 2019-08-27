@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/21 15:33:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:57:02 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ t_list_path	*path_list_dup(t_list_path *paths)
 			new->current->next = path_dup(paths->current);
 			new->current->next->prev = new->current;
 			new->current = new->current->next;
-			if (new->current->size > new->longest_path->size)
-				new->longest_path = new->current;
+	//		if (new->current->size > new->longest_path->size)
+	//			new->longest_path = new->current;
 		}
 		paths->current = paths->current->next;
 	}
+	new->sum = paths->sum;
 	new->last = new->current;
 	paths->current = paths->first;
 	new->current = new->first;
@@ -85,6 +86,7 @@ int	path_add(t_list_path *paths, t_path *path)
 	if (!paths || !path)
 		return (ERROR);
 	++paths->size;
+	paths->sum += path->size;
 	if (!paths->first)
 	{
 		paths->first = path;
@@ -96,8 +98,8 @@ int	path_add(t_list_path *paths, t_path *path)
 	path->prev = paths->last;
 	paths->last->next = path;
 	paths->last = path;
-	if (paths->longest_path->size < path->size)
-		paths->longest_path = path;
+//	if (paths->longest_path->size < path->size)
+//		paths->longest_path = path;
 	return (SUCCESS);
 }
 
@@ -132,7 +134,8 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		paths->current = path_prev ? path_prev : path_next;
 		paths->last = path_prev ? path_prev : path_next;
 	}
-	path == paths->longest_path ? longest_path(paths) : 0;
+	//path == paths->longest_path ? longest_path(paths) : 0;
+	paths->sum -= path->size;
 	ft_memdel((void **)&path);
 }
 
