@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/27 14:50:18 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/31 14:35:15 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,11 @@ int			li_buffer(t_li *li, const char *s, size_t len)
 
 static int	init_li(t_li *li)
 {
-	li->rooms = (t_list_room *)malloc(sizeof(t_list_room));
-	li->queue = (t_queue *)malloc(sizeof(t_queue));
-	li->queue_res = (t_queue *)malloc(sizeof(t_queue));
-	li->paths = (t_list_path *)malloc(sizeof(t_list_path));
-	li->paths_all = (t_list_path *)malloc(sizeof(t_list_path));
-	ft_bzero(li->rooms, sizeof(t_list_room));
-	ft_bzero(li->queue, sizeof(t_queue));
-	ft_bzero(li->queue_res, sizeof(t_queue));
-	ft_bzero(li->paths, sizeof(t_list_path));
-	ft_bzero(li->paths_all, sizeof(t_list_path));
+	li->rooms = ft_memalloc(sizeof(t_list_room));
+	li->queue = ft_memalloc(sizeof(t_queue));
+	li->queue_res = ft_memalloc(sizeof(t_queue));
+	li->paths = ft_memalloc(sizeof(t_list_path));
+	li->paths_all = ft_memalloc(sizeof(t_list_path));
 	if (!li->rooms || !li->queue || !li->queue_res ||
 		!li->paths || !li->paths_all)
 		trigger_error(li, "init_li malloc fail\n");

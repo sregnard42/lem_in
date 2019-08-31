@@ -32,10 +32,10 @@ single_test()
 clear
 
 echo "//================================\\\\"
-printf "|| Script by \033[36msregnard\033[0m \033[31m&&\033[0m \033[36mchrhuang\033[0m ||\n"
+printf "|| Script by \033[36msregnard\033[0m \033[0m&&\033[0m \033[33mchrhuang\033[0m ||\n"
 echo "\\\\================================//"
 
-read -n 1 -s -r -p "Press any key to continue"
+read -n 1 -s -r -p "Press any key to continue..."
 
 clear
 echo "//============================\\\\"
@@ -123,5 +123,10 @@ do
 		printf "||         Moy : \033[33m%-7.1f\033[0m     ||\n" $moy_t
 		printf "||         Max : \033[31m%-7d\033[0m     ||\n" $max_t
 		echo "\\\\===========================//"
+	fi
+	if [ $res -lt -20 ]
+	then
+		echo "Segfault ? $res"
+		exit 0
 	fi
 done
