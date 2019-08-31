@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/25 14:27:14 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/31 13:38:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,26 @@ int		longest_path(t_list_path *paths)
 
 int	paths_opti(t_li *li)
 {
+	t_list_path	*paths_dup;
 	int	max_a;
 	int	max_b;
 
-	//ft_printf("Nb paths : %d\n", li->paths->size);
+	repartition(li, paths_dup = path_list_dup(li->paths));
+	li->paths->turns = paths_dup->turns;
+	free_paths(&paths_dup);
 	if (!li->paths_opti[li->paths->size])
 	{
 		if (!(li->paths_opti[li->paths->size] = path_list_dup(li->paths)))
 			trigger_error(li, "paths_opti : path_list_dup fail\n");
 		return (SUCCESS);
 	}
-	max_a = (li->paths_opti[li->paths->size])->longest_path->size;
-	max_b = li->paths->longest_path->size;
+	max_a = li->paths_opti[li->paths->size]->turns;
+	max_b = li->paths->turns;
 	if (max_a < max_b)
 		return (SUCCESS);
-	//Je sais pas si j'ai bien free mon t_list_path, alors Merci de checker ça Stanley <3
-	//Ici il faut faire la fonction de free une t_list_path
 	path_list_delete(&li->paths_opti[li->paths->size]);
 	if (!(li->paths_opti[li->paths->size] = path_list_dup(li->paths)))
 		trigger_error(li, "paths_opti : path_list_dup fail\n");
-	//ft_printf("------------------\n");
-	//path_print_all(li->paths_opti[li->paths->size]);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/27 14:27:28 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/31 13:37:00 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,11 @@ void					ants_move(t_li *li);
 */
 
 int						pathfinding(t_li *li);
+
+/*
+**						free
+*/
+
+void					free_paths(t_list_path **paths_ptr);
 
 #endif

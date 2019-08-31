@@ -6,13 +6,13 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/25 14:18:30 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/08/31 13:36:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	free_paths(t_list_path **paths_ptr)
+void	free_paths(t_list_path **paths_ptr)
 {
 	t_list_path	*paths;
 
