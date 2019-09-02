@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 11:38:29 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 12:15:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int			main(int ac, char **av)
 	ants_set_stage(&li);
 	ants_move(&li);
 	li.flags & FLAG_SOLUTION ? print_solution(&li, li.paths_opti[0]) : 0;
+	print_paths_opti(&li);
 	free_all(&li);
 	return (SUCCESS);
 }
