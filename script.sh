@@ -28,10 +28,20 @@ single_test()
 	echo "$(($LI - $MAP))"
 }
 
+arg_test()
+{
+	echo $1
+	./lem-in -ct < $1 ; tail -n1 $1
+}
+
 if [ $# -gt 1 ]
 then
 	printf "%-7s./script.sh\n" "usage:"
 	printf "%-7s./script.sh [map file]\n"
+	exit 1
+elif [ $# -eq 1 ]
+then
+	arg_test "$1"
 	exit 1
 fi
 
