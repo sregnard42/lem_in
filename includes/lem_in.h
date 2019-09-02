@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/31 13:37:00 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:43:43 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "queue.h"
 # include "relative.h"
 
-# define DEBUG			1
+# define DEBUG			0
 # define ERR_DEFAULT	"ERROR\n"
 
 # define ERROR			-1

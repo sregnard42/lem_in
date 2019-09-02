@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/27 12:39:41 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:38:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static int	get_ants(t_li *li, char *line, int *nb_ants)
 {
 	if (li == NULL || line == NULL)
 		trigger_error(li, "li or tab == NULL in get_ants function\n");
+	if (ft_strequ(line, START) || ft_strequ(line, END))
+		trigger_error(li, "##start or ##end instead of nb ants.\n");
 	if (*line == '#')
 		return (FAIL);
 	if (!ft_isinteger(line))
 		trigger_error(li, "not integer #ant\n");
-	if ((*nb_ants = ft_atoi(line)) == 0)
+	if ((*nb_ants = ft_atoi(line)) <= 0)
 		trigger_error(li, "ERROR - ant = 0 #ant\n");
 	li->flags &= ~FLAG_ANT;
 	li->flags |= FLAG_ROOM;

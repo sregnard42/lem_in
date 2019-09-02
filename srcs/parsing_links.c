@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/25 14:44:58 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:36:29 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ int		get_link(t_li *li, char *line)
 
 	if (!li->rooms->current)
 		trigger_error(li, "No room #parsing_links\n");
+	if (ft_strequ(line, START) || ft_strequ(line, END))
+		trigger_error(li, "##start or ##end not followed by room.\n");
+	if (ft_strchr(line, ' '))
+		trigger_error(li, "Space in link.\n");
 	tab = ft_strsplit(line, '-');
 	if (is_link(li, tab) == FAIL)
 	{

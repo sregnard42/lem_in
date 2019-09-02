@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/27 12:43:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:53:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static int	is_room(t_li *li, char **line)
 {
 	if (!line || !*line)
 		trigger_error(li, "Bad line\n");
+	if (!ft_strncmp("##", *line, 2)
+		&& (li->flags & FLAG_START || li->flags & FLAG_END))
+			trigger_error(li, "command after ##start or ##end.\n");
 	ft_strequ(START, *line) ? li->flags |= FLAG_START : 0;
 	ft_strequ(END, *line) ? li->flags |= FLAG_END : 0;
 	if (*line[0] == '#')

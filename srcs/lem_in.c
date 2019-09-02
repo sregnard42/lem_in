@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 13:36:13 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:43:14 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int			li_buffer(t_li *li, const char *s, size_t len)
 	size_t	i;
 
 	i = 0;
-	if (li->index + len >= PF_BUFF_SIZE)
+	if (li->index + len >= LI_BUFF_SIZE)
 	{
 		write(1, li->buf, li->index);
-		ft_bzero(li->buf, PF_BUFF_SIZE);
+		ft_bzero(li->buf, LI_BUFF_SIZE);
 		li->index = 0;
 	}
 	while (i < len && i < LI_BUFF_SIZE)
