@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/27 12:45:34 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:30:46 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 **			Clear the path
-**			Unreserved all rooms and delete all stages
+**			Unreserve all rooms and delete all stages
 */
 
 int			path_clear(t_path *path)
@@ -25,9 +25,11 @@ int			path_clear(t_path *path)
 	while (path->current)
 	{
 		stage = path->current;
-		stage->room->flags &= ~FLAG_RESERVED;
-		stage->room->weight++;
-		stage->room->path = NULL;
+		if (stage->room->path == path)
+		{
+			stage->room->flags &= ~FLAG_RESERVED;
+			stage->room->path = NULL;
+		}
 		path->current = path->current->next;
 		ft_memdel((void **)&stage);
 	}
@@ -111,7 +113,6 @@ t_path		*path_dup(t_path *path)
 			new->current->next = stage;
 			new->current = new->current->next;
 		}
-		path->current->room->flags |= FLAG_RESERVED;  //tmp
 		path->current = path->current->next;
 	}
 	new->end = new->current;
@@ -135,7 +136,6 @@ t_path		*path_new(t_li *li)
 	{
 		insert_stage(li, path, li->rooms->current);
 		li->rooms->current->flags |= FLAG_RESERVED;
-		li->rooms->current->weight--;
 		li->rooms->current = li->rooms->current->parent;
 	}
 	return (path);

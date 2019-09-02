@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/31 13:38:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:29:03 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,18 @@ int	paths_opti(t_li *li)
 	int	max_a;
 	int	max_b;
 
-	repartition(li, paths_dup = path_list_dup(li->paths));
+	paths_dup = path_list_dup(li->paths);
+	repartition(li, paths_dup);
 	li->paths->turns = paths_dup->turns;
-	free_paths(&paths_dup);
+	path_list_delete(&paths_dup);
 	if (!li->paths_opti[li->paths->size])
 	{
 		if (!(li->paths_opti[li->paths->size] = path_list_dup(li->paths)))
 			trigger_error(li, "paths_opti : path_list_dup fail\n");
 		return (SUCCESS);
 	}
+//	max_a = li->paths_opti[li->paths->size]->longest_path->size;
+//	max_b = li->paths->longest_path->size;
 	max_a = li->paths_opti[li->paths->size]->turns;
 	max_b = li->paths->turns;
 	if (max_a < max_b)

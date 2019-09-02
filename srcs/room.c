@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/15 14:05:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 13:33:12 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	room_clean(t_li *li)
 	while (room)
 	{
 		room->flags &= ~FLAG_VISITED;
-//		room->flags & FLAG_RESERVED ? 0 : link_clean(li, room->links->first);
-//		link_clean(li, room->links->first);
 		room = room->next;
 	}
 }
@@ -62,8 +60,6 @@ void	room_print(t_room *room)
 	ft_printf("Pos : ");
 	ft_ptprint(&room->pos);
 	ft_putstr("\n");
-	ft_printf("Weight = %d, ", room->weight);
-	ft_printf("Distance = %d\n", room->distance);
 	room->links->current = room->links->first;
 	while (room->links->current)
 	{
