@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 16:36:29 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:03:39 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int		is_link(t_li *li, char **line)
 {
 	if (!line || !*line)
 		trigger_error(li, "Bad line\n");
-	if (*line[0] == '#')
-		return (FAIL);
 	if (ft_nb_str_tab(line) != 2)
 	{
 		li->flags & FLAG_LINK ? trigger_error(li, "Nb args #link\n") : 0;
@@ -63,8 +61,13 @@ int		get_link(t_li *li, char *line)
 		trigger_error(li, "No room #parsing_links\n");
 	if (ft_strequ(line, START) || ft_strequ(line, END))
 		trigger_error(li, "##start or ##end not followed by room.\n");
+	if (*line == '#')
+		return (FAIL);
 	if (ft_strchr(line, ' '))
+	{
+		ft_printf("error : %s\n", line);
 		trigger_error(li, "Space in link.\n");
+	}
 	tab = ft_strsplit(line, '-');
 	if (is_link(li, tab) == FAIL)
 	{

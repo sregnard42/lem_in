@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/02 16:38:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:05:31 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_ants(t_li *li, char *line, int *nb_ants)
 	if (!ft_isinteger(line))
 		trigger_error(li, "not integer #ant\n");
 	if ((*nb_ants = ft_atoi(line)) <= 0)
-		trigger_error(li, "ERROR - ant = 0 #ant\n");
+		trigger_error(li, "ant <= 0 #ant\n");
 	li->flags &= ~FLAG_ANT;
 	li->flags |= FLAG_ROOM;
 	return (SUCCESS);

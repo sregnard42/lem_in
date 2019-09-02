@@ -6,12 +6,32 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/02 16:53:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:41:56 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
+
+static int	already_exists(t_li *li, t_room **last, char *name, t_point *pos)
+{
+	t_room	*room;
+	
+	room = li->rooms->start ? li->rooms->start : NULL;
+	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
+			return (SUCCESS);
+	room = li->rooms->end ? li->rooms->end : NULL;
+	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
+			return (SUCCESS);
+	room = last ? *last : NULL;
+	while (room)
+	{
+		if (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos))
+			return (SUCCESS);
+		room = room->prev;
+	}
+	return (FAILURE);
+}
 
 /*
 **	current	: first room in the list
@@ -46,6 +66,8 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	t_point	pos;
 
 	ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
+	if (already_exists(li, last, tab[0], &pos))
+		trigger_error(li, "room name or pos already taken.\n");
 	if ((new = room_new(li, tab[0], &pos)) == NULL)
 		return (ERROR);
 	if (li->flags & FLAG_START || li->flags & FLAG_END)
