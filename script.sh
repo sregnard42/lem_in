@@ -22,16 +22,26 @@ generate_map()
 
 single_test()
 {
-	LI=`./lem-in < tmp.map > tmp ; diff tmp tmp.map | wc -l`
-	LI=`echo "($LI) - 1" | bc`
+	LI=`./lem-in -ct < tmp.map > tmp ; diff tmp tmp.map | wc -l`
+	LI=`echo "($LI) - 2" | bc`
 	MAP=`tail -1 tmp.map | grep "line" | cut -d ' ' -f8`
 	echo "$(($LI - $MAP))"
 }
 
 arg_test()
 {
-	echo $1
-	./lem-in -ct < $1 ; tail -n1 $1
+	./lem-in -cpt < $1 ; tail -n1 $1
+	./lem-in < $1 | ./verifier 1> verif_res 2> verif_err
+	ERROR=`cat verif_err | wc -l`
+	if [ $ERROR -gt 0 ]
+	then
+		printf "\033[31mERROR\033[0m\n"
+		`cp $1 maps/script/error.map`
+	else
+		RES=`cat verif_res`
+		printf "\033[32mOK\033[0m\t"
+		printf "Number of lines: $RES\n"
+	fi
 }
 
 if [ $# -gt 1 ]
