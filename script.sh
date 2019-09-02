@@ -23,11 +23,17 @@ generate_map()
 single_test()
 {
 	LI=`./lem-in < tmp.map > tmp ; diff tmp tmp.map | wc -l`
-	rm tmp
 	LI=`echo "($LI) - 1" | bc`
 	MAP=`tail -1 tmp.map | grep "line" | cut -d ' ' -f8`
 	echo "$(($LI - $MAP))"
 }
+
+if [ $# -gt 1 ]
+then
+	printf "%-7s./script.sh\n" "usage:"
+	printf "%-7s./script.sh [map file]\n"
+	exit 1
+fi
 
 clear
 
@@ -72,10 +78,6 @@ do
 	res=`single_test`
 	after=`date +%s`
 	res_t=`echo "($after) - ($before)" | bc -l`
-#	if [ $res -ge 8 ]
-#	then
-#		exit 1
-#	fi
 	if [ $i -eq 0 ]
 	then
 		min=$res
@@ -83,22 +85,28 @@ do
 		min_t=$res_t
 		max_t=$res_t
 	else
+		`mkdir -p maps/script`
 		if [ $res -le $min ]
 		then
 			min=$res
+			`cp tmp.map maps/script/min.map`
 		fi
 		if [ $max -le $res ]
 		then
 			max=$res
+			`cp tmp.map maps/script/max.map`
 		fi
 		if [ $res_t -le $min_t ]
 		then
 			min_t=$res_t
+			`cp tmp.map maps/script/min_t.map`
 		fi
 		if [ $max_t -le $res_t ]
 		then
 			max_t=$res_t
+			`cp tmp.map maps/script/max_t.map`
 		fi
+		`rm tmp tmp.map`
 	fi
 	clear
 	sum=`echo "($res) + ($sum)" | bc`
@@ -123,10 +131,5 @@ do
 		printf "||         Moy : \033[33m%-7.1f\033[0m     ||\n" $moy_t
 		printf "||         Max : \033[31m%-7d\033[0m     ||\n" $max_t
 		echo "\\\\===========================//"
-	fi
-	if [ $res -lt -20 ]
-	then
-		echo "Segfault ? $res"
-		exit 0
 	fi
 done
