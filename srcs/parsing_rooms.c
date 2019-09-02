@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/02 17:41:56 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 23:00:37 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	already_exists(t_li *li, t_room **last, char *name, t_point *pos)
 {
 	t_room	*room;
-	
+
 	room = li->rooms->start ? li->rooms->start : NULL;
 	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
 			return (SUCCESS);

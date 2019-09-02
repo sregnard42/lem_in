@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/02 17:05:31 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 23:00:11 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,17 @@ static void	parsing_room_link(t_li *li, char *line)
 
 int			parsing(t_li *li)
 {
-	char	*line;
 	int		nb_ants;
 
-	line = NULL;
 	li->flags |= FLAG_ANT;
-	while (li->flags & FLAG_ANT && get_next_line(0, &line))
+	while (li->flags & FLAG_ANT && get_next_line(0, &li->line))
 	{
-		get_ants(li, line, &nb_ants);
-		line = ft_stradd(line, "\n");
-		li_buffer(li, line, ft_strlen(line));
-		ft_memdel((void **)&line);
+		get_ants(li, li->line, &nb_ants);
+		li->line = ft_stradd(li->line, "\n");
+		li_buffer(li, li->line, ft_strlen(li->line));
+		ft_memdel((void **)&li->line);
 	}
-	parsing_room_link(li, line);
+	parsing_room_link(li, li->line);
 	li->nb_ants = nb_ants;
 	li->rooms->current = li->rooms->start;
 	if (!li->rooms->start)

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/31 13:36:28 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 23:07:53 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int			free_all(t_li *li)
 {
 	if (!li)
 		return (SUCCESS);
+	ft_memdel((void **)&li->line);
 	ft_memdel((void **)&li->ants);
 	ft_memdel((void **)&li->queue);
 	ft_memdel((void **)&li->queue_res);
