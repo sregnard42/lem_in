@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/31 14:35:15 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/02 11:38:29 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int			main(int ac, char **av)
 	init_li(&li);
 	if (parsing(&li) != SUCCESS)
 		return (ERROR);
-	ft_putstr(li.buf);
+	ft_putendl(li.buf);
 	ants_init(&li);
 	tree(&li);
 	paths_opti_init(&li);
