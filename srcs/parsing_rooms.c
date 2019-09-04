@@ -6,29 +6,29 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/04 15:17:35 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:39:00 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 
-static int	already_exists(t_li *li, t_room **last, char *name, t_point *pos)
+static int	already_exists(t_li *li, char *name, t_point *pos)
 {
 	t_room	*room;
 
-	room = li->rooms->start ? li->rooms->start : NULL;
+	room = li->start ? li->start : NULL;
 	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
 			return (SUCCESS);
-	room = li->rooms->end ? li->rooms->end : NULL;
+	room = li->end ? li->end : NULL;
 	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
 			return (SUCCESS);
-	room = last ? *last : NULL;
+	room = li->rooms->start;
 	while (room)
 	{
 		if (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos))
 			return (SUCCESS);
-		room = room->prev;
+		room = room->next;
 	}
 	return (FAILURE);
 }
@@ -60,13 +60,15 @@ static int	is_room(t_li *li)
 	return (SUCCESS);
 }
 
-static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
+static int	add_room(t_li *li)
 {
 	t_room	*new;
 	t_point	pos;
+	char	**tab;
 
+	tab = li->line_split;
 	ft_ptset(&pos, ft_atoi(tab[1]), ft_atoi(tab[2]), 0);
-	if (already_exists(li, last, tab[0], &pos))
+	if (already_exists(li, tab[0], &pos))
 		trigger_error(li, "room name or pos already taken.\n");
 	if ((new = room_new(li, tab[0], &pos)) == NULL)
 		return (ERROR);
@@ -74,66 +76,66 @@ static int	add_room(t_li *li, t_room **rooms, char **tab, t_room **last)
 	{
 		if (li->flags & FLAG_START)
 		{
-			if (li->rooms->start)
+			if (li->start)
 				trigger_error(li, "Multi start\n");
-			li->rooms->start = new;
+			li->start = new;
+			li->flags &= ~FLAG_START;
 		}
 		else
 		{
-			if (li->rooms->end)
+			if (li->end)
 				trigger_error(li, "Multi end\n");
-			li->rooms->end = new;
+			li->end = new;
+			li->flags &= ~FLAG_END;
 		}
-		li->flags & FLAG_START ?
-			(li->flags &= ~FLAG_START) : (li->flags &= ~FLAG_END);
 		return (SUCCESS);
 	}
-	*rooms == NULL ? *rooms = new : room_add(last, new);
-	*rooms == new ? *last = *rooms : 0;
+	room_add(li, new);
 	return (SUCCESS);
 }
 
-int			place_start_end(t_li *li, t_room **last)
+int			place_start_end(t_li *li)
 {
-	if (!li->rooms->start || !li->rooms->end)
+	if (!li->start || !li->end)
 		trigger_error(li, "No start or end #room\n");
 	li->flags &= ~FLAG_ROOM;
 	li->flags |= FLAG_LINK;
-	(!li->rooms->current) ? li->rooms->current = li->rooms->start : 0;
-	(!(*last)) ? *last = li->rooms->current : 0;
-	if (li->rooms->current != li->rooms->start)
+	if (!li->rooms->start)
 	{
-		li->rooms->start->next = li->rooms->current;
-		li->rooms->current->prev = li->rooms->start;
-		li->rooms->current = li->rooms->start;
+		room_add(li, li->start);
+		room_add(li, li->end);
 	}
-	room_add(last, li->rooms->end);
-	(*last)->id = li->rooms->size - 1;
+	else
+	{
+		li->start->next = li->rooms->start;
+		li->rooms->start->prev = li->start;
+		li->rooms->start = li->start;
+		room_add(li, li->end);
+	}
+	li->end->id = li->rooms->size - 1;
 	new_matrice(li, li->rooms->size);
 	return (SUCCESS);
 }
 
-int			get_room(t_li *li, t_room **last)
+int			get_room(t_li *li)
 {
 	t_room	*rooms;
 
 	li->line_split = ft_strsplit(li->line, '-');
 	if (is_link(li) == SUCCESS)
 	{
-		place_start_end(li, last);
+		place_start_end(li);
 		ft_free_tab(&li->line_split);
 		return (FAIL);
 	}
 	ft_free_tab(&li->line_split);
 	rooms = li->rooms->current;
 	li->line_split = ft_strsplit(li->line, ' ');
-	if (is_room(li) == FAIL
-		|| add_room(li, &rooms, li->line_split, last) == ERROR)
+	if (is_room(li) == FAIL || add_room(li) == ERROR)
 	{
 		ft_free_tab(&li->line_split);
 		return (FAIL);
 	}
-	li->rooms->current = rooms;
 	ft_free_tab(&li->line_split);
 	return (SUCCESS);
 }

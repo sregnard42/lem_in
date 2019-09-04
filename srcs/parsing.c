@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:22:20 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/04 15:11:23 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:38:35 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	parsing_room_link(t_li *li)
 	last = NULL;
 	while (get_next_line(0, &li->line))
 	{
-		li->flags & FLAG_ROOM ? get_room(li, &last) : 0;
+		li->flags & FLAG_ROOM ? get_room(li) : 0;
 		li->flags & FLAG_LINK ? get_link(li) : 0;
 		li->line = ft_stradd(li->line, "\n");
 		li_buffer(li, li->line, ft_strlen(li->line));

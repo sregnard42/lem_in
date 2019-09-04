@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 13:33:12 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:27:44 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,18 @@ void	room_clean(t_li *li)
 	}
 }
 
-void	room_add(t_room **last, t_room *new_room)
+void	room_add(t_li *li, t_room *new_room)
 {
-	if (!last || !(*last) || !new_room)
+	if (!li->rooms->start)
+	{
+		li->rooms->start = new_room;
+		li->rooms->current = new_room;
+		li->rooms->end = new_room;
 		return ;
-	new_room->prev = (*last);
-	(*last)->next = new_room;
-	(*last) = new_room;
+	}
+	new_room->prev = li->rooms->end;
+	li->rooms->end->next = new_room;
+	li->rooms->end = new_room;
 }
 
 t_room	*room_new(t_li *li, char *name, t_point *pos)

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/04 14:32:42 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/04 16:40:05 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static void	free_rooms(t_li *li)
 		ft_memdel((void **)&li->rooms->current);
 	}
 	ft_memdel((void **)&li->rooms);
+	ft_memdel((void **)li->start);
+	ft_memdel((void **)li->end);
 }
 
 static void	free_matrice(t_li *li)
