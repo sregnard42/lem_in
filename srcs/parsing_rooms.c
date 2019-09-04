@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/04 16:39:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:06:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +71,27 @@ static int	add_room(t_li *li)
 	if (already_exists(li, tab[0], &pos))
 		trigger_error(li, "room name or pos already taken.\n");
 	if ((new = room_new(li, tab[0], &pos)) == NULL)
-		return (ERROR);
-	if (li->flags & FLAG_START || li->flags & FLAG_END)
 	{
-		if (li->flags & FLAG_START)
-		{
-			if (li->start)
-				trigger_error(li, "Multi start\n");
-			li->start = new;
-			li->flags &= ~FLAG_START;
-		}
-		else
-		{
-			if (li->end)
-				trigger_error(li, "Multi end\n");
-			li->end = new;
-			li->flags &= ~FLAG_END;
-		}
-		return (SUCCESS);
+		ft_printf("yolo\n");
+		ft_memdel((void **)new);
+		return (ERROR);
 	}
-	room_add(li, new);
+	if (li->flags & FLAG_START)
+	{
+		if (li->start)
+			trigger_error(li, "Multi start\n");
+		li->start = new;
+		li->flags &= ~FLAG_START;
+	}
+	else if (li->flags & FLAG_END)
+	{
+		if (li->end)
+			trigger_error(li, "Multi end\n");
+		li->end = new;
+		li->flags &= ~FLAG_END;
+	}
+	else
+		room_add(li, new);
 	return (SUCCESS);
 }
 

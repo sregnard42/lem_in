@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/04 16:40:05 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:21:28 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ static void	free_paths_list(t_list_path **lists)
 		free_paths(lists++);
 }
 
-static void	free_parents(t_li *li)
+static void	free_parents(t_room *room)
 {
-	t_room	*room;
-
-	room = li->rooms->current;
 	while (room->parents && room->parents->first)
 	{
 		room->parents->current = room->parents->first;
@@ -46,11 +43,8 @@ static void	free_parents(t_li *li)
 	ft_memdel((void **)&room->parents);
 }
 
-static void	free_childs(t_li *li)
+static void	free_childs(t_room *room)
 {
-	t_room	*room;
-
-	room = li->rooms->current;
 	while (room->childs && room->childs->first)
 	{
 		room->childs->current = room->childs->first;
@@ -60,11 +54,8 @@ static void	free_childs(t_li *li)
 	ft_memdel((void **)&room->childs);
 }
 
-static void	free_links(t_li *li)
+static void	free_links(t_room *room)
 {
-	t_room	*room;
-
-	room = li->rooms->current;
 	while (room->links && room->links->first)
 	{
 		room->links->current = room->links->first;
@@ -74,21 +65,33 @@ static void	free_links(t_li *li)
 	ft_memdel((void **)&room->links);
 }
 
+static void	free_room(t_room **room_ptr)
+{
+	t_room	*room;
+
+	if (!room_ptr || !*room_ptr)
+		return ;
+	room = *room_ptr;
+	ft_memdel((void **)&room->name);
+	free_links(room);
+	free_parents(room);
+	free_childs(room);
+	ft_memdel((void **)room_ptr);
+}
+
 static void	free_rooms(t_li *li)
 {
 	while (li->rooms && li->rooms->start)
 	{
 		li->rooms->current = li->rooms->start;
 		li->rooms->start = li->rooms->current->next;
-		ft_memdel((void **)&li->rooms->current->name);
-		free_links(li);
-		free_parents(li);
-		free_childs(li);
-		ft_memdel((void **)&li->rooms->current);
+		li->rooms->current == li->start ? li->start = NULL : 0;
+		li->rooms->current == li->end ? li->end = NULL : 0;
+		free_room(&li->rooms->current);
 	}
 	ft_memdel((void **)&li->rooms);
-	ft_memdel((void **)li->start);
-	ft_memdel((void **)li->end);
+	free_room(&li->start);
+	free_room(&li->end);
 }
 
 static void	free_matrice(t_li *li)
