@@ -6,7 +6,7 @@
 /*   By: jdugoudr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 15:00:43 by jdugoudr          #+#    #+#             */
-/*   Updated: 2018/12/09 15:37:13 by jdugoudr         ###   ########.fr       */
+/*   Updated: 2019/09/04 15:16:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char		**ft_strsplit(char const *s, char c)
 
 	res = 0;
 	r = NULL;
-	if (s == NULL)
+	if (s == NULL || !ft_strlen(s))
 		return (NULL);
 	cmpts = ft_countword(s, c);
 	r = (char **)ft_memalloc((cmpts + 1) * sizeof(char *));

@@ -6,17 +6,17 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 17:03:39 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/04 15:05:52 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		is_link(t_li *li, char **line)
+int		is_link(t_li *li)
 {
-	if (!line || !*line)
-		trigger_error(li, "Bad line\n");
-	if (ft_nb_str_tab(line) != 2)
+	if (!li->line_split || !*li->line_split)
+		trigger_error(li, "Bad line | is_link\n");
+	if (ft_nb_str_tab(li->line_split) != 2)
 	{
 		li->flags & FLAG_LINK ? trigger_error(li, "Nb args #link\n") : 0;
 		return (FAIL);
@@ -53,28 +53,23 @@ int		find_rooms(t_li *li, char *a, char *b)
 	return (SUCCESS);
 }
 
-int		get_link(t_li *li, char *line)
+int		get_link(t_li *li)
 {
-	char	**tab;
-
 	if (!li->rooms->current)
 		trigger_error(li, "No room #parsing_links\n");
-	if (ft_strequ(line, START) || ft_strequ(line, END))
+	if (ft_strequ(li->line, START) || ft_strequ(li->line, END))
 		trigger_error(li, "##start or ##end not followed by room.\n");
-	if (*line == '#')
+	if (*li->line == '#')
 		return (FAIL);
-	if (ft_strchr(line, ' '))
-	{
-		ft_printf("error : %s\n", line);
+	if (ft_strchr(li->line, ' '))
 		trigger_error(li, "Space in link.\n");
-	}
-	tab = ft_strsplit(line, '-');
-	if (is_link(li, tab) == FAIL)
+	li->line_split = ft_strsplit(li->line, '-');
+	if (is_link(li) == FAIL)
 	{
-		ft_free_tab(&tab);
+		ft_free_tab(&li->line_split);
 		return (FAIL);
 	}
-	find_rooms(li, tab[0], tab[1]);
-	ft_free_tab(&tab);
+	find_rooms(li, li->line_split[0], li->line_split[1]);
+	ft_free_tab(&li->line_split);
 	return (SUCCESS);
 }

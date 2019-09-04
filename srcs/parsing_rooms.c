@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/02 23:00:37 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/04 15:17:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ static int	already_exists(t_li *li, t_room **last, char *name, t_point *pos)
 **	end		: ending room, placed at the end when parsing done
 */
 
-static int	is_room(t_li *li, char **line)
+static int	is_room(t_li *li)
 {
-	if (!line || !*line)
-		trigger_error(li, "Bad line\n");
-	if (!ft_strncmp("##", *line, 2)
+	if (!li->line_split || !*li->line_split)
+		trigger_error(li, "Bad line | is_room\n");
+	if (!ft_strncmp("##", *li->line_split, 2)
 		&& (li->flags & FLAG_START || li->flags & FLAG_END))
 			trigger_error(li, "command after ##start or ##end.\n");
-	ft_strequ(START, *line) ? li->flags |= FLAG_START : 0;
-	ft_strequ(END, *line) ? li->flags |= FLAG_END : 0;
-	if (*line[0] == '#')
+	ft_strequ(START, *li->line_split) ? li->flags |= FLAG_START : 0;
+	ft_strequ(END, *li->line_split) ? li->flags |= FLAG_END : 0;
+	if (*li->line_split[0] == '#')
 		return (FAIL);
-	if (*line[0] == 'L')
+	if (*li->line_split[0] == 'L')
 		trigger_error(li, "Invalid name #room\n");
-	if (ft_nb_str_tab(line) != 3)
+	if (ft_nb_str_tab(li->line_split) != 3)
 		trigger_error(li, "Invalid nb arguments #room\n");
-	if (!ft_isinteger(line[1]) || !ft_isinteger(line[2]))
+	if (!ft_isinteger(li->line_split[1]) || !ft_isinteger(li->line_split[2]))
 		trigger_error(li, "Not integer #room\n");
 	return (SUCCESS);
 }
@@ -113,27 +113,27 @@ int			place_start_end(t_li *li, t_room **last)
 	return (SUCCESS);
 }
 
-int			get_room(t_li *li, char *line, t_room **last)
+int			get_room(t_li *li, t_room **last)
 {
 	t_room	*rooms;
-	char	**tab;
 
-	tab = ft_strsplit(line, '-');
-	if (is_link(li, tab) == SUCCESS)
+	li->line_split = ft_strsplit(li->line, '-');
+	if (is_link(li) == SUCCESS)
 	{
 		place_start_end(li, last);
-		ft_free_tab(&tab);
+		ft_free_tab(&li->line_split);
 		return (FAIL);
 	}
-	ft_free_tab(&tab);
+	ft_free_tab(&li->line_split);
 	rooms = li->rooms->current;
-	tab = ft_strsplit(line, ' ');
-	if (is_room(li, tab) == FAIL || add_room(li, &rooms, tab, last) == ERROR)
+	li->line_split = ft_strsplit(li->line, ' ');
+	if (is_room(li) == FAIL
+		|| add_room(li, &rooms, li->line_split, last) == ERROR)
 	{
-		ft_free_tab(&tab);
+		ft_free_tab(&li->line_split);
 		return (FAIL);
 	}
 	li->rooms->current = rooms;
-	ft_free_tab(&tab);
+	ft_free_tab(&li->line_split);
 	return (SUCCESS);
 }

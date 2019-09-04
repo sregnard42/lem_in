@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 22:59:27 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/04 14:24:11 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct			s_li
 	unsigned int		index;
 	int					nb_ants;
 	char				*line;
+	char				**line_split;
 	t_ant				*ants;
 	t_list_room			*rooms;
 	t_list_path			*paths;
@@ -93,9 +94,9 @@ int						li_buffer(t_li *li, const char *s, size_t len);
 */
 
 int						parsing(t_li *li);
-int						get_room(t_li *li, char *line, t_room **last);
-int						get_link(t_li *li, char *line);
-int						is_link(t_li *li, char **line);
+int						get_room(t_li *li, t_room **last);
+int						get_link(t_li *li);
+int						is_link(t_li *li);
 
 /*
 **						error.c
