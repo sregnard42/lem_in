@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/08/26 21:13:52 by sregnard         ###   ########.fr        #
+#    Updated: 2019/09/07 15:24:28 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCDIR					=	srcs/
 OBJDIR					=	objs/
 
 SRCNAME					=	lem_in.c		\
+							option.c		\
 							parsing.c		\
 							parsing_rooms.c	\
 							parsing_links.c	\
@@ -45,11 +46,14 @@ SRCNAME					=	lem_in.c		\
 							queue.c			\
 							bfs.c			\
 							print_lem_in.c	\
-							free.c			\
 							tree.c			\
 							relative.c		\
 							paths_opti.c 	\
-							repartition.c
+							repartition.c	\
+							free_all.c		\
+							free_paths.c	\
+							free_rooms.c
+
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
