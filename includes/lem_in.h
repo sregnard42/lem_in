@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/07 15:26:37 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/07 15:39:39 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int						li_buffer(t_li *li, const char *s, size_t len);
 int						options(t_li *li, int ac, char **av);
 int						print_usage(void);
 void					print_solution(t_li *li, t_list_path *paths);
+void					print_turn(t_li *li);
 
 /*
 **						parsing.c
@@ -168,12 +169,6 @@ int						dequeue(t_queue *queue);
 int						clear_queue(t_queue *queue);
 
 /*
-**						print_lem_in.c
-*/
-
-void					print_lem_in(t_li *li);
-
-/*
 **						relative.c
 */
 
@@ -231,5 +226,12 @@ int						pathfinding(t_li *li);
 void					free_paths(t_list_path **paths_ptr);
 void					free_paths_list(t_list_path **lists);
 void					free_rooms(t_li *li);
+
+/*
+**						print
+*/
+
+void					path_print(t_path *path);
+void					path_print_all(t_list_path *paths);
 
 #endif

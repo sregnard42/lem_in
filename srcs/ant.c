@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 11:44:16 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/07 15:33:15 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,6 @@ static int	ant_move(t_li *li, t_ant *ant)
 		ant->flags |= FLAG_ARRIVED;
 	ant->stage = ant->stage->next;
 	return (ant->flags & FLAG_ARRIVED ? 1 : 0);
-}
-
-static void	print_turn(t_li *li)
-{
-	static int	turn = 0;
-
-	if (li->flags & FLAG_COLOR)
-		ft_printf("%s", CYAN);
-	if (li->flags & FLAG_TURN)
-		li->flags & FLAG_SP ? 0 : ft_printf("[ %d ] ", ++turn);
-	if (li->flags & FLAG_COLOR)
-		ft_printf("%s", RESET);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 15:12:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/07 15:26:23 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/07 15:32:01 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,16 @@ void	print_solution(t_li *li, t_list_path *paths)
 		paths->current = paths->current->next;
 	}
 	ft_printf("%s", RESET);
+}
+
+void	print_turn(t_li *li)
+{
+	static int	turn = 0;
+
+	if (li->flags & FLAG_COLOR)
+		ft_printf("%s", CYAN);
+	if (li->flags & FLAG_TURN)
+		li->flags & FLAG_SP ? 0 : ft_printf("[ %d ] ", ++turn);
+	if (li->flags & FLAG_COLOR)
+		ft_printf("%s", RESET);
 }
