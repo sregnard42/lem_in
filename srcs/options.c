@@ -14,12 +14,10 @@
 
 int		print_usage(void)
 {
-	ft_printf("%-8s:   %s\n%-8s:   %s\n%s\n",
-	"Usage",
-	"./lem_in [options < map]",
-	"Options",
-	"-t -> show turn",
-	"            -c -> color");
+	ft_printf("%-8s: %s\n", "usage", "./lem_in [options < map]");
+	ft_printf("%-8s: %s\n", "options", "-t -> display turns");
+	ft_printf("%-9s %s\n", "", "-c -> display colors");
+	ft_printf("%-9s %s\n", "", "-p -> display solution");
 	return (ERROR);
 }
 
