@@ -6,22 +6,22 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 11:00:56 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:32:05 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
 /*
-**	Duplicate a t_list_path
+**	Duplicate a list of paths
 */
 
-t_list_path	*path_list_dup(t_list_path *paths)
+t_list_path	*path_list_dup(t_li *li, t_list_path *paths)
 {
 	t_list_path	*new;
 
 	if (!(new = ft_memalloc(sizeof(t_list_path))))
-		return (NULL);
+		trigger_error(li, "path_list_dup : malloc\n");
 	new->size = paths->size;
 	new->sum = paths->sum;
 	paths->current = paths->first;
@@ -41,13 +41,11 @@ t_list_path	*path_list_dup(t_list_path *paths)
 		paths->current = paths->current->next;
 	}
 	new->last = new->current;
-	paths->current = paths->first;
-	new->current = new->first;
 	return (new);
 }
 
 /*
-**
+**	Check if given path has a collision with any path in li->paths
 */
 
 int	path_collision(t_li *li, t_path *path)
@@ -60,12 +58,7 @@ int	path_collision(t_li *li, t_path *path)
 	while (stage && stage->room != li->rooms->end)
 	{
 		if (stage->room->path)
-		{
-			//ft_printf("\033[1;31m");
-			//ft_printf("%s already in a path, deleting older path...\n", stage->room->name);
 			path_delete(li->paths, &stage->room->path);
-			//ft_printf("\033[0m");
-		}
 		stage->room->path = path;
 		stage->room->flags |= FLAG_RESERVED;
 		stage = stage->next;
@@ -115,8 +108,7 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	if (!(--paths->size))
 	{
 		ft_memdel((void **)&path);
-		ft_bzero(paths, sizeof(t_list_path));
-		return ;
+		return (ft_bzero(paths, sizeof(t_list_path)));
 	}
 	path == paths->first ? paths->first = path_next : 0;
 	path == paths->last ? paths->last = path_prev : 0;
@@ -130,6 +122,10 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 	}
 	ft_memdel((void **)&path);
 }
+
+/*
+**	Check if path already exists in given list of paths
+*/
 
 static int	path_already_found(t_list_path *paths, t_path *path)
 {
@@ -149,24 +145,17 @@ static int	path_already_found(t_list_path *paths, t_path *path)
 
 int			path_init(t_li *li)
 {
-	static int	color = 32;
 	t_path	*path;
 
 	while (bfs(li) == SUCCESS)
 	{
-		//ft_printf("\033[1;%dm", color);
-		//ft_printf("BFS: Path found\n");
 		room_clean(li);
 		path = path_new(li);
-		//ft_printf("\033[0m");
 		if (!li->paths_all->size)
 			path_add(li->paths_all, path_dup(path));
 		else if (path_already_found(li->paths_all, path) == SUCCESS)
 		{
-			//ft_printf("\033[1;31m");
-			//ft_printf("Already found ! All paths found !\n");
 			path_clear(path);
-			//ft_printf("\033[0m");
 			ft_memdel((void **)&path);
 			return (SUCCESS);
 		}
@@ -174,13 +163,7 @@ int			path_init(t_li *li)
 			path_add(li->paths_all, path_dup(path));
 		path_collision(li, path);
 		path_add(li->paths, path);
-//		ft_printf("\033[1;%dm", color);
-//		ft_printf(":: Paths updated ::\n", color);
-//		path_print_all(li->paths);
 		paths_opti(li);
-//		ft_printf("\033[0m");
-		color == 36 ? color = 32 : ++color;
 	}
-//	ft_printf("BFS FAILED\n");
 	return (FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 13:54:33 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:27:58 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int	paths_opti(t_li *li)
 	int	max_a;
 	int	max_b;
 
-	paths_dup = path_list_dup(li->paths);
+	paths_dup = path_list_dup(li, li->paths);
 	repartition(li, paths_dup);
 	li->paths->turns = paths_dup->turns;
 	path_list_delete(&paths_dup);
 	if (!li->paths_opti[li->paths->size])
 	{
-		if (!(li->paths_opti[li->paths->size] = path_list_dup(li->paths)))
+		if (!(li->paths_opti[li->paths->size] = path_list_dup(li, li->paths)))
 			trigger_error(li, "paths_opti : path_list_dup fail\n");
 		return (SUCCESS);
 	}
@@ -76,7 +76,7 @@ int	paths_opti(t_li *li)
 	if (max_a < max_b)
 		return (SUCCESS);
 	path_list_delete(&li->paths_opti[li->paths->size]);
-	if (!(li->paths_opti[li->paths->size] = path_list_dup(li->paths)))
+	if (!(li->paths_opti[li->paths->size] = path_list_dup(li, li->paths)))
 		trigger_error(li, "paths_opti : path_list_dup fail\n");
 	return (SUCCESS);
 }
