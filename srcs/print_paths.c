@@ -50,7 +50,6 @@ void		path_print_all(t_list_path *paths)
 		path_print(paths->current);
 		paths->current = paths->current->next;
 	}
-	ft_printf("Longest path length : %d\n", paths->longest_path->size);
 	ft_printf("Sum length : %d\n", paths->sum);
 	ft_printf("Total capacity : %d\n", sum_capacity);
 	ft_printf("Nb of paths : %d\n", paths->size);

@@ -50,35 +50,6 @@ void	path_list_delete(t_list_path **paths)
 }
 
 /*
-**	Update longest_path
-*/
-
-int		longest_path(t_list_path *paths)
-{
-	t_path	*path;
-	int		max;
-
-	if (!paths->size)
-	{
-		paths->longest_path = NULL;
-		return (SUCCESS);
-	}
-	max = paths->first->size;;
-	paths->longest_path = paths->first;
-	path = paths->first->next;
-	while (path)
-	{
-		if (max < path->size)
-		{
-			max = path->size;
-			paths->longest_path = path;
-		}
-		path = path->next;
-	}
-	return (SUCCESS);
-}
-
-/*
 **	Shortest path
 */
 

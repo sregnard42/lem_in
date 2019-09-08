@@ -20,9 +20,8 @@ t_list_path	*path_list_dup(t_list_path *paths)
 {
 	t_list_path	*new;
 
-	if (!(new = malloc(sizeof(t_list_path))))
+	if (!(new = ft_memalloc(sizeof(t_list_path))))
 		return (NULL);
-	ft_bzero(new, sizeof(t_list_path));
 	new->size = paths->size;
 	new->sum = paths->sum;
 	paths->current = paths->first;
@@ -32,15 +31,12 @@ t_list_path	*path_list_dup(t_list_path *paths)
 		{
 			new->first = path_dup(paths->first);
 			new->current = new->first;
-			new->longest_path = new->first;
 		}
 		else
 		{
 			new->current->next = path_dup(paths->current);
 			new->current->next->prev = new->current;
 			new->current = new->current->next;
-			if (new->current->size > new->longest_path->size)
-				new->longest_path = new->current;
 		}
 		paths->current = paths->current->next;
 	}
@@ -92,14 +88,11 @@ int	path_add(t_list_path *paths, t_path *path)
 		paths->first = path;
 		paths->current = path;
 		paths->last = path;
-		paths->longest_path = path;
 		return (SUCCESS);
 	}
 	path->prev = paths->last;
 	paths->last->next = path;
 	paths->last = path;
-	if (paths->longest_path->size < path->size)
-		paths->longest_path = path;
 	return (SUCCESS);
 }
 
@@ -135,7 +128,6 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		paths->current = path_prev ? path_prev : path_next;
 		paths->last = path_prev ? path_prev : path_next;
 	}
-	path == paths->longest_path ? longest_path(paths) : 0;
 	ft_memdel((void **)&path);
 }
 

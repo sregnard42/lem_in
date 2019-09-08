@@ -43,7 +43,6 @@ typedef struct			s_list_path
 	t_path				*first;
 	t_path				*current;
 	t_path				*last;
-	t_path				*longest_path;
 	int					sum;
 	int					turns;
 	int					size;
