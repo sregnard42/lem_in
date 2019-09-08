@@ -6,11 +6,25 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 15:29:05 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/04 15:05:52 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:23:38 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+bool	**matrice_new(t_li *li, int nb)
+{
+	bool	**matrice;
+	int		i;
+
+	i = -1;
+	if (!(matrice = (bool **)ft_memalloc(sizeof(bool*) * nb)))
+		trigger_error(li, "Error malloc matrice\n");
+	while (++i < nb)
+		if (!(matrice[i] = (bool *)ft_memalloc(sizeof(bool) * nb)))
+			trigger_error(li, "Error malloc matrice\n");
+	return (matrice);
+}
 
 int		is_link(t_li *li)
 {

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/08 14:48:06 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:23:59 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct			s_li
 	unsigned int		index;
 	char				*line;
 	char				**line_split;
-	bool				**matrice;
+	bool				**links;
 	int					max_path;
 	int					nb_ants;
 	t_ant				*ants;
@@ -111,6 +111,7 @@ int						parsing(t_li *li);
 int						get_room(t_li *li);
 int						get_link(t_li *li);
 int						is_link(t_li *li);
+bool					**matrice_new(t_li *li, int nb);
 
 /*
 **						Ants
@@ -119,7 +120,6 @@ int						is_link(t_li *li);
 int						ants_init(t_li *li);
 void					ants_set_stage(t_li *li);
 void					ants_move(t_li *li);
-
 
 /*
 **						Rooms
@@ -133,7 +133,6 @@ void					room_clean(t_li *li);
 ** 						Matrice
 */
 
-void					new_matrice(t_li *li, int nb);
 
 /*
 **						Links

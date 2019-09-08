@@ -6,22 +6,11 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/08 14:50:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:25:22 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int				link_clean(t_li *li, t_link *link)
-{
-	li += 0;
-	while (link)
-	{
-	//	link->dst != li->rooms->end ? link->flags &= ~FLAG_USED : 0;
-		link = link->next;
-	}
-	return (SUCCESS);
-}
 
 static int		link_add(t_li *li, t_room *src, t_room *dst)
 {
@@ -54,10 +43,10 @@ int				link_new(t_li *li, t_room *a, t_room *b)
 		return (FAIL);
 	if (!b)
 		return (FAIL);
-	if (li->matrice[a->id][b->id] == true)
+	if (li->links[a->id][b->id] == true)
 		return (SUCCESS);
-	li->matrice[a->id][b->id] = true;
-	li->matrice[b->id][a->id] = true;
+	li->links[a->id][b->id] = true;
+	li->links[b->id][a->id] = true;
 	if (link_add(li, a, b) == FAIL)
 		return (FAIL);
 	if (link_add(li, b, a) == FAIL)

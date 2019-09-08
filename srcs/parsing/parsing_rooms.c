@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/04 17:06:48 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:12:11 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	add_room(t_li *li)
 		trigger_error(li, "room name or pos already taken.\n");
 	if ((new = room_new(li, tab[0], &pos)) == NULL)
 	{
-		ft_printf("yolo\n");
 		ft_memdel((void **)new);
 		return (ERROR);
 	}
@@ -114,7 +113,7 @@ int			place_start_end(t_li *li)
 		room_add(li, li->end);
 	}
 	li->end->id = li->rooms->size - 1;
-	new_matrice(li, li->rooms->size);
+	li->links = matrice_new(li, li->rooms->size);
 	return (SUCCESS);
 }
 

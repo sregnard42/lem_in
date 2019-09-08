@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/09/08 10:49:34 by sregnard         ###   ########.fr        #
+#    Updated: 2019/09/08 15:23:07 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,32 +29,55 @@ HEADERS					=	lem_in.h	\
 DEPENDENCIES			:=	$(addprefix $(HEADDIR), $(HEADERS))
 
 SRCDIR					=	srcs/
-OBJDIR					=	objs/
+SRC						:=	$(SRC)
 
+SUBDIR					=	lem_in/
 SRCNAME					=	lem_in.c		\
-							options.c		\
-							parsing.c		\
-							parsing_rooms.c	\
-							parsing_links.c	\
-							matrice.c		\
 							error.c			\
-							room.c			\
-							link.c			\
-							ant.c			\
-							path.c			\
-							path_list.c		\
-							paths_opti.c 	\
-							queue.c			\
-							bfs.c			\
-							tree.c			\
-							relative.c		\
-							repartition.c	\
-							free_all.c		\
-							free_paths.c	\
-							free_rooms.c	\
-							print_paths.c #del me
+							options.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
-SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
+SUBDIR					=	parsing/
+SRCNAME					=	parsing.c		\
+							parsing_rooms.c	\
+							parsing_links.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					=	ant/
+SRCNAME					=	ant.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					=	room/
+SRCNAME					=	room.c			\
+							relative.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					=	link/
+SRCNAME					=	link.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					=	path/
+SRCNAME					=	path.c			\
+							path_list.c		\
+							path_opti.c 	\
+							path_utils.c	\
+							path_print.c #del me
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					=	algo/
+SRCNAME					=	bfs.c			\
+							queue.c			\
+							repartition.c	\
+							tree.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+SUBDIR					=	free/
+SRCNAME					=	free_all.c		\
+							free_paths.c	\
+							free_rooms.c
+SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
+
+OBJDIR					=	objs/
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC						=	gcc

@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 20:35:55 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/07 15:24:02 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 15:25:48 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	free_matrice(t_li *li)
 	int	i;
 
 	i = 0;
-	if (!li->matrice)
+	if (!li->links)
 		return ;
 	while (i < li->rooms->size)
-		ft_memdel((void **)li->matrice + i++);
-	ft_memdel((void **)&li->matrice);
+		ft_memdel((void **)li->links + i++);
+	ft_memdel((void **)&li->links);
 }
 
 int			free_all(t_li *li)
