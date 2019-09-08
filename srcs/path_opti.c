@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paths_opti.c                                       :+:      :+:    :+:   */
+/*   path_opti.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:13:08 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 14:27:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:36:42 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	paths_opti_init(t_li *li)
 }
 
 /*
-**	delete path list
+**	Delete path list
 */
 
 void	path_list_delete(t_list_path **paths)
@@ -50,7 +50,7 @@ void	path_list_delete(t_list_path **paths)
 }
 
 /*
-**	Shortest path
+**	Keep best combinaison of paths
 */
 
 int	paths_opti(t_li *li)
@@ -69,8 +69,6 @@ int	paths_opti(t_li *li)
 			trigger_error(li, "paths_opti : path_list_dup fail\n");
 		return (SUCCESS);
 	}
-//	max_a = li->paths_opti[li->paths->size]->longest_path->size;
-//	max_b = li->paths->longest_path->size;
 	max_a = li->paths_opti[li->paths->size]->turns;
 	max_b = li->paths->turns;
 	if (max_a < max_b)

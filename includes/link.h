@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:00:58 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/05 19:23:40 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:51:30 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ typedef struct			s_list_link
 
 enum					e_flags_link
 {
-	FLAG_USED	= (1 << 0),
-	FLAG_CLOSED	= (2 << 0),
+	FLAG_CLOSED	= (1 << 0),
 };
 
 #endif

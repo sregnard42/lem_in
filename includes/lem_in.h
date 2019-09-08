@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/08 14:27:25 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:48:06 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ typedef struct			s_li
 {
 	char				buf[LI_BUFF_SIZE];
 	unsigned int		index;
-	int					nb_ants;
 	char				*line;
 	char				**line_split;
+	bool				**matrice;
+	int					max_path;
+	int					nb_ants;
 	t_ant				*ants;
 	t_list_room			*rooms;
 	t_room				*start;
 	t_room				*end;
+	t_queue				*queue;
+	t_queue				*queue_res;
 	t_list_path			*paths;
 	t_list_path			*paths_all;
 	t_list_path			**paths_opti;
-	t_queue				*queue;
-	t_queue				*queue_res;
-	int					max_path;
 	unsigned int		flags;
-	bool				**matrice;
 }						t_li;
 
 enum					e_flags_li
@@ -83,14 +83,19 @@ enum					e_flags_li
 };
 
 /*
-**						lem_in.c
+**						Lem-in
 */
 
-int						free_all(t_li *li);
 int						li_buffer(t_li *li, const char *s, size_t len);
 
 /*
-**						option.c
+**						Errors
+*/
+
+void					trigger_error(t_li *li, char *error);
+
+/*
+**						Options
 */
 
 int						options(t_li *li, int ac, char **av);
@@ -99,9 +104,7 @@ void					print_solution(t_li *li, t_list_path *paths);
 void					print_turn(t_li *li);
 
 /*
-**						parsing.c
-**						parsing_rooms.c
-**						parsing_links.c
+**						Parsing
 */
 
 int						parsing(t_li *li);
@@ -110,66 +113,48 @@ int						get_link(t_li *li);
 int						is_link(t_li *li);
 
 /*
-**						error.c
+**						Ants
 */
 
-void					trigger_error(t_li *li, char *error);
+int						ants_init(t_li *li);
+void					ants_set_stage(t_li *li);
+void					ants_move(t_li *li);
+
 
 /*
-**						room.c
+**						Rooms
 */
 
 t_room					*room_new(t_li *li, char *name, t_point *pos);
 void					room_add(t_li *li, t_room *new_room);
 void					room_clean(t_li *li);
-void					room_print(t_room *room);
-void					room_print_all(t_li *li);
 
 /*
-**						links.c
+** 						Matrice
+*/
+
+void					new_matrice(t_li *li, int nb);
+
+/*
+**						Links
 */
 
 int						link_new(t_li *li, t_room *a, t_room *b);
 int						link_clean(t_li *li, t_link *link);
-void					link_print(t_link *link);
 
 /*
-**						path.c
-*/
-
-int						path_init(t_li *li);
-t_path					*path_new(t_li *li);
-t_path					*path_dup(t_path *path);
-int						path_cmp(t_path *path_a, t_path *path_b);
-int						path_clear(t_path *path);
-void					path_print(t_path *path);
-void					path_print_all(t_list_path *pas);
-
-/*
-**						path_list.c
-*/
-
-int						path_add(t_list_path *paths, t_path *path);
-void					path_delete(t_list_path *paths, t_path **path_ptr);
-t_list_path				*path_list_dup(t_li *li, t_list_path *paths);
-
-/*
-**						bfs.c
+**						BFS
 */
 
 int						bfs(t_li *li);
-
-/*
-**						queue.c
-*/
-
+int						tree(t_li *li);
 int						queue_print(t_queue *queue);
 int						enqueue(t_li *li, t_queue *queue, t_room *room);
 int						dequeue(t_queue *queue);
 int						clear_queue(t_queue *queue);
 
 /*
-**						relative.c
+**						Relatives
 */
 
 int						relative_add(t_list_relative **list, t_room *room);
@@ -177,61 +162,52 @@ int						parent_of(t_room *room, t_room *child);
 int						parent_print_all(t_room *room);
 
 /*
-**						tree.c
+**						Paths
 */
 
-int						tree(t_li *li);
+int						path_init(t_li *li);
+t_path					*path_new(t_li *li);
+t_path					*path_dup(t_path *path);
+int						path_clear(t_path *path);
 
-/*
-** 						matrice.c
-*/
+int						path_cmp(t_path *path_a, t_path *path_b);
+int						path_already_found(t_list_path *paths, t_path *path);
+int						path_collision(t_li *li, t_path *path);
 
-void					print_matrice(bool **matrice, int nb);
-void					new_matrice(t_li *li, int nb);
-
-/*
-**						shortest_path.c
-*/
+int						path_add(t_list_path *paths, t_path *path);
+t_list_path				*path_list_dup(t_li *li, t_list_path *paths);
+void					path_delete(t_list_path *paths, t_path **path_ptr);
 
 int						paths_opti_init(t_li *li);
 int						paths_opti(t_li *li);
-int						longest_path(t_list_path *paths);
-void					print_paths_opti(t_li *li);
+
 
 /*
-**						repartition.c
+**						Repartition
 */
 
 int						repartition(t_li *li, t_list_path *paths);
 int						repartition_lists(t_li *li, t_list_path** lists);
 
 /*
-**						ant.c
+**						Free
 */
 
-int						ants_init(t_li *li);
-void					ants_set_stage(t_li *li);
-void					ants_move(t_li *li);
-
-/*
-**						pathfinding.c
-*/
-
-int						pathfinding(t_li *li);
-
-/*
-**						free
-*/
-
+int						free_all(t_li *li);
 void					free_paths(t_list_path **paths_ptr);
 void					free_paths_list(t_list_path **lists);
 void					free_rooms(t_li *li);
 
-/*
-**						print
-*/
-
+/********************** PRINT *********************************************/
+ 
+void					room_print(t_room *room);
+void					room_print_all(t_li *li);
+void					link_print(t_link *link);
 void					path_print(t_path *path);
-void					path_print_all(t_list_path *paths);
+void					path_print_all(t_list_path *pas);
+void					print_matrice(bool **matrice, int nb);
+void					print_paths_opti(t_li *li);
+
+/********************** PRINT *********************************************/
 
 #endif

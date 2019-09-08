@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 14:32:05 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:36:44 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,6 @@ t_list_path	*path_list_dup(t_li *li, t_list_path *paths)
 	}
 	new->last = new->current;
 	return (new);
-}
-
-/*
-**	Check if given path has a collision with any path in li->paths
-*/
-
-int	path_collision(t_li *li, t_path *path)
-{
-	t_stage	*stage;
-
-	if (!li->paths || !path)
-		trigger_error(li, "Path collision : li->paths = NULL or path = NULL");
-	stage = path->start;
-	while (stage && stage->room != li->rooms->end)
-	{
-		if (stage->room->path)
-			path_delete(li->paths, &stage->room->path);
-		stage->room->path = path;
-		stage->room->flags |= FLAG_RESERVED;
-		stage = stage->next;
-	}
-	return (SUCCESS);
 }
 
 /*
@@ -121,22 +99,6 @@ void	path_delete(t_list_path *paths, t_path **path_ptr)
 		paths->last = path_prev ? path_prev : path_next;
 	}
 	ft_memdel((void **)&path);
-}
-
-/*
-**	Check if path already exists in given list of paths
-*/
-
-static int	path_already_found(t_list_path *paths, t_path *path)
-{
-	paths->current = paths->first;
-	while (paths->current)
-	{
-		if (path_cmp(paths->current, path) == SUCCESS)
-			return (SUCCESS);
-		paths->current = paths->current->next;
-	}
-	return (FAILURE);
 }
 
 /*

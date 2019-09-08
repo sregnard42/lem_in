@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/08 13:51:31 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 14:50:40 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int				link_clean(t_li *li, t_link *link)
 {
+	li += 0;
 	while (link)
 	{
-		link->dst != li->rooms->end ? link->flags &= ~FLAG_USED : 0;
+	//	link->dst != li->rooms->end ? link->flags &= ~FLAG_USED : 0;
 		link = link->next;
 	}
 	return (SUCCESS);
@@ -66,7 +67,7 @@ int				link_new(t_li *li, t_room *a, t_room *b)
 
 void			link_print(t_link *link)
 {
-	link->flags & FLAG_CLOSED ? ft_printf("\033[1;31mCLOSED\033[0m ")
-	: ft_printf("\033[1;32mOPENED\033[0m ");
+	//link->flags & FLAG_CLOSED ? ft_printf("\033[1;31mCLOSED\033[0m ")
+	//: ft_printf("\033[1;32mOPENED\033[0m ");
 	ft_printf("-> %s\n", link->dst->name);
 }
