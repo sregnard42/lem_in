@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/09/07 15:40:45 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/09/08 10:49:34 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCDIR					=	srcs/
 OBJDIR					=	objs/
 
 SRCNAME					=	lem_in.c		\
-							option.c		\
+							options.c		\
 							parsing.c		\
 							parsing_rooms.c	\
 							parsing_links.c	\
@@ -43,23 +43,23 @@ SRCNAME					=	lem_in.c		\
 							ant.c			\
 							path.c			\
 							path_list.c		\
+							paths_opti.c 	\
 							queue.c			\
 							bfs.c			\
 							tree.c			\
 							relative.c		\
-							paths_opti.c 	\
 							repartition.c	\
 							free_all.c		\
 							free_paths.c	\
 							free_rooms.c	\
-							print_paths.c
+							print_paths.c #del me
 
 SRC						:=	$(addprefix $(SRCDIR), $(SRCNAME))
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
-XFLAGS					=	-g3
+XFLAGS					=	-g3 #del me
 
 _RED					=	\033[1;31m
 _GREEN					=	\033[1;32m

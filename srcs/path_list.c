@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/27 15:00:18 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 11:00:56 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,6 @@ int			path_init(t_li *li)
 //		ft_printf("\033[0m");
 		color == 36 ? color = 32 : ++color;
 	}
-	ft_printf("BFS FAILED\n");
+//	ft_printf("BFS FAILED\n");
 	return (FAILURE);
 }

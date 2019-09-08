@@ -6,25 +6,11 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/07 15:17:39 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 10:47:01 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int	repartition_lists(t_li *li, t_list_path** lists)
-{
-	int			i;
-
-	i = 0;
-	while (lists[++i])
-		if (repartition(li, lists[i]) == FAILURE)
-			trigger_error(li, "Repartition : FAILURE\n");
-		else
-			if (!lists[0] || lists[0]->turns > lists[i]->turns)
-				lists[0] = lists[i];
-	return (SUCCESS);
-}
 
 /*
 **			Set capacity of each path
@@ -93,3 +79,16 @@ int			repartition(t_li *li, t_list_path *paths)
 	return (SUCCESS);
 }
 
+int	repartition_lists(t_li *li, t_list_path** lists)
+{
+	int			i;
+
+	i = 0;
+	while (lists[++i])
+		if (repartition(li, lists[i]) == FAILURE)
+			trigger_error(li, "Repartition : FAILURE\n");
+		else
+			if (!lists[0] || lists[0]->turns > lists[i]->turns)
+				lists[0] = lists[i];
+	return (SUCCESS);
+}
