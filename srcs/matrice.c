@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 13:41:03 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/08/05 19:27:33 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:57:36 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ void	new_matrice(t_li *li, int nb)
 	int		i;
 
 	i = -1;
-	if (!(matrice = malloc(sizeof(bool*) * nb)))
+	if (!(matrice = (bool **)ft_memalloc(sizeof(bool*) * nb)))
 		trigger_error(li, "Error malloc matrice\n");
 	while (++i < nb)
-	{
-		if (!(matrice[i] = malloc(sizeof(bool) * nb)))
+		if (!(matrice[i] = (bool *)ft_memalloc(sizeof(bool) * nb)))
 			trigger_error(li, "Error malloc matrice\n");
-		ft_bzero((void *)matrice[i], sizeof(bool) * nb);
-	}
 	li->matrice = matrice;
 }

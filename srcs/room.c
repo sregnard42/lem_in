@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:18:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/04 17:25:37 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:55:38 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ t_room	*room_new(t_li *li, char *name, t_point *pos)
 	t_room				*room;
 	static unsigned int	id = 1;
 
-	if (!(room = (t_room *)malloc(sizeof(t_room))))
+	if (!(room = (t_room *)ft_memalloc(sizeof(t_room))))
 		return (NULL);
-	ft_bzero(room, sizeof(t_room));
-	if ((room->links = (t_list_link *)malloc(sizeof(t_list_link))) == NULL)
+	if ((room->links = (t_list_link *)ft_memalloc(sizeof(t_list_link))) == NULL)
 		return (NULL);
-	ft_bzero(room->links, sizeof(t_list_link));
 	room->name = ft_strdup(name);
 	li->rooms->size++;
 	ft_ptcpy(&room->pos, pos);

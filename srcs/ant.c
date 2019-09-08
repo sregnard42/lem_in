@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 16:11:11 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/07 15:33:15 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:50:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int			ants_init(t_li *li)
 	int	i;
 
 	i = 0;
-	if (!(li->ants = (t_ant *)malloc(sizeof(t_ant) * (li->nb_ants + 1))))
+	if (!(li->ants = (t_ant *)ft_memalloc(sizeof(t_ant) * (li->nb_ants + 1))))
 		trigger_error(li, "Init ants : Error malloc\n");
-	ft_bzero(li->ants, sizeof(t_ant) * (li->nb_ants + 1));
 	return (SUCCESS);
 }
 

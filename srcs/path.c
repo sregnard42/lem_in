@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/07 15:36:36 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:54:03 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 {
 	t_stage	*stage;
 
-	if (!(stage = (t_stage *)malloc(sizeof(t_stage))))
+	if (!(stage = (t_stage *)ft_memalloc(sizeof(t_stage))))
 		trigger_error(li, "Error malloc stage\n");
-	ft_bzero(stage, sizeof(t_stage));
 	stage->room = room;
 	path->size++;
 	if (!path->start)
@@ -93,15 +92,13 @@ t_path		*path_dup(t_path *path)
 	t_path	*new;
 	t_stage	*stage;
 
-	if (!(new = (t_path *)malloc(sizeof(t_path))))
+	if (!(new = (t_path *)ft_memalloc(sizeof(t_path))))
 		return (NULL);
-	ft_bzero(new, sizeof(t_path));
 	path->current = path->start;
 	while (path->current)
 	{
-		if (!(stage = (t_stage *)malloc(sizeof(t_stage))))
+		if (!(stage = (t_stage *)ft_memalloc(sizeof(t_stage))))
 			return (NULL); //free new_path
-		ft_bzero(stage, sizeof(t_stage));
 		stage->room = path->current->room;
 		if (!new->start)
 		{
@@ -128,9 +125,8 @@ t_path		*path_new(t_li *li)
 {
 	t_path	*path;
 
-	if (!(path = (t_path *)malloc(sizeof(t_path))))
+	if (!(path = (t_path *)ft_memalloc(sizeof(t_path))))
 		trigger_error(li, "Error malloc path\n");
-	ft_bzero(path, sizeof(t_path));
 	insert_stage(li, path, li->rooms->end);
 	while (li->rooms->current && li->rooms->current != li->rooms->start)
 	{

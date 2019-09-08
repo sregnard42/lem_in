@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 12:40:32 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/21 14:13:38 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:55:08 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ int		relative_add(t_list_relative **list, t_room *room)
 {
 	t_relative	*relative;
 
-	if (!(relative = (t_relative *)malloc(sizeof(t_relative))))
+	if (!(relative = (t_relative *)ft_memalloc(sizeof(t_relative))))
 		return (ERROR);
 	relative->room = room;
 	relative->next = NULL;
 	if (!(*list))
 	{
-		if (!((*list) = (t_list_relative *)malloc(sizeof(t_list_relative))))
+		if (!((*list) = (t_list_relative *)ft_memalloc(sizeof(t_list_relative))))
 			return (ERROR);
-		ft_bzero((*list), sizeof(t_list_relative));
 		(*list)->first = relative;
 		(*list)->current = relative;
 		(*list)->last = relative;

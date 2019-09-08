@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 16:16:58 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:51:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		link_add(t_li *li, t_room *src, t_room *dst)
 	if (dst == li->rooms->start || src == li->rooms->end)
 		return (SUCCESS);
 	li += 0;
-	if (!(link = (t_link *)malloc(sizeof(t_link))))
+	if (!(link = (t_link *)ft_memalloc(sizeof(t_link))))
 		return (FAIL);
 	link->dst = dst;
 	link->next = NULL;

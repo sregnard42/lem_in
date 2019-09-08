@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 18:46:42 by sregnard          #+#    #+#             */
-/*   Updated: 2019/08/10 14:11:21 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:54:48 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	enqueue(t_li *li, t_queue *queue, t_room *room)
 {
 	t_queue_e	*elem;
 
-	if (!(elem = (t_queue_e *)malloc(sizeof(t_queue_e))))
+	if (!(elem = (t_queue_e *)ft_memalloc(sizeof(t_queue_e))))
 		trigger_error(li, "enqueue : error malloc\n");
 	elem->room = room;
 	elem->next = NULL;
