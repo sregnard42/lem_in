@@ -6,11 +6,27 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 15:19:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/07 15:21:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/10 10:58:31 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	free_path(t_path **path_ptr)
+{
+	t_path	*path;
+
+	if (!path_ptr || !*path_ptr)
+		return ;
+	path = *path_ptr;
+	while (path->start)
+	{
+		path->current = path->start->next;
+		ft_memdel((void **)&path->start);
+		path->start = path->current;
+	}
+	ft_memdel((void **)path_ptr);
+}
 
 void	free_paths(t_list_path **paths_ptr)
 {

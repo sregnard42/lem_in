@@ -6,32 +6,12 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 19:37:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 15:12:11 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/10 10:10:51 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
-
-static int	already_exists(t_li *li, char *name, t_point *pos)
-{
-	t_room	*room;
-
-	room = li->start ? li->start : NULL;
-	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
-			return (SUCCESS);
-	room = li->end ? li->end : NULL;
-	if (room && (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos)))
-			return (SUCCESS);
-	room = li->rooms->start;
-	while (room)
-	{
-		if (ft_strequ(room->name, name) || ft_ptcmp(&room->pos, pos))
-			return (SUCCESS);
-		room = room->next;
-	}
-	return (FAILURE);
-}
 
 /*
 **	current	: first room in the list
@@ -46,7 +26,7 @@ static int	is_room(t_li *li)
 		trigger_error(li, "Bad line | is_room\n");
 	if (!ft_strncmp("##", *li->line_split, 2)
 		&& (li->flags & FLAG_START || li->flags & FLAG_END))
-			trigger_error(li, "command after ##start or ##end.\n");
+		trigger_error(li, "command after ##start or ##end.\n");
 	ft_strequ(START, *li->line_split) ? li->flags |= FLAG_START : 0;
 	ft_strequ(END, *li->line_split) ? li->flags |= FLAG_END : 0;
 	if (*li->line_split[0] == '#')
@@ -58,6 +38,27 @@ static int	is_room(t_li *li)
 	if (!ft_isinteger(li->line_split[1]) || !ft_isinteger(li->line_split[2]))
 		trigger_error(li, "Not integer #room\n");
 	return (SUCCESS);
+}
+
+static int	check_start_end(t_li *li, t_room *new)
+{
+	if (li->flags & FLAG_START)
+	{
+		if (li->start)
+			trigger_error(li, "Multi start\n");
+		li->start = new;
+		li->flags &= ~FLAG_START;
+		return (SUCCESS);
+	}
+	else if (li->flags & FLAG_END)
+	{
+		if (li->end)
+			trigger_error(li, "Multi end\n");
+		li->end = new;
+		li->flags &= ~FLAG_END;
+		return (SUCCESS);
+	}
+	return (FAIL);
 }
 
 static int	add_room(t_li *li)
@@ -75,21 +76,7 @@ static int	add_room(t_li *li)
 		ft_memdel((void **)new);
 		return (ERROR);
 	}
-	if (li->flags & FLAG_START)
-	{
-		if (li->start)
-			trigger_error(li, "Multi start\n");
-		li->start = new;
-		li->flags &= ~FLAG_START;
-	}
-	else if (li->flags & FLAG_END)
-	{
-		if (li->end)
-			trigger_error(li, "Multi end\n");
-		li->end = new;
-		li->flags &= ~FLAG_END;
-	}
-	else
+	if (check_start_end(li, new) == FAIL)
 		room_add(li, new);
 	return (SUCCESS);
 }

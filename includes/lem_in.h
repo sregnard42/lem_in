@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/08 15:23:59 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/10 11:18:22 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int						options(t_li *li, int ac, char **av);
 int						print_usage(void);
 void					print_solution(t_li *li, t_list_path *paths);
 void					print_turn(t_li *li);
+void					print_path(t_path *path);
 
 /*
 **						Parsing
@@ -128,6 +129,7 @@ void					ants_move(t_li *li);
 t_room					*room_new(t_li *li, char *name, t_point *pos);
 void					room_add(t_li *li, t_room *new_room);
 void					room_clean(t_li *li);
+int						already_exists(t_li *li, char *name, t_point *pos);
 
 /*
 ** 						Matrice
@@ -147,7 +149,6 @@ int						link_clean(t_li *li, t_link *link);
 
 int						bfs(t_li *li);
 int						tree(t_li *li);
-int						queue_print(t_queue *queue);
 int						enqueue(t_li *li, t_queue *queue, t_room *room);
 int						dequeue(t_queue *queue);
 int						clear_queue(t_queue *queue);
@@ -158,7 +159,6 @@ int						clear_queue(t_queue *queue);
 
 int						relative_add(t_list_relative **list, t_room *room);
 int						parent_of(t_room *room, t_room *child);
-int						parent_print_all(t_room *room);
 
 /*
 **						Paths
@@ -193,20 +193,9 @@ int						repartition_lists(t_li *li, t_list_path** lists);
 */
 
 int						free_all(t_li *li);
+void					free_path(t_path **path_ptr);
 void					free_paths(t_list_path **paths_ptr);
 void					free_paths_list(t_list_path **lists);
 void					free_rooms(t_li *li);
-
-/********************** PRINT *********************************************/
- 
-void					room_print(t_room *room);
-void					room_print_all(t_li *li);
-void					link_print(t_link *link);
-void					path_print(t_path *path);
-void					path_print_all(t_list_path *pas);
-void					print_matrice(bool **matrice, int nb);
-void					print_paths_opti(t_li *li);
-
-/********************** PRINT *********************************************/
 
 #endif

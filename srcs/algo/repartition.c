@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 15:30:14 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/08 10:47:01 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/10 09:57:25 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int			repartition(t_li *li, t_list_path *paths)
 	return (SUCCESS);
 }
 
-int	repartition_lists(t_li *li, t_list_path** lists)
+int			repartition_lists(t_li *li, t_list_path **lists)
 {
 	int			i;
 
@@ -88,7 +88,9 @@ int	repartition_lists(t_li *li, t_list_path** lists)
 		if (repartition(li, lists[i]) == FAILURE)
 			trigger_error(li, "Repartition : FAILURE\n");
 		else
+		{
 			if (!lists[0] || lists[0]->turns > lists[i]->turns)
 				lists[0] = lists[i];
+		}
 	return (SUCCESS);
 }

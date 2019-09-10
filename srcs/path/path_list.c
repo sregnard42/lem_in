@@ -6,11 +6,35 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 14:36:35 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 14:36:44 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/10 11:08:49 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+static int	path_list_dup_bis(t_list_path *new, t_list_path *paths)
+{
+	if (!new->first)
+	{
+		if (!(new->first = path_dup(paths->first)))
+		{
+			ft_memdel((void **)&new);
+			return (ERROR);
+		}
+		new->current = new->first;
+	}
+	else
+	{
+		if (!(new->current->next = path_dup(paths->current)))
+		{
+			free_paths(&new);
+			return (ERROR);
+		}
+		new->current->next->prev = new->current;
+		new->current = new->current->next;
+	}
+	return (SUCCESS);
+}
 
 /*
 **	Duplicate a list of paths
@@ -27,17 +51,8 @@ t_list_path	*path_list_dup(t_li *li, t_list_path *paths)
 	paths->current = paths->first;
 	while (paths->current)
 	{
-		if (!new->first)
-		{
-			new->first = path_dup(paths->first);
-			new->current = new->first;
-		}
-		else
-		{
-			new->current->next = path_dup(paths->current);
-			new->current->next->prev = new->current;
-			new->current = new->current->next;
-		}
+		if (path_list_dup_bis(new, paths) == ERROR)
+			return (NULL);
 		paths->current = paths->current->next;
 	}
 	new->last = new->current;
@@ -48,7 +63,7 @@ t_list_path	*path_list_dup(t_li *li, t_list_path *paths)
 **	Add path to list of paths
 */
 
-int	path_add(t_list_path *paths, t_path *path)
+int			path_add(t_list_path *paths, t_path *path)
 {
 	if (!paths || !path)
 		return (ERROR);
@@ -72,7 +87,7 @@ int	path_add(t_list_path *paths, t_path *path)
 **	FAILURE	if there is no path to delete
 */
 
-void	path_delete(t_list_path *paths, t_path **path_ptr)
+void		path_delete(t_list_path *paths, t_path **path_ptr)
 {
 	t_path	*path;
 	t_path	*path_prev;
@@ -114,7 +129,8 @@ int			path_init(t_li *li)
 		room_clean(li);
 		path = path_new(li);
 		if (!li->paths_all->size)
-			path_add(li->paths_all, path_dup(path));
+			path_add(li->paths_all, path_dup(path)) == ERROR ?
+			trigger_error(li, "Error path add\n") : 0;
 		else if (path_already_found(li->paths_all, path) == SUCCESS)
 		{
 			path_clear(path);
@@ -124,7 +140,8 @@ int			path_init(t_li *li)
 		else
 			path_add(li->paths_all, path_dup(path));
 		path_collision(li, path);
-		path_add(li->paths, path);
+		path_add(li->paths, path) == ERROR ?
+		trigger_error(li, "Error path add\n") : 0;
 		paths_opti(li);
 	}
 	return (FAILURE);

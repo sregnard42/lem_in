@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 15:21:16 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/07 15:22:32 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/10 09:58:04 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	free_room(t_room **room_ptr)
 	ft_memdel((void **)room_ptr);
 }
 
-void	free_rooms(t_li *li)
+void		free_rooms(t_li *li)
 {
 	while (li->rooms && li->rooms->start)
 	{

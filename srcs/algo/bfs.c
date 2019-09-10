@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/02 13:29:55 by sregnard         ###   ########.fr       */
+/*   Updated: 2019/09/10 09:55:42 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ static int	check_room(t_li *li, t_room *room)
 			continue ;
 		}
 		child->flags |= FLAG_VISITED;
-		if (child->flags & FLAG_RESERVED)
-			enqueue(li, li->queue_res, room->links->current->dst);
-		else
-			enqueue(li, li->queue, room->links->current->dst);
+		child->flags & FLAG_RESERVED ?
+		enqueue(li, li->queue_res, room->links->current->dst) :
+		enqueue(li, li->queue, room->links->current->dst);
 		child->parent = room;
 		room->links->current = room->links->current->next;
 	}
@@ -46,8 +45,6 @@ int			bfs(t_li *li)
 {
 	t_queue		*queue;
 
-//	ft_printf("\033[1;33m");
-//	ft_printf("BFS: START\n");
 	if (check_room(li, li->rooms->start) == SUCCESS)
 		return (SUCCESS);
 	li->queue->current = li->queue->first;
@@ -59,13 +56,9 @@ int			bfs(t_li *li)
 		{
 			clear_queue(li->queue);
 			clear_queue(li->queue_res);
-		//	ft_printf("BFS: END\n");
-		//	ft_printf("\033[0m");
 			return (SUCCESS);
 		}
 		dequeue(queue);
 	}
-//	ft_printf("BFS: END\n");
-//	ft_printf("\033[0m");
 	return (FAILURE);
 }

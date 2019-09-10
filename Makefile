@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/09/08 15:23:07 by sregnard         ###   ########.fr        #
+#    Updated: 2019/09/10 11:17:25 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,14 @@ SRC						:=	$(SRC)
 SUBDIR					=	lem_in/
 SRCNAME					=	lem_in.c		\
 							error.c			\
-							options.c
+							options.c		\
+							print.c
 SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					=	parsing/
 SRCNAME					=	parsing.c		\
 							parsing_rooms.c	\
+							already_exists.c\
 							parsing_links.c
 SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
@@ -60,8 +62,7 @@ SUBDIR					=	path/
 SRCNAME					=	path.c			\
 							path_list.c		\
 							path_opti.c 	\
-							path_utils.c	\
-							path_print.c #del me
+							path_utils.c
 SRC						+=	$(addprefix $(SRCDIR)$(SUBDIR), $(SRCNAME))
 
 SUBDIR					=	algo/

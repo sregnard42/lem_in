@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 18:08:18 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/08 13:54:03 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/10 10:21:58 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,63 +58,6 @@ static int	insert_stage(t_li *li, t_path *path, t_room *room)
 	stage->next = path->start;
 	path->start = stage;
 	return (SUCCESS);
-}
-
-/*
-**			Check if two paths are identical
-*/
-
-int			path_cmp(t_path *path_a, t_path *path_b)
-{
-	t_stage	*stage_a;
-	t_stage	*stage_b;
-
-	if (path_a->size != path_b->size)
-		return (FAILURE);
-	stage_a = path_a->start;
-	stage_b = path_b->start;
-	while (stage_a && stage_b)
-	{
-		if (stage_a->room != stage_b->room)
-			return (FAILURE);
-		stage_a = stage_a->next;
-		stage_b = stage_b->next;
-	}
-	return (SUCCESS);
-}
-
-/*
-**			Duplicate a path
-*/
-
-t_path		*path_dup(t_path *path)
-{
-	t_path	*new;
-	t_stage	*stage;
-
-	if (!(new = (t_path *)ft_memalloc(sizeof(t_path))))
-		return (NULL);
-	path->current = path->start;
-	while (path->current)
-	{
-		if (!(stage = (t_stage *)ft_memalloc(sizeof(t_stage))))
-			return (NULL); //free new_path
-		stage->room = path->current->room;
-		if (!new->start)
-		{
-			new->start = stage;
-			new->current = stage;
-		}
-		else
-		{
-			new->current->next = stage;
-			new->current = new->current->next;
-		}
-		path->current = path->current->next;
-	}
-	new->end = new->current;
-	new->size = path->size;
-	return (new);
 }
 
 /*
