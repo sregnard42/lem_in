@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 15:12:37 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/10 11:16:19 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:28:24 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	activate_options(t_li *li, char *str)
 			li->flags |= FLAG_HELP;
 		else if (*str == 'p')
 			li->flags |= FLAG_SOLUTION;
+		else if (*str == 'd')
+			li->flags |= FLAG_DEBUG;
 		else
 		{
 			print_usage();

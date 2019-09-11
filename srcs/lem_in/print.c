@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 15:35:11 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/10 11:19:00 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:29:11 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int			print_usage(void)
 	ft_printf("%-8s: %s\n", "options", "-t -> display turns");
 	ft_printf("%-9s %s\n", "", "-c -> display colors");
 	ft_printf("%-9s %s\n", "", "-p -> display solution");
+	ft_printf("%-9s %s\n", "", "-d -> display debug message");
 	return (ERROR);
 }
 
