@@ -3,6 +3,20 @@
 # Path of Lem-in project
 LEM_IN=".."
 
+catch_ctrl_c()
+{
+	printf "\nScript terminated.\n"
+	if [ -e tmp ]
+	then	
+		`rm tmp`
+	fi
+	if [ -e tmp.map ]
+	then	
+		`rm tmp.map`
+	fi
+	exit 1
+}
+
 generate_map()
 {
 	if [ $1 -eq 1 ]
@@ -57,6 +71,7 @@ then
 	arg_test "$1"
 	exit 1
 fi
+trap "catch_ctrl_c" 2
 cd "$(dirname "$0")"
 clear
 echo "//================================\\\\"
