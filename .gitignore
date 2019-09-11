@@ -1,9 +1,0 @@
-*.swp
-*.dSYM
-*.a
-*.o
-tmp.map
-lem-in
-.vscode*
-verif_*
-maps/script/
