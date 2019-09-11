@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/10 11:18:22 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/11 09:55:12 by chrhuang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define RED			"\033[1;31m"
 # define RESET			"\033[0m"
 
-
 /*
 **		LEM-IN
 */
@@ -69,17 +68,17 @@ typedef struct			s_li
 
 enum					e_flags_li
 {
-	FLAG_START		= (1 << 0),
-	FLAG_END		= (1 << 1),
-	FLAG_ANT		= (1 << 2),
-	FLAG_ROOM		= (1 << 3),
-	FLAG_LINK		= (1 << 4),
-	FLAG_DIRECT		= (1 << 5),
-	FLAG_SP			= (1 << 6),
-	FLAG_HELP		= (1 << 7),
-	FLAG_TURN		= (1 << 8),
-	FLAG_COLOR		= (1 << 9),
-	FLAG_SOLUTION	= (1 << 10),
+	FLAG_START = (1 << 0),
+	FLAG_END = (1 << 1),
+	FLAG_ANT = (1 << 2),
+	FLAG_ROOM = (1 << 3),
+	FLAG_LINK = (1 << 4),
+	FLAG_DIRECT = (1 << 5),
+	FLAG_SP = (1 << 6),
+	FLAG_HELP = (1 << 7),
+	FLAG_TURN = (1 << 8),
+	FLAG_COLOR = (1 << 9),
+	FLAG_SOLUTION = (1 << 10),
 };
 
 /*
@@ -135,7 +134,6 @@ int						already_exists(t_li *li, char *name, t_point *pos);
 ** 						Matrice
 */
 
-
 /*
 **						Links
 */
@@ -180,13 +178,12 @@ void					path_delete(t_list_path *paths, t_path **path_ptr);
 int						paths_opti_init(t_li *li);
 int						paths_opti(t_li *li);
 
-
 /*
 **						Repartition
 */
 
 int						repartition(t_li *li, t_list_path *paths);
-int						repartition_lists(t_li *li, t_list_path** lists);
+int						repartition_lists(t_li *li, t_list_path **lists);
 
 /*
 **						Free
