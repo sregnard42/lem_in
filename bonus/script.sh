@@ -1,31 +1,31 @@
 #!/bin/bash
 
 # Path of Lem-in project
-$(LEM_IN) = "../"
+LEM_IN=".."
 
 generate_map()
 {
 	if [ $1 -eq 1 ]
 	then
-		$(LEM_IN)maps/generator --flow-one > tmp.map
+		./generator --flow-one > tmp.map
 	elif [ $1 -eq 2 ]
 	then
-		$(LEM_IN)maps/generator --flow-ten > tmp.map
+		./generator --flow-ten > tmp.map
 	elif [ $1 -eq 3 ]
 	then
-		$(LEM_IN)maps/generator --flow-thousand > tmp.map
+		./generator --flow-thousand > tmp.map
 	elif [ $1 -eq 4 ]
 	then
-		$(LEM_IN)maps/generator --big > tmp.map
+		./generator --big > tmp.map
 	elif [ $1 -eq 5 ]
 	then
-		$(LEM_IN)maps/generator --big-superposition > tmp.map
+		./generator --big-superposition > tmp.map
 	fi
 }
 
 single_test()
 {
-	LI=`$(LEM_IN)lem-in -ct < tmp.map > tmp ; diff tmp tmp.map | wc -l`
+	LI=`$LEM_IN/lem-in -ct < tmp.map > tmp ; diff tmp tmp.map | wc -l`
 	LI=`echo "($LI) - 2" | bc`
 	MAP=`tail -1 tmp.map | grep "line" | cut -d ' ' -f8`
 	echo "$(($LI - $MAP))"
@@ -33,13 +33,13 @@ single_test()
 
 arg_test()
 {
-	$(LEM_IN)lem-in -cpt < $1 ; tail -n1 $1
-	$(LEM_IN)lem-in < $1 | ./verifier 1> verif_res 2> verif_err
+	$LEM_IN/lem-in -cpt < $1 ; tail -n1 $1
+	$LEM_IN/lem-in < $1 | ./verifier 1> verif_res 2> verif_err
 	ERROR=`cat verif_err | wc -l`
 	if [ $ERROR -gt 0 ]
 	then
 		printf "\033[31mERROR\033[0m\n"
-		`cp $1 $(LEM_IN)maps/script/error.map`
+		`cp $1 maps/error.map`
 	else
 		RES=`cat verif_res`
 		printf "\033[32mOK\033[0m\t"
@@ -57,15 +57,12 @@ then
 	arg_test "$1"
 	exit 1
 fi
-
+cd "$(dirname "$0")"
 clear
-
 echo "//================================\\\\"
 printf "|| Script by \033[36msregnard\033[0m \033[0m&&\033[0m \033[33mchrhuang\033[0m ||\n"
 echo "\\\\================================//"
-
 read -n 1 -s -r -p "Press any key to continue..."
-
 clear
 echo "//============================\\\\"
 printf "|| [1] : \033[36m%-20s\033[0m ||\n" "flow-one"
@@ -108,26 +105,26 @@ do
 		min_t=$res_t
 		max_t=$res_t
 	else
-		`mkdir -p $(LEM_IN)maps/script`
+		`mkdir -p maps`
 		if [ $res -le $min ]
 		then
 			min=$res
-			`cp tmp.map $(LEM_IN)maps/script/min.map`
+			`cp tmp.map maps/min.map`
 		fi
 		if [ $max -le $res ]
 		then
 			max=$res
-			`cp tmp.map $(LEM_IN)maps/script/max.map`
+			`cp tmp.map maps/max.map`
 		fi
 		if [ $res_t -le $min_t ]
 		then
 			min_t=$res_t
-			`cp tmp.map $(LEM_IN)maps/script/min_t.map`
+			`cp tmp.map maps/min_t.map`
 		fi
 		if [ $max_t -le $res_t ]
 		then
 			max_t=$res_t
-			`cp tmp.map $(LEM_IN)maps/script/max_t.map`
+			`cp tmp.map maps/max_t.map`
 		fi
 		`rm tmp tmp.map`
 	fi
