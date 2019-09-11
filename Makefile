@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/09/11 11:22:05 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/09/11 15:41:02 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,7 +125,7 @@ clean					:
 	@make clean -C $(LIBDIR)
 
 fclean					:	clean
-	@rm -rf $(LEM_IN)
+	@rm -rf $(NAME)
 	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(NAME)
 	@rm -rf $(LIBFT)
 	@printf "$(_MAGENTA)%-10s : Library\tcleaned.\n$(_RESET)" $(notdir $(LIBFT))
@@ -135,6 +135,6 @@ re						:	fclean	all
 li						:
 	@rm -rf objs/
 	@printf "$(_BLUE)%-10s : Objects\tcleaned.\n$(_RESET)" $(NAME)
-	@rm -rf $(LEM_IN)
+	@rm -rf $(NAME)
 	@printf "$(_MAGENTA)%-10s : Executable\tcleaned.\n$(_RESET)" $(NAME)
 	@make
