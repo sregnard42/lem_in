@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$(LEM_IN) = "../"
+
 generate_map()
 {
 	if [ $1 -eq 1 ]
@@ -22,7 +24,7 @@ generate_map()
 
 single_test()
 {
-	LI=`./lem-in -ct < tmp.map > tmp ; diff tmp tmp.map | wc -l`
+	LI=`$(LEM_IN)lem-in -ct < tmp.map > tmp ; diff tmp tmp.map | wc -l`
 	LI=`echo "($LI) - 2" | bc`
 	MAP=`tail -1 tmp.map | grep "line" | cut -d ' ' -f8`
 	echo "$(($LI - $MAP))"
@@ -30,8 +32,8 @@ single_test()
 
 arg_test()
 {
-	./lem-in -cpt < $1 ; tail -n1 $1
-	./lem-in < $1 | ./verifier 1> verif_res 2> verif_err
+	$(LEM_IN)lem-in -cpt < $1 ; tail -n1 $1
+	$(LEM_IN)lem-in < $1 | ./verifier 1> verif_res 2> verif_err
 	ERROR=`cat verif_err | wc -l`
 	if [ $ERROR -gt 0 ]
 	then
