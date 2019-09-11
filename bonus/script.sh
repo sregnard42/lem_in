@@ -61,6 +61,17 @@ arg_test()
 	fi
 }
 
+cd "$(dirname "$0")"
+if [ ! -e $LEM_IN/lem-in ]
+then
+	printf "lem-in not found.\n"
+	exit 1
+fi
+if [ ! -x $LEM_IN/lem-in ]
+then
+	printf "lem-in is not an executable.\n"
+	exit 1
+fi
 if [ $# -gt 1 ]
 then
 	printf "%-7s./script.sh\n" "usage:"
@@ -72,7 +83,6 @@ then
 	exit 1
 fi
 trap "catch_ctrl_c" 2
-cd "$(dirname "$0")"
 clear
 echo "//================================\\\\"
 printf "|| Script by \033[36msregnard\033[0m \033[0m&&\033[0m \033[33mchrhuang\033[0m ||\n"
