@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/09/10 11:17:25 by chrhuang         ###   ########.fr        #
+#    Updated: 2019/09/11 11:22:05 by chrhuang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,6 @@ OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC						=	gcc
 CFLAGS					=	-Wall -Wextra -Werror
-XFLAGS					=	-g3 #del me
 
 _RED					=	\033[1;31m
 _GREEN					=	\033[1;32m
@@ -105,7 +104,7 @@ $(LIBFT)				:
 	@make -C $(LIBDIR)
 
 $(NAME)				:	$(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(LIBFT) -o $@ $(OBJ)
 	@printf "\r" ; tput el
 	@printf "$(_GREEN)%-10s : Executable\tbuilt.\n\a$(_RESET)" $(NAME)
 
@@ -117,7 +116,7 @@ $(OBJDIR)%.o			:	$(SRCDIR)%.c $(DEPENDENCIES)
 		printf "$(_YELLOW)%-10s : %s $(_RESET)\a" $(NAME) $(dir $<); \
 	fi;
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(XFLAGS) $(INCLUDES) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 	@printf "$(_BG_GREEN) $(_RESET)"
 
 clean					:
