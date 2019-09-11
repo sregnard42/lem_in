@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 15:00:19 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/11 09:55:12 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/11 10:48:57 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define START			"##start"
 # define END			"##end"
 
-# define LI_BUFF_SIZE	100000
+# define LI_BUFF_SIZE	1000000
 
 # define CYAN			"\033[1;36m"
 # define GREEN			"\033[1;32m"
