@@ -1,24 +1,25 @@
 #!/bin/bash
 
+# Path of Lem-in project
 $(LEM_IN) = "../"
 
 generate_map()
 {
 	if [ $1 -eq 1 ]
 	then
-		maps/generator --flow-one > tmp.map
+		$(LEM_IN)maps/generator --flow-one > tmp.map
 	elif [ $1 -eq 2 ]
 	then
-		maps/generator --flow-ten > tmp.map
+		$(LEM_IN)maps/generator --flow-ten > tmp.map
 	elif [ $1 -eq 3 ]
 	then
-		maps/generator --flow-thousand > tmp.map
+		$(LEM_IN)maps/generator --flow-thousand > tmp.map
 	elif [ $1 -eq 4 ]
 	then
-		maps/generator --big > tmp.map
+		$(LEM_IN)maps/generator --big > tmp.map
 	elif [ $1 -eq 5 ]
 	then
-		maps/generator --big-superposition > tmp.map
+		$(LEM_IN)maps/generator --big-superposition > tmp.map
 	fi
 }
 
@@ -38,7 +39,7 @@ arg_test()
 	if [ $ERROR -gt 0 ]
 	then
 		printf "\033[31mERROR\033[0m\n"
-		`cp $1 maps/script/error.map`
+		`cp $1 $(LEM_IN)maps/script/error.map`
 	else
 		RES=`cat verif_res`
 		printf "\033[32mOK\033[0m\t"
@@ -107,26 +108,26 @@ do
 		min_t=$res_t
 		max_t=$res_t
 	else
-		`mkdir -p maps/script`
+		`mkdir -p $(LEM_IN)maps/script`
 		if [ $res -le $min ]
 		then
 			min=$res
-			`cp tmp.map maps/script/min.map`
+			`cp tmp.map $(LEM_IN)maps/script/min.map`
 		fi
 		if [ $max -le $res ]
 		then
 			max=$res
-			`cp tmp.map maps/script/max.map`
+			`cp tmp.map $(LEM_IN)maps/script/max.map`
 		fi
 		if [ $res_t -le $min_t ]
 		then
 			min_t=$res_t
-			`cp tmp.map maps/script/min_t.map`
+			`cp tmp.map $(LEM_IN)maps/script/min_t.map`
 		fi
 		if [ $max_t -le $res_t ]
 		then
 			max_t=$res_t
-			`cp tmp.map maps/script/max_t.map`
+			`cp tmp.map $(LEM_IN)maps/script/max_t.map`
 		fi
 		`rm tmp tmp.map`
 	fi
