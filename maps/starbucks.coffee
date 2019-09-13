@@ -1,6 +1,6 @@
 12
 ##start
-START 0 0
+START -1 -1
 ##end
 END 0 0
 1 1 1
