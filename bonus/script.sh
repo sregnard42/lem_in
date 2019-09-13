@@ -5,7 +5,8 @@ LEM_IN=".."
 
 catch_ctrl_c()
 {
-	printf "\nScript terminated.\n"
+	clear
+	printf "Script terminated.\n"
 	if [ -e tmp ]
 	then	
 		`rm tmp`
@@ -47,13 +48,21 @@ single_test()
 
 arg_test()
 {
-	$LEM_IN/lem-in -cpt < $1 ; tail -n1 $1
-	$LEM_IN/lem-in < $1 | ./verifier 1> verif_res 2> verif_err
+	if [ ! -f $1 ]
+	then
+		printf "$1: does not exist or is not a file.\n"
+		exit 1
+	fi
+	$LEM_IN/lem-in -cptd < $1 ; tail -n1 $1 | grep "line"
+	printf "Checking output with verifier...\n"
+	$LEM_IN/lem-in -d < $1 2> /dev/null | ./verifier 1> verif_res 2> verif_err
 	ERROR=`cat verif_err | wc -l`
 	if [ $ERROR -gt 0 ]
 	then
-		printf "\033[31mERROR\033[0m\n"
+		printf "\033[31mERROR:\033"
 		`cp $1 maps/error.map`
+		cat verif_err | cut -d ':' -f2
+		printf "\033[0m"
 	else
 		RES=`cat verif_res`
 		printf "\033[32mOK\033[0m\t"
@@ -62,7 +71,7 @@ arg_test()
 }
 
 cd "$(dirname "$0")"
-if [ ! -e $LEM_IN/lem-in ]
+if [ ! -f $LEM_IN/lem-in ]
 then
 	printf "lem-in not found.\n"
 	exit 1
@@ -79,7 +88,10 @@ then
 	exit 1
 elif [ $# -eq 1 ]
 then
-	arg_test "$1"
+	cd - > /dev/null
+	MAP=`pwd`/$1
+	cd "$(dirname "$0")"
+	arg_test "$MAP"
 	exit 1
 fi
 trap "catch_ctrl_c" 2
