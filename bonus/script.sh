@@ -5,7 +5,8 @@ LEM_IN=".."
 
 catch_ctrl_c()
 {
-	printf "\nScript terminated.\n"
+	clear
+	printf "Script terminated.\n"
 	if [ -e tmp ]
 	then	
 		`rm tmp`
@@ -47,6 +48,7 @@ single_test()
 
 arg_test()
 {
+
 	$LEM_IN/lem-in -cpt < $1 ; tail -n1 $1
 	$LEM_IN/lem-in < $1 | ./verifier 1> verif_res 2> verif_err
 	ERROR=`cat verif_err | wc -l`
@@ -79,7 +81,10 @@ then
 	exit 1
 elif [ $# -eq 1 ]
 then
-	arg_test "$1"
+	cd - > /dev/null
+	MAP=`pwd`/$1
+	cd "$(dirname "$0")"
+	arg_test "$MAP"
 	exit 1
 fi
 trap "catch_ctrl_c" 2
