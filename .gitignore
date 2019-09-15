@@ -4,7 +4,7 @@
 *.o
 tmp.map
 lem-in
-.vscode*
 verif_*
-maps/script/
 bonus/maps/
+.vscode*
+.DS_Store
