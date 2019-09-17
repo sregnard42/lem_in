@@ -60,7 +60,7 @@ arg_test()
 	if [ $ERROR -gt 0 ]
 	then
 		printf "\033[31mERROR:\033"
-		`cp $1 maps/error.map`
+		`mkdir -p maps && cp $1 maps/error.map`
 		cat verif_err | cut -d ':' -f2
 		printf "\033[0m"
 	else

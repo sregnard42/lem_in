@@ -1,0 +1,10 @@
+*.swp
+*.dSYM
+*.a
+*.o
+tmp.map
+lem-in
+verif_*
+bonus/maps/
+.vscode*
+.DS_Store
