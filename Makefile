@@ -6,7 +6,7 @@
 #    By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:51:18 by sregnard          #+#    #+#              #
-#    Updated: 2019/09/11 15:41:02 by sregnard         ###   ########.fr        #
+#    Updated: 2019/09/22 16:14:31 by sregnard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ OBJDIR					=	objs/
 OBJ						=	$(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
 
 CC						=	gcc
-CFLAGS					=	-Wall -Wextra -Werror
+CFLAGS					=	-Wall -Wextra -Werror -g3
 
 _RED					=	\033[1;31m
 _GREEN					=	\033[1;32m
