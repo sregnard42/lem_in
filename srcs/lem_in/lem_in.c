@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 14:53:46 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/07 15:26:22 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:54:27 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,15 @@ int			main(int ac, char **av)
 	tree(&li);
 	paths_opti_init(&li);
 	path_init(&li);
-	repartition(&li, li.paths);
+	/* REVERSE */
+	free_paths(&li.paths);
+	free_paths(&li.paths_all);
+	li.paths = ft_memalloc(sizeof(t_list_path));
+	li.paths_all = ft_memalloc(sizeof(t_list_path));
+	li.flags |= FLAG_REVERSE;
+	path_init(&li);
+	/* REVERSE */
+	//repartition(&li, li.paths);
 	repartition_lists(&li, li.paths_opti);
 	ants_set_stage(&li);
 	ants_move(&li);
