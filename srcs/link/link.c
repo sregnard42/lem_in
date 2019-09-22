@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 12:46:43 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/10 09:59:55 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:39:25 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int		link_add(t_li *li, t_room *src, t_room *dst)
 		src->links->last = link;
 		return (SUCCESS);
 	}
+	link->prev = src->links->last;
 	src->links->last->next = link;
 	src->links->last = link;
 	return (SUCCESS);

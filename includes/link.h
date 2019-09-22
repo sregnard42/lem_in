@@ -6,7 +6,7 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 21:00:58 by chrhuang          #+#    #+#             */
-/*   Updated: 2019/09/11 09:53:57 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:39:45 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct			s_link
 	t_room				*dst;
 	unsigned int		flags;
 	struct s_link		*next;
+	struct s_link		*prev;
 }						t_link;
 
 typedef struct			s_list_link
