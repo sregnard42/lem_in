@@ -6,39 +6,45 @@
 /*   By: chrhuang <chrhuang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 12:59:33 by sregnard          #+#    #+#             */
-/*   Updated: 2019/09/10 09:55:42 by chrhuang         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:22:35 by sregnard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	check_room(t_li *li, t_room *room)
+static int	check_link(t_li *li, t_room *room)
 {
 	t_room	*child;
 
-	room->links->current = room->links->first;
-	while (room->links->current)
-	{
-		child = room->links->current->dst;
-		if (child == li->rooms->end &&
+	child = room->links->current->dst;
+	if (child == li->rooms->end &&
 			!(room == li->rooms->start && li->flags & FLAG_DIRECT))
-		{
-			(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
-			return (SUCCESS);
-		}
-		if (child->flags & FLAG_VISITED)
-		{
-			room->links->current = room->links->current->next;
-			continue ;
-		}
-		child->flags |= FLAG_VISITED;
-		child->flags & FLAG_RESERVED ?
+	{
+		(room == li->rooms->start) ? li->flags |= FLAG_DIRECT : 0;
+		return (SUCCESS);
+	}
+	if (child->flags & FLAG_VISITED)
+		return (FAILURE);
+	child->flags |= FLAG_VISITED;
+	child->flags & FLAG_RESERVED ?
 		enqueue(li, li->queue_res, room->links->current->dst) :
 		enqueue(li, li->queue, room->links->current->dst);
-		child->parent = room;
-		room->links->current = room->links->current->next;
+	child->parent = room;
+	return (FAILURE);
+}
+
+static int	check_room(t_li *li, t_room *room)
+{
+	room->links->current = li->flags & FLAG_REVERSE ?
+		room->links->last : room->links->first;
+	while (room->links->current)
+	{
+		if (check_link(li, room) == SUCCESS)
+			return (SUCCESS);
+		room->links->current = li->flags & FLAG_REVERSE ?
+		room->links->current->prev : room->links->current->next;
 	}
-	return (FAIL);
+	return (FAILURE);
 }
 
 int			bfs(t_li *li)
